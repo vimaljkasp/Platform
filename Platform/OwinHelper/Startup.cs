@@ -65,6 +65,8 @@ namespace Platform
             container.RegisterType<ICustomerService, CustomerService>(new HierarchicalLifetimeManager());
             container.RegisterType<IEmployeeService, EmployeeService>(new HierarchicalLifetimeManager());
             container.RegisterType<IProductOrderService, ProductOrderService>(new HierarchicalLifetimeManager());
+            container.RegisterType<ISiteService, SiteService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IProductService, ProductService>(new HierarchicalLifetimeManager());
             config.DependencyResolver = new UnityResolver(container);
             
         }

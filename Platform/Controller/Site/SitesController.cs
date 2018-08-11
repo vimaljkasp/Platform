@@ -9,15 +9,15 @@ using System.Web.Http;
 
 namespace Platform.Controller
 {
-    [Route("api/Products")]
-    public class ProductsController : ApiController
+    [Route("api/Sites")]
+    public class SitesController : ApiController
     {
 
-        private readonly IProductService _productService;
+        private readonly ISiteService _siteService;
 
-        public ProductsController(IProductService productService)
+        public SitesController(ISiteService productSalesService)
         {
-            _productService = productService;
+            _siteService = productSalesService;
         }
 
 
@@ -26,7 +26,7 @@ namespace Platform.Controller
         {
             try
             {
-                return Ok(_productService.GetAllProducts());
+                return Ok(_siteService.GetAllSites());
             }
             catch (PlatformModuleException ex)
             {
@@ -37,12 +37,12 @@ namespace Platform.Controller
 
 
         [Authorize]
-        [Route("api/Products/{id}")]
+        [Route("api/Sites/{id}")]
         public IHttpActionResult Get(int id)
         {
             try
             {
-                return Ok(_productService.GetProductById(id));
+                return Ok(_siteService.GetSiteById(id));
             }
             catch (PlatformModuleException ex)
             {
@@ -52,14 +52,14 @@ namespace Platform.Controller
 
 
         [Authorize]
-        public IHttpActionResult Post([FromBody]ProductDTO productDTO)
+        public IHttpActionResult Post([FromBody]SiteDTO siteDTO)
         {
             try
             {
-                if (productDTO == null)
+                if (siteDTO == null)
                     return BadRequest("Argument Null");
 
-                _productService.AddProduct(productDTO);
+                _siteService.AddSite(siteDTO);
 
                 return Ok();
             }
@@ -72,16 +72,16 @@ namespace Platform.Controller
 
 
         [Authorize]
-        [Route("api/Products/{id}")]
-        public IHttpActionResult Put(int id, [FromBody]ProductDTO productDTO)
+        [Route("api/Sites/{id}")]
+        public IHttpActionResult Put(int id, [FromBody]SiteDTO siteDTO)
         {
             try
             {
-                productDTO.ProductId = id;
-                if (productDTO == null)
+                siteDTO.SiteId = id;
+                if (siteDTO == null)
                     return BadRequest("Argument Null");
 
-                _productService.UpdateProduct(productDTO);
+                _siteService.UpdateSite(siteDTO);
 
                 return Ok();
             }
@@ -93,13 +93,13 @@ namespace Platform.Controller
         }
 
         [Authorize]
-        [Route("api/Products/{id}")]
+        [Route("api/Sites/{id}")]
         public IHttpActionResult Delete(int id)
         {
             try
             {
 
-                _productService.DeleteProduct(id);
+                _siteService.DeleteSite(id);
                 return Ok();
             }
             catch (PlatformModuleException ex)

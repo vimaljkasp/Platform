@@ -41,7 +41,7 @@ namespace Platform.Controller
         {
             if (productOrderDTO == null)
                 return BadRequest("Argument Null");
-            //Create New Customer
+      
             _productOrderService.AddProductOrder(productOrderDTO);
 
             return Ok();
@@ -53,7 +53,7 @@ namespace Platform.Controller
         {
             if (productOrderDTO == null)
                 return BadRequest("Argument Null");
-            //Update New Customer
+     
             _productOrderService.UpdateProductOrder(productOrderDTO);
 
             return Ok();
@@ -61,7 +61,7 @@ namespace Platform.Controller
 
         public void Delete(int id)
         {
-            //Delete Customer
+        
             _productOrderService.DeleteProductOrder(id);
         }
     }

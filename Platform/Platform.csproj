@@ -144,6 +144,8 @@
     <Compile Include="Controller\Employee\LoginController.cs" />
     <Compile Include="Controller\Orders\ProductOrdersController.cs" />
     <Compile Include="Controller\Product\ProductsController.cs" />
+    <Compile Include="Controller\ProductSales\ProductSalesController.cs" />
+    <Compile Include="Controller\Site\SitesController.cs" />
     <Compile Include="OwinHelper\GlobalErrorLogger.cs" />
     <Compile Include="OwinHelper\GlobalExceptionHandler.cs" />
     <Compile Include="OwinHelper\LoggerHelper.cs" />
@@ -169,8 +171,6 @@
       <Name>Platform.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\Sales\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

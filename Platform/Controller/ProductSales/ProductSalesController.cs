@@ -9,24 +9,24 @@ using System.Web.Http;
 
 namespace Platform.Controller
 {
-    [Route("api/Products")]
-    public class ProductsController : ApiController
+    [Route("api/ProductSales")]
+    public class ProductSalesController : ApiController
     {
 
-        private readonly IProductService _productService;
+        private readonly IProductSalesService _productSalesService;
 
-        public ProductsController(IProductService productService)
+        public ProductSalesController(IProductSalesService productSalesService)
         {
-            _productService = productService;
+            _productSalesService = productSalesService;
         }
 
-
+   
 
         public IHttpActionResult Get()
         {
             try
             {
-                return Ok(_productService.GetAllProducts());
+                return Ok(_productSalesService.GetAllProductSales());
             }
             catch (PlatformModuleException ex)
             {
@@ -36,13 +36,13 @@ namespace Platform.Controller
         }
 
 
-        [Authorize]
-        [Route("api/Products/{id}")]
+         [Authorize]
+        [Route("api/ProductSales/{id}")]
         public IHttpActionResult Get(int id)
         {
             try
             {
-                return Ok(_productService.GetProductById(id));
+                return Ok(_productSalesService.GetProductSalesById(id));
             }
             catch (PlatformModuleException ex)
             {
@@ -50,16 +50,16 @@ namespace Platform.Controller
             }
         }
 
-
+       
         [Authorize]
-        public IHttpActionResult Post([FromBody]ProductDTO productDTO)
+        public IHttpActionResult Post([FromBody]ProductSalesDTO productSalesDTO)
         {
             try
             {
-                if (productDTO == null)
+                if (productSalesDTO == null)
                     return BadRequest("Argument Null");
-
-                _productService.AddProduct(productDTO);
+            
+                _productSalesService.AddProductSales(productSalesDTO);
 
                 return Ok();
             }
@@ -70,41 +70,41 @@ namespace Platform.Controller
             }
         }
 
-
+        
         [Authorize]
-        [Route("api/Products/{id}")]
-        public IHttpActionResult Put(int id, [FromBody]ProductDTO productDTO)
+        [Route("api/ProductSales/{id}")]
+        public IHttpActionResult Put(int id, [FromBody]ProductSalesDTO productSalesDTO)
         {
             try
             {
-                productDTO.ProductId = id;
-                if (productDTO == null)
+                productSalesDTO.SalesId = id;
+                if (productSalesDTO == null)
                     return BadRequest("Argument Null");
 
-                _productService.UpdateProduct(productDTO);
+                _productSalesService.UpdateProductSales(productSalesDTO);
 
                 return Ok();
             }
             catch (PlatformModuleException ex)
             {
-
+             
                 return BadRequest(ex.Message);
             }
         }
 
         [Authorize]
-        [Route("api/Products/{id}")]
+        [Route("api/ProductSales/{id}")]
         public IHttpActionResult Delete(int id)
         {
             try
             {
 
-                _productService.DeleteProduct(id);
+                _productSalesService.DeleteProductSales(id);
                 return Ok();
             }
             catch (PlatformModuleException ex)
             {
-
+           
                 return BadRequest(ex.Message);
             }
         }
