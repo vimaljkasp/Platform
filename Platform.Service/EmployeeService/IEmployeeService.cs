@@ -8,20 +8,20 @@ namespace Platform.Service
 {
     public interface IEmployeeService
     {
-        List<EmployeeRoleDTO> GetAllEmployeeRoles();
+        List<EmployeeDTO> GetAllEmployees();
 
 
 
-        EmployeeRoleDTO GetEmployeeRoleById(int employeeRoleId);
+        EmployeeDTO GetEmployeeById(int employeId);
 
 
-        void AddEmployeeRole(EmployeeRoleDTO employeeRoleDTO);
+        void AddEmployee(EmployeeDTO employeDTO);
 
 
-         void UpdateEmployeeRole(EmployeeRoleDTO employeeRoleDTO);
+         void UpdateEmployee(EmployeeDTO employeeRoleDTO);
 
 
-         void DeleteEmployeeRole(int employeeRoleId);
+         void DeleteEmployee(int employeeId);
 
         bool ValidateLogin(LoginDto loginDto);
        

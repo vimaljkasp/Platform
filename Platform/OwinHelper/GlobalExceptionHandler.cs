@@ -27,7 +27,7 @@ public class GlobalExceptionHandler : ExceptionHandler
             {
                 Message = genericErrorMessage
             });
-        response.Headers.Add("X - Error", genericErrorMessage);
+    //    response.Headers.Add("X - Error", genericErrorMessage);
         context.Result = new ResponseMessageResult(response);
     }
 }

@@ -18,27 +18,27 @@ namespace Platform.Service
             this.employeeRepository = employeeRepository;
         }
 
-        public void AddEmployeeRole(EmployeeRoleDTO employeeRoleDTO)
+        public void AddEmployee(EmployeeDTO employeDTO)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteEmployeeRole(int employeeRoleId)
+        public void DeleteEmployee(int employeeId)
         {
             throw new NotImplementedException();
         }
 
-        public List<EmployeeRoleDTO> GetAllEmployeeRoles()
+        public List<EmployeeDTO> GetAllEmployees()
         {
             throw new NotImplementedException();
         }
 
-        public EmployeeRoleDTO GetEmployeeRoleById(int employeeRoleId)
+        public EmployeeDTO GetEmployeeById(int employeId)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateEmployeeRole(EmployeeRoleDTO employeeRoleDTO)
+        public void UpdateEmployee(EmployeeDTO employeeRoleDTO)
         {
             throw new NotImplementedException();
         }
@@ -51,10 +51,16 @@ namespace Platform.Service
              && e.Password.Equals(logindto.Password, StringComparison.CurrentCultureIgnoreCase)).Any())
                 return true;
             else if(!employees.Where(e=>e.UserName.Equals(logindto.UserName,StringComparison.CurrentCultureIgnoreCase)).Any())
+
             {
-                throw new PlatformModuleException("User Not Found");
+                throw new PlatformModuleException("The UserName that you've entered doesn't match any account");
             }
-                return false;
+            else if(!employees.Where(e => e.UserName.Equals(logindto.Password, StringComparison.CurrentCultureIgnoreCase)).Any())
+            {
+                throw new PlatformModuleException("Password that you've entered doesn't match any account");
+
+            }
+            return false;
             
         }
     }

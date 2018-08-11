@@ -11,7 +11,7 @@ namespace Platform
     public static class LoggerHelper
     {
 
-        private static String ErrorlineNo, Errormsg, extype, exurl, requestMethod, ErrorLocation, requestUri;
+        private static String ErrorlineNo, Errormsg, extype, exurl, requestMethod, ErrorLocation, requestUri,requestBody;
 
         private static DateTime requestTimestamp;
 
@@ -27,6 +27,7 @@ namespace Platform
             requestMethod = requestMessage.Method.Method;
             requestTimestamp = DateTime.Now;
             requestUri = requestMessage.RequestUri.ToString();
+            requestBody= requestMessage.Content.ReadAsStringAsync().Result;
             try
             {
                 string filepath = Path.GetFullPath(ConfigurationManager.AppSettings["LoggerPath"]) ;  //Text File Path

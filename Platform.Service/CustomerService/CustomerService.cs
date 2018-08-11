@@ -20,6 +20,7 @@ namespace Platform.Service
 
         public List<CustomerDto> GetAllCustomers()
         {
+
             List<CustomerDto> customerList = new List<CustomerDto>();
             var customers = customerRepository.GetAll();
             if (customers != null)
@@ -51,7 +52,8 @@ namespace Platform.Service
 
         public void AddCustomer(CustomerDto customerDto)
         {
-           this.CheckForExisitngCustomer(customerDto.MobileNumber);
+            throw new DivideByZeroException();
+            this.CheckForExisitngCustomer(customerDto.MobileNumber);
             Customer customer = new Customer(); 
             
             CustomerConvertor.ConvertToCustomerEntity(ref customer, customerDto, false);
