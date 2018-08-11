@@ -1,4 +1,5 @@
 ﻿using Platform.Service;
+using Platform.Utilities.ExceptionHandler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,13 +41,20 @@ namespace Platform.Controller
       
         public IHttpActionResult Post([FromBody]CustomerDto customer)
         {
-            if (customer == null)
-                return BadRequest("Argument Null");
-            //Create New Customer
-            _customerService.AddCustomer(customer);
-           
-            return Ok();
-           
+            try
+            {
+                if (customer == null)
+                    return BadRequest("Argument Null");
+                //Create New Customer
+                _customerService.AddCustomer(customer);
+
+                return Ok();
+            }
+            catch (PlatformModuleException ex)
+            {
+                //Write Log Here
+                return BadRequest(ex.Message);
+            }
         }
 
         //Put api/Customer/5
