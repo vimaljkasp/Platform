@@ -12,12 +12,8 @@ namespace Platform.Repository
         PlatformDBEntities _repository = new PlatformDBEntities();
         public List<Customer> GetAll()
         {
-
-            List<Customer> customerList = new List<Customer>();
-                var customers = _repository.Customers.ToList<Sql.Customer>();
-            
-           
-            return customerList;
+            var customers = _repository.Customers.ToList<Sql.Customer>();
+            return customers;
         }
 
         public Customer GetById(int id)
@@ -33,20 +29,12 @@ namespace Platform.Repository
 
         public void Add(Customer customer)
         {
+            if (customer != null)
+            {
+                _repository.Customers.Add(customer);
+                _repository.SaveChanges();
 
-
-         
-           
-                if (customer != null)
-                {
-                    _repository.Customers.Add(customer);
-                    _repository.SaveChanges();
-
-                }
-
-            
-           
-
+            }
         }
 
         public void Update(Customer customer)
@@ -56,11 +44,8 @@ namespace Platform.Repository
                 if (customer != null)
                 {
                     _repository.Entry<Sql.Customer>(customer).State = System.Data.Entity.EntityState.Modified;
-                        _repository.SaveChanges();
-
-                    }
-
-                
+                    _repository.SaveChanges();
+                }     
 
             }
             catch (Exception ex)
@@ -78,6 +63,12 @@ namespace Platform.Repository
 
             _repository.SaveChanges();
 
+        }
+
+        public Customer GetCustomerByMobileNumber(string mobileNumber)
+        {
+            var custmer = _repository.Customers.Where(x => x.MobileNumber == mobileNumber).FirstOrDefault();
+            return custmer;
         }
 
         protected void Dispose(bool disposing)

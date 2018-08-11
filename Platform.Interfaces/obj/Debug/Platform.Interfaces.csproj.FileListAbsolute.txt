@@ -1,6 +1,0 @@
-F:\VS17\Platform\Platform.Interfaces\bin\Debug\Platform.Interfaces.dll
-F:\VS17\Platform\Platform.Interfaces\bin\Debug\Platform.Interfaces.pdb
-F:\VS17\Platform\Platform.Interfaces\obj\Debug\Platform.Interfaces.csprojAssemblyReference.cache
-F:\VS17\Platform\Platform.Interfaces\obj\Debug\Platform.Interfaces.csproj.CoreCompileInputs.cache
-F:\VS17\Platform\Platform.Interfaces\obj\Debug\Platform.Interfaces.dll
-F:\VS17\Platform\Platform.Interfaces\obj\Debug\Platform.Interfaces.pdb

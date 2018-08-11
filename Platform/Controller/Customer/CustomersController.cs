@@ -22,19 +22,32 @@ namespace Platform.Controller
 
         // GET api/Customer
      
-       public IEnumerable<CustomerDto> Get()
+       public IHttpActionResult Get()
         {
-            
-            return _customerService.GetAllCustomers();
-      
+            try
+            {
+                return Ok(_customerService.GetAllCustomers());
+            }
+            catch (PlatformModuleException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
 
         //GET api/Customer/id
         [Route("api/customers/{id}")]
-        public CustomerDto Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return _customerService.GetCustomerById(id);
+            try
+            {
+                return  Ok(_customerService.GetCustomerById(id));
+            }
+            catch(PlatformModuleException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         //Post api/Customer
@@ -61,20 +74,37 @@ namespace Platform.Controller
      [Route("api/customers/{id}")]
         public IHttpActionResult Put(int id,[FromBody]CustomerDto customerDTO)
         {
-            customerDTO.CustomerId = id;
-            if (customerDTO == null)
-                return BadRequest("Argument Null");
-            //Update New Customer
-            _customerService.UpdateCustomer(customerDTO);
+            try
+            {
+                customerDTO.CustomerId = id;
+                if (customerDTO == null)
+                    return BadRequest("Argument Null");
+                //Update New Customer
+                _customerService.UpdateCustomer(customerDTO);
 
-            return Ok();
+                return Ok();
+            }
+            catch (PlatformModuleException ex)
+            {
+                //Write Log Here
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("api/customers/{id}")]
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            //Delete Customer
-            _customerService.DeleteCustomer(id);
+            try
+            {
+                //Delete Customer
+                _customerService.DeleteCustomer(id);
+                return Ok();
+            }
+            catch (PlatformModuleException ex)
+            {
+                //Write Log Here
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
