@@ -1,0 +1,15 @@
+F:\VS17\Platform\Platform.Logger\bin\Debug\Platform.Logger.dll.config
+F:\VS17\Platform\Platform.Logger\bin\Debug\Platform.Logger.dll
+F:\VS17\Platform\Platform.Logger\bin\Debug\Platform.Logger.pdb
+F:\VS17\Platform\Platform.Logger\bin\Debug\EntityFramework.dll
+F:\VS17\Platform\Platform.Logger\bin\Debug\EntityFramework.SqlServer.dll
+F:\VS17\Platform\Platform.Logger\bin\Debug\Platform.Sql.dll
+F:\VS17\Platform\Platform.Logger\bin\Debug\Platform.Sql.pdb
+F:\VS17\Platform\Platform.Logger\bin\Debug\Platform.Sql.dll.config
+F:\VS17\Platform\Platform.Logger\bin\Debug\EntityFramework.xml
+F:\VS17\Platform\Platform.Logger\bin\Debug\EntityFramework.SqlServer.xml
+F:\VS17\Platform\Platform.Logger\obj\Debug\Platform.Logger.csprojAssemblyReference.cache
+F:\VS17\Platform\Platform.Logger\obj\Debug\Platform.Logger.csproj.CoreCompileInputs.cache
+F:\VS17\Platform\Platform.Logger\obj\Debug\Platform.Logger.csproj.CopyComplete
+F:\VS17\Platform\Platform.Logger\obj\Debug\Platform.Logger.dll
+F:\VS17\Platform\Platform.Logger\obj\Debug\Platform.Logger.pdb

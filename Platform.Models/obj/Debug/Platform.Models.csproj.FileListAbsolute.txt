@@ -1,0 +1,6 @@
+F:\VS17\Platform\Platform.Models\bin\Debug\Platform.Models.dll
+F:\VS17\Platform\Platform.Models\bin\Debug\Platform.Models.pdb
+F:\VS17\Platform\Platform.Models\obj\Debug\Platform.Models.csproj.CoreCompileInputs.cache
+F:\VS17\Platform\Platform.Models\obj\Debug\Platform.Models.dll
+F:\VS17\Platform\Platform.Models\obj\Debug\Platform.Models.pdb
+F:\VS17\Platform\Platform.Models\obj\Debug\Platform.Models.csprojAssemblyReference.cache
