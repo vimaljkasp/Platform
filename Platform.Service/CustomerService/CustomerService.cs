@@ -52,7 +52,6 @@ namespace Platform.Service
 
         public void AddCustomer(CustomerDto customerDto)
         {
-            throw new DivideByZeroException();
             this.CheckForExisitngCustomer(customerDto.MobileNumber);
             Customer customer = new Customer(); 
             
