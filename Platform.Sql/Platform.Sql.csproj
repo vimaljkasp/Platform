@@ -56,6 +56,9 @@
     <Compile Include="CustomerPaymentTransaction.cs">
       <DependentUpon>PlatformDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CustomerSession.cs">
+      <DependentUpon>PlatformDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CustomerWallet.cs">
       <DependentUpon>PlatformDBModel.tt</DependentUpon>
     </Compile>
@@ -63,6 +66,9 @@
       <DependentUpon>PlatformDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EmployeeRole.cs">
+      <DependentUpon>PlatformDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeSession.cs">
       <DependentUpon>PlatformDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ItemCategory.cs">

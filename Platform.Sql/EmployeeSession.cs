@@ -12,9 +12,13 @@ namespace Platform.Sql
     using System;
     using System.Collections.Generic;
     
-    public partial class RoleModule
+    public partial class EmployeeSession
     {
-        public int RoleId { get; set; }
-        public int ModuleId { get; set; }
+        public int SessionId { get; set; }
+        public Nullable<int> EmployeeId { get; set; }
+        public Nullable<int> SiteId { get; set; }
+        public System.DateTime SessionStartDtm { get; set; }
+        public System.DateTime SessionEndDtm { get; set; }
+        public Nullable<bool> IsLogout { get; set; }
     }
 }

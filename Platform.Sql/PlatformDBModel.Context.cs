@@ -34,13 +34,15 @@ namespace Platform.Sql
         public virtual DbSet<ProductStock> ProductStocks { get; set; }
         public virtual DbSet<Site> Sites { get; set; }
         public virtual DbSet<CustomerPaymentTransaction> CustomerPaymentTransactions { get; set; }
+        public virtual DbSet<CustomerSession> CustomerSessions { get; set; }
         public virtual DbSet<CustomerWallet> CustomerWallets { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeRole> EmployeeRoles { get; set; }
+        public virtual DbSet<EmployeeSession> EmployeeSessions { get; set; }
         public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<ProductOrder> ProductOrders { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<RoleModule> RoleModules { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SiteConfiguration> SiteConfigurations { get; set; }
     }
 }

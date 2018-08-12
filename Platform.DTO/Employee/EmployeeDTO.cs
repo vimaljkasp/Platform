@@ -18,10 +18,17 @@ namespace Platform.DTO
 
         public string EncryptedPassword { get; set; }
 
-        public string Address { get; set; }
+        public string AddressLine1 { get; set; }
+
+        public string AddressLine2 { get; set; }
+
         public string City { get; set; }
+
+        public string District { get; set; }
         public string PostalCode { get; set; }
         public string MobileNumber { get; set; }
+
+        public string HomePhone { get; set; }
         public Nullable<bool> IsActive { get; set; }
     }
 

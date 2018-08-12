@@ -14,6 +14,8 @@ namespace Platform.DTO
         public string UserName { get; set; }
 
         public string Password { get; set; }
+
+        public int SiteId { get; set; }
     }
 
     public class LoginValidator : AbstractValidator<LoginDto>

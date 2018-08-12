@@ -17,8 +17,12 @@ namespace Platform.Service
             employeeDTO.Name = employee.Name;
             employeeDTO.UserName = employee.UserName;
             employeeDTO.Password = employee.Password;
-            employeeDTO.Address = employee.Address;
+            employeeDTO.AddressLine1 = employee.AddressLine1;
+            employeeDTO.AddressLine2 = employee.AddressLine2;
             employeeDTO.City = employee.City;
+
+            employeeDTO.District = employee.District;
+            employeeDTO.HomePhone = employee.HomePhonne;
             employeeDTO.PostalCode = employee.PostalCode;
             employeeDTO.MobileNumber = employee.MobileNumber;
             employeeDTO.IsActive = employee.IsActive;
@@ -35,8 +39,11 @@ namespace Platform.Service
             employee.Name = employeeDTO.Name;
             employee.UserName = employeeDTO.UserName;
             employee.Password = employeeDTO.Password;
-            employee.Address = employeeDTO.Address;
+            employee.AddressLine1 = employeeDTO.AddressLine1;
+            employee.AddressLine2 = employeeDTO.AddressLine2;
             employee.City = employeeDTO.City;
+            employee.District = employeeDTO.District;
+            employee.HomePhonne = employeeDTO.HomePhone;
             employee.PostalCode = employeeDTO.PostalCode;
             employee.MobileNumber = employeeDTO.MobileNumber;
             employee.IsActive = employeeDTO.IsActive;

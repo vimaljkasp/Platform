@@ -36,6 +36,11 @@ namespace Platform.Controller
                 bool isValid = _employeeService.ValidateLogin(loginDto);
                 if (isValid)
                 {
+
+                    //Create employee session
+
+
+
                     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("PlatformSecretKey"));
                     var signingCredientials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                     string baseAddress = ConfigurationManager.AppSettings["BaseUri"].ToString();

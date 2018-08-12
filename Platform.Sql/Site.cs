@@ -29,6 +29,8 @@ namespace Platform.Sql
         public string SiteZipCode { get; set; }
         public string SiteMobileNumber { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string SiteDistrict { get; set; }
+        public string SiteHomePhone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductSiteMapping> ProductSiteMappings { get; set; }

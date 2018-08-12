@@ -43,6 +43,20 @@ warning 6002: The table/view 'PlatformDB.dbo.CustomerPaymentTransaction' does no
           <Property Name="Ref2" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'PlatformDB.dbo.CustomerSession' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CustomerSession">
+          <Key>
+            <PropertyRef Name="SessionId" />
+            <PropertyRef Name="SessionStartDtm" />
+            <PropertyRef Name="SessionEndDtm" />
+          </Key>
+          <Property Name="SessionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="SessionStartDtm" Type="datetime" Nullable="false" />
+          <Property Name="SessionEndDtm" Type="datetime" Nullable="false" />
+          <Property Name="IsLogout" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'PlatformDB.dbo.CustomerWallet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CustomerWallet">
           <Key>
@@ -64,7 +78,7 @@ warning 6002: The table/view 'PlatformDB.dbo.Employee' does not have a primary k
             <PropertyRef Name="Name" />
             <PropertyRef Name="UserName" />
             <PropertyRef Name="Password" />
-            <PropertyRef Name="Address" />
+            <PropertyRef Name="AddressLine1" />
             <PropertyRef Name="City" />
             <PropertyRef Name="PostalCode" />
             <PropertyRef Name="MobileNumber" />
@@ -73,11 +87,14 @@ warning 6002: The table/view 'PlatformDB.dbo.Employee' does not have a primary k
           <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="40" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="City" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="PostalCode" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="MobileNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="50" />
+          <Property Name="District" Type="nvarchar" MaxLength="50" />
+          <Property Name="HomePhonne" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PlatformDB.dbo.EmployeeRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -88,6 +105,21 @@ warning 6002: The table/view 'PlatformDB.dbo.EmployeeRole' does not have a prima
           </Key>
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PlatformDB.dbo.EmployeeSession' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmployeeSession">
+          <Key>
+            <PropertyRef Name="SessionId" />
+            <PropertyRef Name="SessionStartDtm" />
+            <PropertyRef Name="SessionEndDtm" />
+          </Key>
+          <Property Name="SessionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="SiteId" Type="int" />
+          <Property Name="SessionStartDtm" Type="datetime" Nullable="false" />
+          <Property Name="SessionEndDtm" Type="datetime" Nullable="false" />
+          <Property Name="IsLogout" Type="bit" />
         </EntityType>
         <EntityType Name="ItemCategory">
           <Key>
@@ -212,25 +244,25 @@ warning 6002: The table/view 'PlatformDB.dbo.ProductOrder' does not have a prima
           <Property Name="Ref2" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PlatformDB.dbo.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="RoleId" />
-            <PropertyRef Name="RoleName" />
-          </Key>
-          <Property Name="RoleId" Type="int" Nullable="false" />
-          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RoleDescription" Type="nvarchar" MaxLength="100" />
-        </EntityType>
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RoleModule">
           <Key>
             <PropertyRef Name="RoleId" />
-            <PropertyRef Name="SecurityId" />
+            <PropertyRef Name="ModuleId" />
           </Key>
           <Property Name="RoleId" Type="int" Nullable="false" />
-          <Property Name="SecurityId" Type="int" Nullable="false" />
+          <Property Name="ModuleId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PlatformDB.dbo.Roles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="RoleName" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleDescription" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Site">
           <Key>
@@ -245,6 +277,8 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Property Name="SiteZipCode" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="SiteMobileNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="SiteDistrict" Type="nvarchar" MaxLength="20" />
+          <Property Name="SiteHomePhone" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -357,6 +391,15 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
     [CustomerPaymentTransaction].[Ref2] AS [Ref2]
     FROM [dbo].[CustomerPaymentTransaction] AS [CustomerPaymentTransaction]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="CustomerSession" EntityType="Self.CustomerSession" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CustomerSession].[SessionId] AS [SessionId], 
+    [CustomerSession].[CustomerId] AS [CustomerId], 
+    [CustomerSession].[SessionStartDtm] AS [SessionStartDtm], 
+    [CustomerSession].[SessionEndDtm] AS [SessionEndDtm], 
+    [CustomerSession].[IsLogout] AS [IsLogout]
+    FROM [dbo].[CustomerSession] AS [CustomerSession]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="CustomerWallet" EntityType="Self.CustomerWallet" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [CustomerWallet].[WalletId] AS [WalletId], 
@@ -371,11 +414,14 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
     [Employee].[Name] AS [Name], 
     [Employee].[UserName] AS [UserName], 
     [Employee].[Password] AS [Password], 
-    [Employee].[Address] AS [Address], 
+    [Employee].[AddressLine1] AS [AddressLine1], 
     [Employee].[City] AS [City], 
     [Employee].[PostalCode] AS [PostalCode], 
     [Employee].[MobileNumber] AS [MobileNumber], 
-    [Employee].[IsActive] AS [IsActive]
+    [Employee].[IsActive] AS [IsActive], 
+    [Employee].[AddressLine2] AS [AddressLine2], 
+    [Employee].[District] AS [District], 
+    [Employee].[HomePhonne] AS [HomePhonne]
     FROM [dbo].[Employee] AS [Employee]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="EmployeeRole" EntityType="Self.EmployeeRole" store:Type="Tables" store:Schema="dbo">
@@ -383,6 +429,16 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
     [EmployeeRole].[EmployeeId] AS [EmployeeId], 
     [EmployeeRole].[RoleId] AS [RoleId]
     FROM [dbo].[EmployeeRole] AS [EmployeeRole]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EmployeeSession" EntityType="Self.EmployeeSession" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EmployeeSession].[SessionId] AS [SessionId], 
+    [EmployeeSession].[EmployeeId] AS [EmployeeId], 
+    [EmployeeSession].[SiteId] AS [SiteId], 
+    [EmployeeSession].[SessionStartDtm] AS [SessionStartDtm], 
+    [EmployeeSession].[SessionEndDtm] AS [SessionEndDtm], 
+    [EmployeeSession].[IsLogout] AS [IsLogout]
+    FROM [dbo].[EmployeeSession] AS [EmployeeSession]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Module" EntityType="Self.Module" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -418,18 +474,18 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
     [ProductOrder].[Ref2] AS [Ref2]
     FROM [dbo].[ProductOrder] AS [ProductOrder]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Role].[RoleId] AS [RoleId], 
-    [Role].[RoleName] AS [RoleName], 
-    [Role].[RoleDescription] AS [RoleDescription]
-    FROM [dbo].[Role] AS [Role]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="RoleModule" EntityType="Self.RoleModule" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [RoleModule].[RoleId] AS [RoleId], 
-    [RoleModule].[SecurityId] AS [SecurityId]
+    [RoleModule].[ModuleId] AS [ModuleId]
     FROM [dbo].[RoleModule] AS [RoleModule]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Roles" EntityType="Self.Roles" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Roles].[RoleId] AS [RoleId], 
+    [Roles].[RoleName] AS [RoleName], 
+    [Roles].[RoleDescription] AS [RoleDescription]
+    FROM [dbo].[Roles] AS [Roles]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="SiteConfigurations" EntityType="Self.SiteConfigurations" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -581,6 +637,8 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
           <Property Name="SiteZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SiteMobileNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="SiteDistrict" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SiteHomePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProductSiteMappings" Relationship="Self.fk_ProductSiteMapping_Site" FromRole="Site" ToRole="ProductSiteMapping" />
         </EntityType>
         <EntityType Name="CustomerPaymentTransaction">
@@ -603,6 +661,18 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="CustomerSession">
+          <Key>
+            <PropertyRef Name="SessionId" />
+            <PropertyRef Name="SessionStartDtm" />
+            <PropertyRef Name="SessionEndDtm" />
+          </Key>
+          <Property Name="SessionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="SessionStartDtm" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SessionEndDtm" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsLogout" Type="Boolean" />
+        </EntityType>
         <EntityType Name="CustomerWallet">
           <Key>
             <PropertyRef Name="WalletId" />
@@ -621,7 +691,7 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
             <PropertyRef Name="Name" />
             <PropertyRef Name="UserName" />
             <PropertyRef Name="Password" />
-            <PropertyRef Name="Address" />
+            <PropertyRef Name="AddressLine1" />
             <PropertyRef Name="City" />
             <PropertyRef Name="PostalCode" />
             <PropertyRef Name="MobileNumber" />
@@ -630,11 +700,14 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
           <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PostalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="AddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HomePhonne" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="EmployeeRole">
           <Key>
@@ -643,6 +716,19 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
           </Key>
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeSession">
+          <Key>
+            <PropertyRef Name="SessionId" />
+            <PropertyRef Name="SessionStartDtm" />
+            <PropertyRef Name="SessionEndDtm" />
+          </Key>
+          <Property Name="SessionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="SiteId" Type="Int32" />
+          <Property Name="SessionStartDtm" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SessionEndDtm" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsLogout" Type="Boolean" />
         </EntityType>
         <EntityType Name="Module">
           <Key>
@@ -691,22 +777,22 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProductSiteMapping" Relationship="Self.fk_Order_ProductSiteMapping" FromRole="ProductOrder" ToRole="ProductSiteMapping" />
         </EntityType>
+        <EntityType Name="RoleModule">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="ModuleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="ModuleId" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleId" />
             <PropertyRef Name="RoleName" />
           </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RoleDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="RoleModule">
-          <Key>
-            <PropertyRef Name="RoleId" />
-            <PropertyRef Name="SecurityId" />
-          </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="SecurityId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="SiteConfiguration">
           <Key>
@@ -805,13 +891,15 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
           <EntitySet Name="ProductStocks" EntityType="Self.ProductStock" />
           <EntitySet Name="Sites" EntityType="Self.Site" />
           <EntitySet Name="CustomerPaymentTransactions" EntityType="Self.CustomerPaymentTransaction" />
+          <EntitySet Name="CustomerSessions" EntityType="Self.CustomerSession" />
           <EntitySet Name="CustomerWallets" EntityType="Self.CustomerWallet" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="EmployeeRoles" EntityType="Self.EmployeeRole" />
+          <EntitySet Name="EmployeeSessions" EntityType="Self.EmployeeSession" />
           <EntitySet Name="Modules" EntityType="Self.Module" />
           <EntitySet Name="ProductOrders" EntityType="Self.ProductOrder" />
-          <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="RoleModules" EntityType="Self.RoleModule" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="SiteConfigurations" EntityType="Self.SiteConfiguration" />
           <AssociationSet Name="fk_ProductSiteMapping_Item" Association="Self.fk_ProductSiteMapping_Item">
             <End Role="ItemCategory" EntitySet="ItemCategories" />
@@ -948,6 +1036,8 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
                 <ScalarProperty Name="SiteZipCode" ColumnName="SiteZipCode" />
                 <ScalarProperty Name="SiteMobileNumber" ColumnName="SiteMobileNumber" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SiteDistrict" ColumnName="SiteDistrict" />
+                <ScalarProperty Name="SiteHomePhone" ColumnName="SiteHomePhone" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -963,6 +1053,17 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
                 <ScalarProperty Name="PaymentReceivedBy" ColumnName="PaymentReceivedBy" />
                 <ScalarProperty Name="Ref1" ColumnName="Ref1" />
                 <ScalarProperty Name="Ref2" ColumnName="Ref2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerSessions">
+            <EntityTypeMapping TypeName="PlatformDBModel.CustomerSession">
+              <MappingFragment StoreEntitySet="CustomerSession">
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="SessionStartDtm" ColumnName="SessionStartDtm" />
+                <ScalarProperty Name="SessionEndDtm" ColumnName="SessionEndDtm" />
+                <ScalarProperty Name="IsLogout" ColumnName="IsLogout" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -983,11 +1084,14 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
                 <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="HomePhonne" ColumnName="HomePhonne" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -996,6 +1100,18 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
               <MappingFragment StoreEntitySet="EmployeeRole">
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeSessions">
+            <EntityTypeMapping TypeName="PlatformDBModel.EmployeeSession">
+              <MappingFragment StoreEntitySet="EmployeeSession">
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+                <ScalarProperty Name="SessionStartDtm" ColumnName="SessionStartDtm" />
+                <ScalarProperty Name="SessionEndDtm" ColumnName="SessionEndDtm" />
+                <ScalarProperty Name="IsLogout" ColumnName="IsLogout" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1037,20 +1153,20 @@ warning 6002: The table/view 'PlatformDB.dbo.SiteConfigurations' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="PlatformDBModel.Role">
-              <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RoleModules">
             <EntityTypeMapping TypeName="PlatformDBModel.RoleModule">
               <MappingFragment StoreEntitySet="RoleModule">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="SecurityId" ColumnName="SecurityId" />
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="PlatformDBModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
