@@ -8,7 +8,7 @@ namespace Platform.Service
 {
     public interface ICustomerWalletService
     {
-         List<CustomerWalletDTO> GetAllCustomersWaller();
+         List<CustomerWalletDTO> GetAllCustomersWallet();
 
         CustomerWalletDTO GetCustomerWalletById(int customerId);
 

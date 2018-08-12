@@ -9,9 +9,9 @@ namespace Platform.Service
 {
     public class ItemConvertor
     {
-        public static ItemDTO ConvertToItemDto(ItemCategory item)
+        public static ItemCategoryDTO ConvertToItemCategoryDto(ItemCategory item)
         {
-            ItemDTO itemDTO = new ItemDTO();
+            ItemCategoryDTO itemDTO = new ItemCategoryDTO();
             itemDTO.ItemId = item.ItemId;
             itemDTO.ItemCode = item.ItemCode;
             itemDTO.ItemName = item.ItemName;
@@ -22,7 +22,7 @@ namespace Platform.Service
 
     }
 
-        public static void ConvertToItemEntity(ref ItemCategory item, ItemDTO itemDTO, bool isUpdate)
+        public static void ConvertToItemCategoryEntity(ref ItemCategory item, ItemCategoryDTO itemDTO, bool isUpdate)
         {
             if(isUpdate)
                 item.ItemId = itemDTO.ItemId;

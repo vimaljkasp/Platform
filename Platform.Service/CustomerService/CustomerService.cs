@@ -19,8 +19,7 @@ namespace Platform.Service
         }
 
         public List<CustomerDto> GetAllCustomers()
-        {
-
+        { 
             List<CustomerDto> customerList = new List<CustomerDto>();
             var customers = customerRepository.GetAll();
             if (customers != null)

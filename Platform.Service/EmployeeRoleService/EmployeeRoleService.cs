@@ -39,10 +39,10 @@ namespace Platform.Service
         public EmployeeRoleDTO GetEmployeeRoleById(int employeeRoleId)
         {
             EmployeeRoleDTO employeeRoleDTO = null;
-            var customer = employeeRoleRepository.GetById(employeeRoleId);
-            if (customer != null)
+            var employeeRole = employeeRoleRepository.GetById(employeeRoleId);
+            if (employeeRole != null)
             {
-                employeeRoleDTO = EmployeeRoleConvertor.ConvertToEmployeeRoleDto(customer);
+                employeeRoleDTO = EmployeeRoleConvertor.ConvertToEmployeeRoleDto(employeeRole);
             }
             return employeeRoleDTO;
         }

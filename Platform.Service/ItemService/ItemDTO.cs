@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Platform.Service
 {
     [Validator(typeof(ItemValidator))]
-    public class ItemDTO
+    public class ItemCategoryDTO
     {
         public int ItemId { get; set; }
         public string ItemCode { get; set; }
@@ -17,7 +17,7 @@ namespace Platform.Service
         public string ItemDescription { get; set; }
     }
 
-    public class ItemValidator : AbstractValidator<ItemDTO>
+    public class ItemValidator : AbstractValidator<ItemCategoryDTO>
     {
         public ItemValidator()
         {

@@ -8,13 +8,13 @@ namespace Platform.Service
 {
     public interface IItemService
     {
-         List<ItemDTO> GetAllItemCategory();
+         List<ItemCategoryDTO> GetAllItemCategory();
 
-        ItemDTO GetItemCategoryById(int itemId);
+        ItemCategoryDTO GetItemCategoryById(int itemId);
 
-        void AddItemCategory(ItemDTO customerDto);
+        void AddItemCategory(ItemCategoryDTO customerDto);
 
-        void UpdateItemCategory(ItemDTO customerDto);
+        void UpdateItemCategory(ItemCategoryDTO customerDto);
 
         void DeleteItemCategory(int itemId);
 

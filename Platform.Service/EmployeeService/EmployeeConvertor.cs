@@ -9,7 +9,7 @@ namespace Platform.Service
 {
     public class EmployeeConvertor
     {
-        public static EmployeeDTO ConvertToEmployeeRoleDto(Employee employee)
+        public static EmployeeDTO ConvertToEmployeeDto(Employee employee)
         {
             EmployeeDTO employeeDTO = new EmployeeDTO();
             employeeDTO.EmployeeId = employee.EmployeeId;
@@ -27,7 +27,7 @@ namespace Platform.Service
 
     }
 
-        public static void ConvertToEmployeeRoleEntity(ref Employee employee, EmployeeDTO employeeDTO, bool isUpdate)
+        public static void ConvertToEmployeeEntity(ref Employee employee, EmployeeDTO employeeDTO, bool isUpdate)
         {
             if (isUpdate)
             employee.EmployeeId = employeeDTO.EmployeeId;

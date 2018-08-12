@@ -139,12 +139,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\Customer\CustomerPaymentsController.cs" />
     <Compile Include="Controller\Customer\CustomersController.cs" />
+    <Compile Include="Controller\Customer\CustomerWalletsController.cs" />
     <Compile Include="Controller\Employee\EmployeesController.cs" />
     <Compile Include="Controller\Employee\LoginController.cs" />
     <Compile Include="Controller\Orders\ProductOrdersController.cs" />
     <Compile Include="Controller\Product\ProductsController.cs" />
     <Compile Include="Controller\ProductSales\ProductSalesController.cs" />
+    <Compile Include="Controller\Site\SiteConfigurationsController.cs" />
     <Compile Include="Controller\Site\SitesController.cs" />
     <Compile Include="OwinHelper\GlobalErrorLogger.cs" />
     <Compile Include="OwinHelper\GlobalExceptionHandler.cs" />

@@ -29,7 +29,7 @@ namespace Platform.Service
             throw new NotImplementedException();
         }
 
-        public List<CustomerWalletDTO> GetAllCustomersWaller()
+        public List<CustomerWalletDTO> GetAllCustomersWallet()
         {
             throw new NotImplementedException();
         }

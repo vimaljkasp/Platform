@@ -2,3 +2,7 @@
 *.cache
 *.ide-shm
 *.ide-shm
+*.dll
+*.pdb
+*.exe
+*.xml

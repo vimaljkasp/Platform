@@ -20,28 +20,63 @@ namespace Platform.Service
 
         public void AddEmployee(EmployeeDTO employeDTO)
         {
-            throw new NotImplementedException();
+            this.CheckForExisitngEmployee(employeDTO.UserName);
+            Employee employee = new Employee();
+
+            EmployeeConvertor.ConvertToEmployeeEntity(ref employee, employeDTO, false);
+            employeeRepository.Add(employee);
+
         }
 
         public void DeleteEmployee(int employeeId)
         {
-            throw new NotImplementedException();
+            employeeRepository.Delete(employeeId);
         }
 
         public List<EmployeeDTO> GetAllEmployees()
         {
-            throw new NotImplementedException();
+            List<EmployeeDTO> employeeList = new List<EmployeeDTO>();
+            var employees = employeeRepository.GetAllEmployees();
+            if (employees != null)
+            {
+                foreach (var employee in employees)
+                {
+                    employeeList.Add(EmployeeConvertor.ConvertToEmployeeDto(employee));
+                }
+
+            }
+
+            return employeeList;
         }
 
         public EmployeeDTO GetEmployeeById(int employeId)
         {
-            throw new NotImplementedException();
+            EmployeeDTO employeeDTO = null;
+            var employee = employeeRepository.GetById(employeId);
+            if (employee != null)
+            {
+                employeeDTO = EmployeeConvertor.ConvertToEmployeeDto(employee);
+            }
+            return employeeDTO;
         }
 
-        public void UpdateEmployee(EmployeeDTO employeeRoleDTO)
+        public void UpdateEmployee(EmployeeDTO employeeDTO)
         {
-            throw new NotImplementedException();
+           
+            Employee employee = new Employee();
+            EmployeeConvertor.ConvertToEmployeeEntity(ref employee, employeeDTO, true);
+            employeeRepository.Update(employee);
         }
+
+
+        private void CheckForExisitngEmployee(string userName)
+        {
+            var existingCustomer = employeeRepository.GetEmployeeByUserName(userName);
+            if (existingCustomer != null)
+                throw new PlatformModuleException("Employee Account Already Exist with given User Name");
+        }
+
+      
 
         public bool ValidateLogin(LoginDto logindto)
         {

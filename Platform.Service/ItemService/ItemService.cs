@@ -10,29 +10,60 @@ namespace Platform.Service
 {
     public class ItemService : IItemService
     {
-        public void AddItemCategory(ItemDTO customerDto)
+        private readonly ItemRepository itemRepository;
+
+        public ItemService(ItemRepository itemRepository)
         {
-            throw new NotImplementedException();
+            this.itemRepository = itemRepository;
+        }
+
+
+        public void AddItemCategory(ItemCategoryDTO itemDTO)
+        {
+          
+            ItemCategory itemCategory = new ItemCategory();
+
+            ItemConvertor.ConvertToItemCategoryEntity(ref itemCategory, itemDTO, false);
+            itemRepository.Add(itemCategory);
         }
 
         public void DeleteItemCategory(int itemId)
         {
-            throw new NotImplementedException();
+            itemRepository.Delete(itemId);
         }
 
-        public List<ItemDTO> GetAllItemCategory()
+        public List<ItemCategoryDTO> GetAllItemCategory()
         {
-            throw new NotImplementedException();
+            List<ItemCategoryDTO> itemCategoryList = new List<ItemCategoryDTO>();
+            var itemCategories = itemRepository.GetAll();
+            if (itemCategories != null)
+            {
+                foreach (var itemCategory in itemCategories)
+                {
+                    itemCategoryList.Add(ItemConvertor.ConvertToItemCategoryDto(itemCategory));
+                }
+
+            }
+
+            return itemCategoryList;
         }
 
-        public ItemDTO GetItemCategoryById(int itemId)
+        public ItemCategoryDTO GetItemCategoryById(int itemId)
         {
-            throw new NotImplementedException();
+            ItemCategoryDTO itemCategoryDTO = null;
+            var itemCategory = itemRepository.GetById(itemId);
+            if (itemRepository != null)
+            {
+                itemCategoryDTO = ItemConvertor.ConvertToItemCategoryDto(itemCategory);
+            }
+            return itemCategoryDTO;
         }
 
-        public void UpdateItemCategory(ItemDTO customerDto)
+        public void UpdateItemCategory(ItemCategoryDTO itemCategoryDTO)
         {
-            throw new NotImplementedException();
+            ItemCategory itemCategory = new ItemCategory();
+            ItemConvertor.ConvertToItemCategoryEntity(ref itemCategory, itemCategoryDTO, true);
+            itemRepository.Update(itemCategory);
         }
     }
 }
