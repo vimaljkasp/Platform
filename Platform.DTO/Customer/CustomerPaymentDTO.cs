@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Platform.Service
+namespace Platform.DTO
 {
     [Validator(typeof(CustomerPaymentValidator))]
     public class CustomerPaymentDTO

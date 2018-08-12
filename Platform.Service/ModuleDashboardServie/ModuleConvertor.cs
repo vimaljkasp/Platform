@@ -1,4 +1,5 @@
-﻿using Platform.Sql;
+﻿using Platform.DTO;
+using Platform.Sql;
 using System;
 using System.Collections.Generic;
 using System.Linq;

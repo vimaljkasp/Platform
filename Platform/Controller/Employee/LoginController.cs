@@ -11,6 +11,7 @@ using System.Web.Http;
 using Platform.Service;
 using Platform.Utilities.ExceptionHandler;
 using System.Configuration;
+using Platform.DTO;
 
 namespace Platform.Controller
 {

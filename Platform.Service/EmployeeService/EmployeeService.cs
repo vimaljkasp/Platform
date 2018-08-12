@@ -1,6 +1,8 @@
 ﻿
+using Platform.DTO;
 using Platform.Repository;
 using Platform.Sql;
+using Platform.Utilities.Encryption;
 using Platform.Utilities.ExceptionHandler;
 using System;
 using System.Collections.Generic;
@@ -21,9 +23,10 @@ namespace Platform.Service
         public void AddEmployee(EmployeeDTO employeDTO)
         {
             this.CheckForExisitngEmployee(employeDTO.UserName);
-            Employee employee = new Employee();
 
+            Employee employee = new Employee();
             EmployeeConvertor.ConvertToEmployeeEntity(ref employee, employeDTO, false);
+            employee.Password = EncryptionHelper.Encryptword(employeDTO.Password);
             employeeRepository.Add(employee);
 
         }
@@ -81,7 +84,7 @@ namespace Platform.Service
         public bool ValidateLogin(LoginDto logindto)
         {
             List<Employee> employees = employeeRepository.GetAllEmployees();
-
+            logindto.Password = EncryptionHelper.Encryptword(logindto.Password);
             if (employees.Where(e => e.UserName.Equals(logindto.UserName, StringComparison.CurrentCultureIgnoreCase)
              && e.Password.Equals(logindto.Password, StringComparison.CurrentCultureIgnoreCase)).Any())
                 return true;

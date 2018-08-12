@@ -31,12 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentValidation.7.6.104\lib\net45\FluentValidation.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentValidation.WebApi, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentValidation.WebApi.7.6.104\lib\net45\FluentValidation.WebApi.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -99,33 +93,22 @@
     <Compile Include="ProductSalesService\ProductSalesService.cs" />
     <Compile Include="SiteConfigurationService\ISiteConfigurationService.cs" />
     <Compile Include="SiteConfigurationService\SiteConfigurationConvertor.cs" />
-    <Compile Include="SiteConfigurationService\SiteConfigurationDTO.cs" />
-    <Compile Include="CustomerPaymentService\CustomerPaymentDTO.cs" />
-    <Compile Include="CustomerService\CustomerDto.cs" />
     <Compile Include="CustomerService\CustomerConvertor.cs" />
     <Compile Include="CustomerService\CustomerService.cs" />
     <Compile Include="CustomerService\ICustomerService.cs" />
-    <Compile Include="CustomerWalletService\CustomerWalletDTO.cs" />
-    <Compile Include="EmployeeRoleService\EmployeeRoleDTO.cs" />
-    <Compile Include="EmployeeService\EmployeeDto.cs" />
     <Compile Include="EmployeeService\IEmployeeService.cs" />
     <Compile Include="EmployeeService\EmployeeService.cs" />
-    <Compile Include="ItemService\ItemDTO.cs" />
-    <Compile Include="ModuleDashboardServie\ModuleDTO.cs" />
-    <Compile Include="ProductOrderService\ProductOrderDtlDTO.cs" />
-    <Compile Include="ProductOrderService\ProductOrderDTO.cs" />
-    <Compile Include="ProductSiteMappingService\ProductSiteMappingDTO.cs" />
-    <Compile Include="ProductService\ProductDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EmployeeService\LoginDto.cs" />
-    <Compile Include="ProductSalesService\ProductSalesDTO.cs" />
     <Compile Include="SiteConfigurationService\SiteConfigurationService.cs" />
     <Compile Include="SiteService\ISiteService.cs" />
     <Compile Include="SiteService\SiteConvertor.cs" />
-    <Compile Include="SiteService\SiteDTO.cs" />
     <Compile Include="SiteService\SiteService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Platform.DTO\Platform.DTO.csproj">
+      <Project>{58292060-6e50-4fb7-ac50-a7c67caa9b1c}</Project>
+      <Name>Platform.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Platform.Repository\Platform.Repository.csproj">
       <Project>{f89af692-d7e0-4445-aa6e-dcf4e978d590}</Project>
       <Name>Platform.Repository</Name>

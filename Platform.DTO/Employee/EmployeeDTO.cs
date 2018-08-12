@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Platform.Service
+namespace Platform.DTO
 {
     [Validator(typeof(EmployeeValidator))]
     public class EmployeeDTO
@@ -15,6 +15,9 @@ namespace Platform.Service
         public string Name { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+
+        public string EncryptedPassword { get; set; }
+
         public string Address { get; set; }
         public string City { get; set; }
         public string PostalCode { get; set; }

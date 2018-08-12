@@ -6,20 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Platform.Service
+namespace Platform.DTO
 {
-    [Validator(typeof(ItemValidator))]
-    public class ItemCategoryDTO
+    [Validator(typeof(SiteConfigurationValidator))]
+    public class SiteConfigurationDTO
     {
-        public int ItemId { get; set; }
-        public string ItemCode { get; set; }
-        public string ItemName { get; set; }
-        public string ItemDescription { get; set; }
+        public int Id { get; set; }
+        public string KeyData { get; set; }
+        public string KeyName { get; set; }
+        public string DataVal { get; set; }
+        public string DefaultVal { get; set; }
+        public string Description { get; set; }
     }
 
-    public class ItemValidator : AbstractValidator<ItemCategoryDTO>
+    public class SiteConfigurationValidator : AbstractValidator<SiteConfigurationDTO>
     {
-        public ItemValidator()
+        public SiteConfigurationValidator()
         {
             //   RuleFor(x => x.CustomerId).NotEmpty().WithMessage("The UserName cannot be blank.")
             //                               .Length(1, 10).WithMessage("The User Name cannot be more than 10 characters.");

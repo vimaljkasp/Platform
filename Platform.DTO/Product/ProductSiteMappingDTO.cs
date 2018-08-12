@@ -6,25 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Platform.Service
+namespace Platform.DTO
 {
-    [Validator(typeof(SiteValidator))]
-    public class SiteDTO
+    [Validator(typeof(ProductSiteMappingValidator))]
+    public class ProductSiteMappingDTO
     {
+
+        public long ProductMappingId { get; set; }
         public int SiteId { get; set; }
-        public string SiteCode { get; set; }
-        public string SiteName { get; set; }
-        public string SiteAddress { get; set; }
-        public string SiteCity { get; set; }
-        public string SiteState { get; set; }
-        public string SiteZipCode { get; set; }
-        public string SiteMobileNumber { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public int ItemId { get; set; }
+        public long ProductId { get; set; }
     }
 
-    public class SiteValidator : AbstractValidator<SiteDTO>
+    public class ProductSiteMappingValidator : AbstractValidator<ProductSiteMappingDTO>
     {
-        public SiteValidator()
+        public ProductSiteMappingValidator()
         {
             //   RuleFor(x => x.CustomerId).NotEmpty().WithMessage("The UserName cannot be blank.")
             //                               .Length(1, 10).WithMessage("The User Name cannot be more than 10 characters.");

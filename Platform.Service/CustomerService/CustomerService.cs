@@ -1,4 +1,5 @@
-﻿using Platform.Repository;
+﻿using Platform.DTO;
+using Platform.Repository;
 using Platform.Sql;
 using Platform.Utilities.ExceptionHandler;
 using System;

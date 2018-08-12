@@ -166,6 +166,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Platform.DTO\Platform.DTO.csproj">
+      <Project>{58292060-6e50-4fb7-ac50-a7c67caa9b1c}</Project>
+      <Name>Platform.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Platform.Service\Platform.Service.csproj">
       <Project>{a6e002a8-8d4e-4f3a-b700-1bd9a1cb8f5c}</Project>
       <Name>Platform.Service</Name>

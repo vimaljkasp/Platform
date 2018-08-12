@@ -6,25 +6,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Platform.Service
+namespace Platform.DTO
 {
-    [Validator(typeof(ProductValidator))]
-    public class ProductDTO
+    [Validator(typeof(ProductSalesValidator))]
+    public class ProductSalesDTO
     {
-        public long ProductId { get; set; }
-        public string ProductCode { get; set; }
-        public string ProductName { get; set; }
-        public string ProductDescription { get; set; }
-        public Nullable<int> ProductQuantity { get; set; }
-        public Nullable<long> ProductPrice { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public long SalesId { get; set; }
+        public System.DateTime SalesDate { get; set; }
+        public long SalesProductId { get; set; }
+        public int SalesQuantity { get; set; }
+        public long SalesPrice { get; set; }
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }
     }
 
-    public class ProductValidator : AbstractValidator<ProductDTO>
+    public class ProductSalesValidator : AbstractValidator<ProductSalesDTO>
     {
-        public ProductValidator()
+        public ProductSalesValidator()
         {
             //   RuleFor(x => x.CustomerId).NotEmpty().WithMessage("The UserName cannot be blank.")
             //                               .Length(1, 10).WithMessage("The User Name cannot be more than 10 characters.");

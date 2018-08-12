@@ -1,4 +1,5 @@
-﻿using Platform.Service;
+﻿using Platform.DTO;
+using Platform.Service;
 using Platform.Utilities.ExceptionHandler;
 using System;
 using System.Collections.Generic;
