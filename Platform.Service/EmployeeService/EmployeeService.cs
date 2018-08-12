@@ -15,9 +15,13 @@ namespace Platform.Service
     public class EmployeeService : IEmployeeService
     {
         private readonly EmployeeRepository employeeRepository;
-        public EmployeeService(EmployeeRepository employeeRepository)
+
+        private readonly EmployeeSessionRepository employeeSessionRepository;
+
+        public EmployeeService(EmployeeRepository employeeRepository,EmployeeSessionRepository employeeSessionRepository)
         {
             this.employeeRepository = employeeRepository;
+            this.employeeSessionRepository = employeeSessionRepository;
         }
 
         public void AddEmployee(EmployeeDTO employeDTO)
@@ -81,19 +85,23 @@ namespace Platform.Service
 
       
 
-        public bool ValidateLogin(LoginDto logindto)
+        public bool ValidateLoginAndCreateEmployeeSession(LoginDto logindto)
         {
             List<Employee> employees = employeeRepository.GetAllEmployees();
             logindto.Password = EncryptionHelper.Encryptword(logindto.Password);
             if (employees.Where(e => e.UserName.Equals(logindto.UserName, StringComparison.CurrentCultureIgnoreCase)
              && e.Password.Equals(logindto.Password, StringComparison.CurrentCultureIgnoreCase)).Any())
+            {
+                var employee = employees.Where(e => e.UserName.Equals(logindto.UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                this.CreateEmployeeSession(employee, logindto);
                 return true;
-            else if(!employees.Where(e=>e.UserName.Equals(logindto.UserName,StringComparison.CurrentCultureIgnoreCase)).Any())
+            }
+            else if (!employees.Where(e => e.UserName.Equals(logindto.UserName, StringComparison.CurrentCultureIgnoreCase)).Any())
 
             {
                 throw new PlatformModuleException("The UserName that you've entered doesn't match any account");
             }
-            else if(!employees.Where(e => e.UserName.Equals(logindto.Password, StringComparison.CurrentCultureIgnoreCase)).Any())
+            else if (!employees.Where(e => e.UserName.Equals(logindto.Password, StringComparison.CurrentCultureIgnoreCase)).Any())
             {
                 throw new PlatformModuleException("Password that you've entered doesn't match any account");
 
@@ -101,5 +109,21 @@ namespace Platform.Service
             return false;
             
         }
+
+        private void CreateEmployeeSession(Employee employee,LoginDto logindto)
+        {
+            
+            EmployeeSession employeeSession = new EmployeeSession();
+            employeeSession.SiteId = logindto.SiteId;
+            employeeSession.EmployeeId = employee.EmployeeId;
+            employeeSession.SessionStartDtm = DateTime.Now;
+            employeeSession.SessionEndDtm = DateTime.MaxValue;
+            employeeSession.IsLogout = false;
+            employeeSessionRepository.Add(employeeSession);
+          
+        }
+
+
+     
     }
 }

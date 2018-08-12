@@ -39,19 +39,14 @@ namespace Platform.Repository
 
         public void Update(Customer customer)
         {
-            try
-            {
+         
                 if (customer != null)
                 {
                     _repository.Entry<Sql.Customer>(customer).State = System.Data.Entity.EntityState.Modified;
                     _repository.SaveChanges();
                 }     
 
-            }
-            catch (Exception ex)
-            {
-                LoggerRepository.Error("CustomerRepository", "Exception occured in Update.", ex);
-            }
+       
             
         }
 

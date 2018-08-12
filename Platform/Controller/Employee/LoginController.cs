@@ -16,7 +16,7 @@ using Platform.DTO;
 namespace Platform.Controller
 {
 
-    [Route("api/v1/login")]
+    [Route("api/login")]
     public class LoginController : ApiController
     {
         private readonly IEmployeeService _employeeService;
@@ -33,13 +33,9 @@ namespace Platform.Controller
             {
                 if (loginDto == null)
                     return BadRequest();
-                bool isValid = _employeeService.ValidateLogin(loginDto);
+                bool isValid = _employeeService.ValidateLoginAndCreateEmployeeSession(loginDto);
                 if (isValid)
                 {
-
-                    //Create employee session
-
-
 
                     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("PlatformSecretKey"));
                     var signingCredientials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);

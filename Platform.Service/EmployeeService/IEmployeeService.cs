@@ -24,9 +24,10 @@ namespace Platform.Service
 
          void DeleteEmployee(int employeeId);
 
-        bool ValidateLogin(LoginDto loginDto);
-       
+        bool ValidateLoginAndCreateEmployeeSession(LoginDto loginDto);
 
+
+       
 
     }
 }

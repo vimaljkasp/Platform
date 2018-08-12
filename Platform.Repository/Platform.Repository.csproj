@@ -50,9 +50,11 @@
   <ItemGroup>
     <Compile Include="CustomerPaymentRepository.cs" />
     <Compile Include="CustomerRepository.cs" />
+    <Compile Include="CustomerSessionRepository.cs" />
     <Compile Include="CustomerWalletRepositoy.cs" />
     <Compile Include="EmployeeRepository.cs" />
     <Compile Include="EmployeeRoleRepository.cs" />
+    <Compile Include="EmployeeSessionRepository.cs" />
     <Compile Include="ItemRepository.cs" />
     <Compile Include="LoggerRepository.cs" />
     <Compile Include="ModuleDashboardRepository.cs" />
