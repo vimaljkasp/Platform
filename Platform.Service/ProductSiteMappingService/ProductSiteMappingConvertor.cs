@@ -9,7 +9,7 @@ namespace Platform.Service
 {
     public class ProductSiteMappingConvertor
     {
-        public static ProductSiteMappingDTO ConvertToCustomerDto(ProductSiteMapping productSiteMapping)
+        public static ProductSiteMappingDTO ConvertToProductSiteMappingDto(ProductSiteMapping productSiteMapping)
         {
             ProductSiteMappingDTO productSiteMappingDTO = new ProductSiteMappingDTO();
             productSiteMappingDTO.ProductMappingId = productSiteMapping.ProductMappingId;
@@ -22,20 +22,16 @@ namespace Platform.Service
 
         }
 
-        public static void ConvertToCustomerEntity(ref Customer customer, CustomerDto customerdto, bool isUpdate)
+        public static void ConvertToProductSiteMappingEntity(ref ProductSiteMapping productSiteMapping, ProductSiteMappingDTO productSiteMappingDTO, bool isUpdate)
         {
+            if(isUpdate)
+                productSiteMapping.ProductMappingId = productSiteMappingDTO.ProductMappingId;
 
-            customer.Name = customerdto.Name;
-            customer.AddressLine1 = customerdto.AddressLine1;
-            customer.AddressLine2 = customerdto.AddressLine2;
-            customer.City = customerdto.City;
-            customer.District = customerdto.District;
-            customer.MobileNumber = customerdto.MobileNumber;
-            customer.HomePhone = customerdto.HomePhone;
-            customer.State = customerdto.State;
-            customer.PostalCode = customerdto.PostalCode;
-            
-            
+            productSiteMapping.SiteId = productSiteMappingDTO.SiteId;
+            productSiteMapping.ItemId = productSiteMappingDTO.ItemId;
+            productSiteMapping.ProductId = productSiteMappingDTO.ProductId;
+
+
         }
     }
 }

@@ -147,6 +147,7 @@
     <Compile Include="Controller\Orders\ProductOrdersController.cs" />
     <Compile Include="Controller\Product\ProductsController.cs" />
     <Compile Include="Controller\ProductSales\ProductSalesController.cs" />
+    <Compile Include="Controller\Product\ProductSiteMappingsController.cs" />
     <Compile Include="Controller\Site\SiteConfigurationsController.cs" />
     <Compile Include="Controller\Site\SitesController.cs" />
     <Compile Include="OwinHelper\GlobalErrorLogger.cs" />

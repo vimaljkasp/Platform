@@ -8,13 +8,13 @@ namespace Platform.Service
 {
     public interface IProductSiteMappingService
     {
-         List<ProductSalesDTO> GetAllProductSiteMapping();
+         List<ProductSiteMappingDTO> GetAllProductSiteMapping();
 
-        ProductSalesDTO GetProductSiteMappinById(int productSiteMappingId);
+        ProductSiteMappingDTO GetProductSiteMappinById(int productSiteMappingId);
 
-        void AddProductSiteMapping(ProductSalesDTO customerDto);
+        void AddProductSiteMapping(ProductSiteMappingDTO productSiteMappingDTO);
 
-        void UpdateProductSiteMapping(ProductSalesDTO customerDto);
+        void UpdateProductSiteMapping(ProductSiteMappingDTO productSiteMappingDTO);
 
         void DeleteProductSiteMapping(int productSiteMappingId);
 
