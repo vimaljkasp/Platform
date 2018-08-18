@@ -1,0 +1,26 @@
+-----------Exception Details on  18-08-2018 05:04:59-----------------
+-------------------------------------------------------------------------------------
+
+
+
+Log Written Date: 18-08-2018 05:04:59
+
+Error Line No : eNext()
+
+Error Message: PlatformModuleException
+
+Exception Type: Platform.Utilities.ExceptionHandler.PlatformModuleException
+
+Error Location : Order Details Not Found !
+
+ Error Page Url: http://localhost:5001/api/ProductOrders
+
+ Method Type:POST
+
+User Host IP: 
+
+
+--------------------------------*End*------------------------------------------
+
+
+

@@ -6,7 +6,7 @@ using Platform.Sql;
 
 namespace Platform.Repository
 {
-    public class CustomerWalletRepositoy : IDisposable
+    public class CustomerWalletRepository : IDisposable
     {
 
         PlatformDBEntities _repository = new PlatformDBEntities();
@@ -20,11 +20,11 @@ namespace Platform.Repository
             return siteList;
         }
 
-        public CustomerWallet GetById(int customerWallerId)
+        public CustomerWallet GetById(int customerWalletId)
         {
             CustomerWallet customerWallet = new CustomerWallet();
 
-            customerWallet = _repository.CustomerWallets.FirstOrDefault(x => x.WalletId == customerWallerId);
+            customerWallet = _repository.CustomerWallets.FirstOrDefault(x => x.WalletId == customerWalletId);
 
 
 
@@ -32,12 +32,18 @@ namespace Platform.Repository
         }
 
 
-        public void Add(CustomerWallet customerPaymentTransaction)
+        public CustomerWallet GetByCustomerId(int customerId)
+        {
+          return _repository.CustomerWallets.FirstOrDefault(x => x.CustomerId == customerId);
+        }
+
+
+        public void Add(CustomerWallet customerWallet)
         {
 
-            if (customerPaymentTransaction != null)
+            if (customerWallet != null)
             {
-                _repository.CustomerWallets.Add(customerPaymentTransaction);
+                _repository.CustomerWallets.Add(customerWallet);
                 _repository.SaveChanges();
 
             }

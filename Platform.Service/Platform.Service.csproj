@@ -82,6 +82,7 @@
     <Compile Include="ProductOrderService\ProductOrderDtlDTOConvertor.cs" />
     <Compile Include="ProductOrderService\ProductOrderDtlService.cs" />
     <Compile Include="ProductOrderService\ProductOrderService.cs" />
+    <Compile Include="ProductOrderService\ProductOrderStatus.cs" />
     <Compile Include="ProductSiteMappingService\IProductSiteMappingService.cs" />
     <Compile Include="ProductSiteMappingService\ProductSiteMappingConvertor.cs" />
     <Compile Include="ProductSiteMappingService\ProductSiteMappingService.cs" />

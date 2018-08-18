@@ -41,7 +41,7 @@ namespace Platform.Repository
             if (product != null)
             {
                 _repository.Products.Add(product);
-                _repository.SaveChanges();
+            //    _repository.SaveChanges();
 
             }
 

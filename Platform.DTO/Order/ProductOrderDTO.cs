@@ -12,28 +12,29 @@ namespace Platform.DTO
     public class ProductOrderDTO
     {
         public long OrderId { get; set; }
-        public System.DateTime OrderDate { get; set; }
-        public long OrderProductId { get; set; }
+  
         public System.DateTime OrderPurchaseDtm { get; set; }
-        public int OrderQuantity { get; set; }
-        public long OrderPrice { get; set; }
-        public int OrderStatus { get; set; }
-        public System.DateTime OrderDeilveredDate { get; set; }
-        public int OrderDeilveredBy { get; set; }
-        public Nullable<int> OrderCustomerId { get; set; }
+     
+      
+        public int OrderCustomerId { get; set; }
         public int OrderPaymentMode { get; set; }
         public string OrderComments { get; set; }
-        public Nullable<long> OrderAmount { get; set; }
-        public Nullable<long> OrderTax { get; set; }
-        public Nullable<long> TotalAmount { get; set; }
-        public string VehicleNumber { get; set; }
-        public string DriverName { get; set; }
-        public string DriverNumber { get; set; }
-        public string JCBDriverNumber { get; set; }
-        public string RoyaltyNumber { get; set; }
+        public int OrderTotalQuantity { get; set; }
+
+        public double OrderTotalPrice { get; set; }
+        public double OrderTax { get; set; }
+        public double TotalAmount { get; set; }
+        public double PaidAmount { get; set; }
         public string OrderPriority { get; set; }
+        public string PaymentReceivedBy { get; set; }
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }
+
+        //Will be used if new customer
+        public string CustomerName { get; set; }
+        public string CustomerMobileNumber { get; set; }
+
+
 
        public List<ProductOrderDtlDTO> ProductOrderDetails { get; set; }
     }

@@ -19,6 +19,7 @@ namespace Platform.Service
 
         void DeleteSiteConfiguration(int siteConfigurationId);
 
+        String GetSiteConfigurationByKeyTypeAndKeyName(string keyData, string KeyName,string DefaultVal);
 
 
 

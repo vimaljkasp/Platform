@@ -16,8 +16,8 @@ namespace Platform.Service
             customerPaymentDTO.TransactionId = customerPaymentTransaction.TransactionId;
             customerPaymentDTO.CustomerId = customerPaymentTransaction.CustomerId;
             customerPaymentDTO.OrderId = customerPaymentTransaction.OrderId;
-            customerPaymentDTO.PaymentCrAmount = customerPaymentTransaction.PaymentCrAmount;
-            customerPaymentDTO.PaymentDrAmount = customerPaymentTransaction.PaymentDrAmount;
+            customerPaymentDTO.PaymentCrAmount = customerPaymentTransaction.PaymentCrAmount.GetValueOrDefault();
+            customerPaymentDTO.PaymentDrAmount = customerPaymentTransaction.PaymentDrAmount.GetValueOrDefault();
             customerPaymentDTO.PaymentDate = customerPaymentTransaction.PaymentDate;
             customerPaymentDTO.PaymentReceivedBy = customerPaymentTransaction.PaymentReceivedBy;
             customerPaymentDTO.Ref1 = customerPaymentTransaction.Ref1;

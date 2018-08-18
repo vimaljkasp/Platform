@@ -18,6 +18,8 @@ namespace Platform.Service
         private CustomerRepository customerRepository;
         private ModuleDashboardRepository moduleDashboardRepository;
         private ProductSalesRepository productSalesRepository;
+        private CustomerWalletRepository customerWalletRepositoy;
+        private CustomerPaymentRepository customerPaymentRepository;
         PlatformDBEntities _repository;
         public UnitOfWork()
         {
@@ -146,6 +148,31 @@ namespace Platform.Service
             }
 
         }
+
+
+        public CustomerWalletRepository CustomerWalletRepository
+        {
+            get
+            {
+                if (customerWalletRepositoy == null)
+                    return customerWalletRepositoy = new CustomerWalletRepository();
+                else
+                    return customerWalletRepositoy;
+            }
+        }
+
+        public CustomerPaymentRepository CustomerPaymentRepository
+        {
+            get
+            {
+                if (customerPaymentRepository == null)
+                    return customerPaymentRepository = new CustomerPaymentRepository();
+                else
+                    return customerPaymentRepository;
+            }
+        }
+
+
 
         //To save multiple repository and maintain consistency
         public void SaveChanges()

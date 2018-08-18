@@ -1,4 +1,5 @@
 ﻿using Platform.DTO;
+using Platform.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace Platform.Service
         void UpdateCustomerWallet(CustomerWalletDTO customerDto);
 
         void DeleteCustomerWallet(int id);
+
+       
 
 
 

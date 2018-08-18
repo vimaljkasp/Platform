@@ -14,6 +14,12 @@ namespace Platform.Sql
     
     public partial class Customer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Customer()
+        {
+            this.ProductOrders = new HashSet<ProductOrder>();
+        }
+    
         public int CustomerId { get; set; }
         public string Name { get; set; }
         public string AddressLine1 { get; set; }
@@ -24,5 +30,8 @@ namespace Platform.Sql
         public string PostalCode { get; set; }
         public string MobileNumber { get; set; }
         public string HomePhone { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }

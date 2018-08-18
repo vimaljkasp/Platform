@@ -11,19 +11,17 @@ namespace Platform.Service
 {
     public class SiteConfigurationService : ISiteConfigurationService
     {
+        private UnitOfWork unitOfWork;
 
-  
-        private readonly SiteConfigurationRepository siteConfigurationRepository;
-
-            public SiteConfigurationService(SiteConfigurationRepository siteConfigurationRepository)
+            public SiteConfigurationService()
             {
-                this.siteConfigurationRepository = siteConfigurationRepository;
+                unitOfWork = new UnitOfWork();
             }
 
             public List<SiteConfigurationDTO> GetAllSiteConfigurations()
             {
                 List<SiteConfigurationDTO> siteConfgurationList = new List<SiteConfigurationDTO>();
-                var siteConfigurations = siteConfigurationRepository.GetAll();
+                var siteConfigurations = unitOfWork.SiteConfigurationRepository.GetAll();
                 if (siteConfigurations != null)
                 {
                     foreach (var siteConfiguration in siteConfigurations)
@@ -41,13 +39,31 @@ namespace Platform.Service
             public SiteConfigurationDTO GetSiteConfigurationById(int siteConfigurationId)
             {
             SiteConfigurationDTO siteConfigurationDTO = null;
-                var siteConfiguration = siteConfigurationRepository.GetById(siteConfigurationId);
+                var siteConfiguration = unitOfWork.SiteConfigurationRepository.GetById(siteConfigurationId);
                 if (siteConfiguration != null)
                 {
                 siteConfigurationDTO = SiteConfigurationConvertor.ConvertToSiteConfigurationDto(siteConfiguration);
                 }
                 return siteConfigurationDTO;
             }
+
+            public String GetSiteConfigurationByKeyTypeAndKeyName(string keyData,string KeyName,string DefaultVal)
+
+           {
+            var siteConfigurations = unitOfWork.SiteConfigurationRepository.GetAll();
+            if(siteConfigurations.Where(k=>k.KeyData.Equals(keyData,StringComparison.InvariantCultureIgnoreCase) &&
+                k.KeyName.Equals(KeyName,StringComparison.InvariantCultureIgnoreCase)).Any())
+            {
+                string value = siteConfigurations.Where(k => k.KeyData.Equals(keyData, StringComparison.InvariantCultureIgnoreCase) &&
+                  k.KeyName.Equals(KeyName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault().DataVal;
+                return value;
+            }
+            else
+            {
+                return DefaultVal;
+            }
+
+        }
 
 
 

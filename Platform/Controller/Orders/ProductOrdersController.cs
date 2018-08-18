@@ -37,7 +37,7 @@ namespace Platform.Controller
         }
 
       
-        [Authorize]
+      
         public IHttpActionResult Post([FromBody]ProductOrderDTO productOrderDTO)
         {
             if (productOrderDTO == null)

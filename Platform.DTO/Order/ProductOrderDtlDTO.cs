@@ -12,13 +12,27 @@ namespace Platform.DTO
     public class ProductOrderDtlDTO
     {
         public long ProductOrderDetailId { get; set; }
-        public Nullable<long> OrderId { get; set; }
-        public Nullable<long> ProductId { get; set; }
-        public Nullable<decimal> Quantity { get; set; }
-        public Nullable<long> UnitPrice { get; set; }
-        public Nullable<long> Total { get; set; }
+        public long OrderId { get; set; }
+        public long OrderProductId { get; set; }
+        public decimal Quantity { get; set; }
+        public double UnitPrice { get; set; }
+        public double Total { get; set; }
+        public int OrderStatus { get; set; }
+        public System.DateTime OrderDeilveredDate { get; set; }
+        public string OrderDeilveredBy { get; set; }
+        public string VehicleNumber { get; set; }
+        public string DriverName { get; set; }
+        public string DriverNumber { get; set; }
+        public string JCBDriverNumber { get; set; }
+        public string RoyaltyNumber { get; set; }
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }
+
+
+
+      
+
+
     }
 
     public class ProductOrderDtlValidator : AbstractValidator<ProductOrderDtlDTO>

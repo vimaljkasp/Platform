@@ -13,27 +13,15 @@ namespace Platform.Service
         public static ProductOrderDTO ConvertToProductOrderDto(ProductOrder productOrder)
         {
             ProductOrderDTO productOrderDTO = new ProductOrderDTO();
-            productOrderDTO.OrderId = productOrder.OrderId;
-            productOrderDTO.OrderDate = productOrder.OrderDate;
-            productOrderDTO.OrderProductId = productOrder.OrderProductId;
             productOrderDTO.OrderPurchaseDtm = productOrder.OrderPurchaseDtm;
-            productOrderDTO.OrderQuantity = productOrder.OrderQuantity;
-            productOrderDTO.OrderPrice = productOrder.OrderPrice;
-            productOrderDTO.OrderStatus = productOrder.OrderStatus;
-            productOrderDTO.OrderDeilveredDate = productOrder.OrderDeilveredDate;
-            productOrderDTO.OrderDeilveredBy = productOrder.OrderDeilveredBy;
-            productOrderDTO.OrderCustomerId = productOrder.OrderCustomerId;
+            productOrderDTO.OrderCustomerId = productOrder.OrderCustomerId.GetValueOrDefault();
             productOrderDTO.OrderPaymentMode = productOrder.OrderPaymentMode;
-            productOrderDTO.OrderComments = productOrder.OrderComments;
-            productOrderDTO.OrderAmount = productOrder.OrderAmount;
-            productOrderDTO.OrderTax = productOrder.OrderTax;
-            productOrderDTO.TotalAmount = productOrder.TotalAmount;
-            productOrderDTO.VehicleNumber = productOrder.VehicleNumber;
-            productOrderDTO.DriverName = productOrder.DriverName;
-            productOrderDTO.DriverNumber = productOrder.DriverNumber;
-            productOrderDTO.JCBDriverNumber = productOrder.JCBDriverNumber;
-            productOrderDTO.RoyaltyNumber = productOrder.RoyaltyNumber;
+            productOrderDTO.OrderTotalQuantity = productOrder.OrderTotalQuantity;
+            productOrderDTO.OrderTotalPrice = productOrder.OrderTotalPrice;
+            productOrderDTO.OrderTax = (double)productOrder.OrderTax/100.00;
+            productOrderDTO.TotalAmount = (double)productOrder.TotalAmount/100.00;
             productOrderDTO.OrderPriority = productOrder.OrderPriority;
+            productOrderDTO.OrderComments = productOrder.OrderComments;
             productOrderDTO.Ref1 = productOrder.Ref1;
             productOrderDTO.Ref2 = productOrder.Ref2;
             return productOrderDTO;
@@ -45,39 +33,30 @@ namespace Platform.Service
 
         public static void ConvertToProductOrderEntity(ref ProductOrder productOrder, ProductOrderDTO productOrderDTO, bool isUpdate)
         {
-            if (isUpdate)
-            {
-                productOrderDTO.OrderId = productOrder.OrderId;
-              
-            }
-            else
-            {
-                productOrder.OrderDate = DateTime.Now.Date;
-                productOrder.OrderPurchaseDtm = DateTime.Now;
-            }
-          
-            productOrder.OrderProductId = productOrderDTO.OrderProductId;
-            
-            productOrder.OrderQuantity = productOrderDTO.OrderQuantity;
-            productOrder.OrderPrice = productOrderDTO.OrderPrice;
-            productOrder.OrderStatus = productOrderDTO.OrderStatus;
-            productOrder.OrderDeilveredDate = productOrderDTO.OrderDeilveredDate;
-            productOrder.OrderDeilveredBy = productOrderDTO.OrderDeilveredBy;
+        if (isUpdate)
+        {
+            productOrderDTO.OrderId = productOrder.OrderId;
+
+        }
+        else
+        {
+            productOrder.OrderPurchaseDtm = DateTime.Now;
             productOrder.OrderCustomerId = productOrderDTO.OrderCustomerId;
             productOrder.OrderPaymentMode = productOrderDTO.OrderPaymentMode;
-            productOrder.OrderComments = productOrderDTO.OrderComments;
-            productOrder.OrderAmount = productOrderDTO.OrderAmount;
-            productOrder.OrderTax = productOrderDTO.OrderTax;
-            productOrder.TotalAmount = productOrderDTO.TotalAmount;
-            productOrder.VehicleNumber = productOrderDTO.VehicleNumber;
-            productOrder.DriverName = productOrderDTO.DriverName;
-            productOrder.DriverNumber = productOrderDTO.DriverNumber;
-            productOrder.JCBDriverNumber = productOrderDTO.JCBDriverNumber;
-            productOrder.RoyaltyNumber = productOrderDTO.RoyaltyNumber;
+            productOrder.OrderTotalQuantity = productOrderDTO.OrderTotalQuantity;
+            productOrder.OrderTotalPrice =(long) productOrderDTO.OrderTotalPrice*100;
+            productOrder.OrderTax = (long)productOrderDTO.OrderTax*100;
+            productOrder.TotalAmount = (long)productOrderDTO.TotalAmount*100;
             productOrder.OrderPriority = productOrderDTO.OrderPriority;
+            productOrder.OrderComments = productOrderDTO.OrderComments;
             productOrder.Ref1 = productOrderDTO.Ref1;
             productOrder.Ref2 = productOrderDTO.Ref2;
 
+        }
+
+
+
+      
 
         }
     }

@@ -4,29 +4,31 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f40bbaf424da473e9c204fb057a3eb21" Name="Diagram1">
-        <EntityTypeShape EntityType="PlatformDBModel.Customer" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.CustomerPaymentTransaction" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.CustomerSession" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.CustomerWallet" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.Employee" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.EmployeeRole" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.EmployeeSession" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.ItemCategory" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.Module" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.Product" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.ProductOrder" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.ProductOrderDetail" Width="1.5" PointX="11.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.ProductSale" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.ProductSiteMapping" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.ProductStock" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.Role" Width="1.5" PointX="7.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.Site" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.SiteConfiguration" Width="1.5" PointX="9.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlatformDBModel.RoleModule" Width="1.5" PointX="11.75" PointY="10.75" IsExpanded="true" />
+      <Diagram DiagramId="3df0e0fcb2bc4739a86c5549c9003027" Name="Diagram1">
+        <EntityTypeShape EntityType="PlatformDBModel.Customer" Width="1.5" PointX="0.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.CustomerPaymentTransaction" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.CustomerSession" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.CustomerWallet" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.Employee" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.EmployeeRole" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.EmployeeSession" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.ItemCategory" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.Module" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.Product" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.ProductOrder" Width="1.5" PointX="3" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.ProductOrderDetail" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.ProductSale" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.ProductSiteMapping" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.ProductStock" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.Role" Width="1.5" PointX="7.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.Site" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.SiteConfiguration" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlatformDBModel.RoleModule" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="PlatformDBModel.fk_ProductOrder_CustomerId" ManuallyRouted="false" />
         <AssociationConnector Association="PlatformDBModel.fk_ProductSiteMapping_Item" ManuallyRouted="false" />
         <AssociationConnector Association="PlatformDBModel.fk_ProductSiteMapping_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="PlatformDBModel.fk_Order_ProductSiteMapping" ManuallyRouted="false" />
+        <AssociationConnector Association="PlatformDBModel.fk_ProductOrderDetail_ProductOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="PlatformDBModel.fk_ProductOrderDetail_ProductSiteMapping" ManuallyRouted="false" />
         <AssociationConnector Association="PlatformDBModel.fk_Sales_ProductSiteMapping" ManuallyRouted="false" />
         <AssociationConnector Association="PlatformDBModel.fk_ProcutStock_ProductSiteMapping" ManuallyRouted="false" />
         <AssociationConnector Association="PlatformDBModel.fk_ProductSiteMapping_Site" ManuallyRouted="false" />

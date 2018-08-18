@@ -17,8 +17,8 @@ namespace Platform.Sql
         public long TransactionId { get; set; }
         public int CustomerId { get; set; }
         public int OrderId { get; set; }
-        public long PaymentCrAmount { get; set; }
-        public long PaymentDrAmount { get; set; }
+        public Nullable<long> PaymentCrAmount { get; set; }
+        public Nullable<long> PaymentDrAmount { get; set; }
         public System.DateTime PaymentDate { get; set; }
         public string PaymentReceivedBy { get; set; }
         public string Ref1 { get; set; }

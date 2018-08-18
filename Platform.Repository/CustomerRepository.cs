@@ -32,7 +32,7 @@ namespace Platform.Repository
             if (customer != null)
             {
                 _repository.Customers.Add(customer);
-                _repository.SaveChanges();
+               _repository.SaveChanges();
 
             }
         }

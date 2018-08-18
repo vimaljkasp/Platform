@@ -7,18 +7,18 @@
       <Schema Namespace="PlatformDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customer">
           <Key>
-            <PropertyRef Name="MobileNumber" />
+            <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
-          <Property Name="AddressLine1" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="AddressLine2" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="City" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="District" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="State" Type="nvarchar" MaxLength="40" Nullable="false" />
-          <Property Name="PostalCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="20" />
+          <Property Name="District" Type="nvarchar" MaxLength="20" />
+          <Property Name="State" Type="nvarchar" MaxLength="40" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="20" />
           <Property Name="MobileNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="HomePhone" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="HomePhone" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="CustomerPaymentTransaction">
           <Key>
@@ -27,10 +27,10 @@
           <Property Name="TransactionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="OrderId" Type="int" Nullable="false" />
-          <Property Name="PaymentCrAmount" Type="bigint" Nullable="false" />
-          <Property Name="PaymentDrAmount" Type="bigint" Nullable="false" />
+          <Property Name="PaymentCrAmount" Type="bigint" />
+          <Property Name="PaymentDrAmount" Type="bigint" />
           <Property Name="PaymentDate" Type="datetime" Nullable="false" />
-          <Property Name="PaymentReceivedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PaymentReceivedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="Ref1" Type="nvarchar" MaxLength="50" />
           <Property Name="Ref2" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -125,26 +125,15 @@
             <PropertyRef Name="OrderId" />
           </Key>
           <Property Name="OrderId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OrderDate" Type="date" Nullable="false" />
-          <Property Name="OrderProductId" Type="bigint" Nullable="false" />
           <Property Name="OrderPurchaseDtm" Type="datetime" Nullable="false" />
-          <Property Name="OrderQuantity" Type="int" Nullable="false" />
-          <Property Name="OrderPrice" Type="bigint" Nullable="false" />
-          <Property Name="OrderStatus" Type="int" Nullable="false" />
-          <Property Name="OrderDeilveredDate" Type="datetime" Nullable="false" />
-          <Property Name="OrderDeilveredBy" Type="int" Nullable="false" />
           <Property Name="OrderCustomerId" Type="int" />
           <Property Name="OrderPaymentMode" Type="int" Nullable="false" />
-          <Property Name="OrderComments" Type="nvarchar" MaxLength="80" />
-          <Property Name="OrderAmount" Type="bigint" />
+          <Property Name="OrderTotalQuantity" Type="int" Nullable="false" />
+          <Property Name="OrderTotalPrice" Type="bigint" Nullable="false" />
           <Property Name="OrderTax" Type="bigint" />
           <Property Name="TotalAmount" Type="bigint" />
-          <Property Name="VehicleNumber" Type="nvarchar" MaxLength="150" />
-          <Property Name="DriverName" Type="nvarchar" MaxLength="150" />
-          <Property Name="DriverNumber" Type="nvarchar" MaxLength="150" />
-          <Property Name="JCBDriverNumber" Type="nvarchar" MaxLength="150" />
-          <Property Name="RoyaltyNumber" Type="nvarchar" MaxLength="150" />
           <Property Name="OrderPriority" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderComments" Type="nvarchar" MaxLength="80" />
           <Property Name="Ref1" Type="nvarchar" MaxLength="50" />
           <Property Name="Ref2" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -154,7 +143,15 @@
           </Key>
           <Property Name="ProductOrderDetailId" Type="bigint" Nullable="false" />
           <Property Name="OrderId" Type="bigint" />
-          <Property Name="ProductId" Type="bigint" />
+          <Property Name="OrderProductId" Type="bigint" />
+          <Property Name="OrderStatus" Type="int" Nullable="false" />
+          <Property Name="OrderDeilveredDate" Type="datetime" />
+          <Property Name="OrderDeilveredBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="VehicleNumber" Type="nvarchar" MaxLength="150" />
+          <Property Name="DriverName" Type="nvarchar" MaxLength="150" />
+          <Property Name="DriverNumber" Type="nvarchar" MaxLength="150" />
+          <Property Name="JCBDriverNumber" Type="nvarchar" MaxLength="150" />
+          <Property Name="RoyaltyNumber" Type="nvarchar" MaxLength="150" />
           <Property Name="Quantity" Type="numeric" Precision="18" Scale="0" />
           <Property Name="UnitPrice" Type="bigint" />
           <Property Name="Total" Type="bigint" />
@@ -243,18 +240,6 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Property Name="DefaultVal" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
         </EntityType>
-        <Association Name="fk_Order_ProductSiteMapping">
-          <End Role="ProductSiteMapping" Type="Self.ProductSiteMapping" Multiplicity="1" />
-          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductSiteMapping">
-              <PropertyRef Name="ProductMappingId" />
-            </Principal>
-            <Dependent Role="ProductOrder">
-              <PropertyRef Name="OrderProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_ProcutStock_ProductSiteMapping">
           <End Role="ProductSiteMapping" Type="Self.ProductSiteMapping" Multiplicity="1" />
           <End Role="ProductStock" Type="Self.ProductStock" Multiplicity="*" />
@@ -264,6 +249,42 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             </Principal>
             <Dependent Role="ProductStock">
               <PropertyRef Name="StockProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductOrder_CustomerId">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="ProductOrder">
+              <PropertyRef Name="OrderCustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductOrderDetail_ProductOrder">
+          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductOrder">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductOrderDetail_ProductSiteMapping">
+          <End Role="ProductSiteMapping" Type="Self.ProductSiteMapping" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSiteMapping">
+              <PropertyRef Name="ProductMappingId" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="OrderProductId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -340,13 +361,21 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
     [RoleModule].[ModuleId] AS [ModuleId]
     FROM [dbo].[RoleModule] AS [RoleModule]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="fk_Order_ProductSiteMapping" Association="Self.fk_Order_ProductSiteMapping">
-            <End Role="ProductSiteMapping" EntitySet="ProductSiteMapping" />
-            <End Role="ProductOrder" EntitySet="ProductOrder" />
-          </AssociationSet>
           <AssociationSet Name="fk_ProcutStock_ProductSiteMapping" Association="Self.fk_ProcutStock_ProductSiteMapping">
             <End Role="ProductSiteMapping" EntitySet="ProductSiteMapping" />
             <End Role="ProductStock" EntitySet="ProductStock" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductOrder_CustomerId" Association="Self.fk_ProductOrder_CustomerId">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="ProductOrder" EntitySet="ProductOrder" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductOrderDetail_ProductOrder" Association="Self.fk_ProductOrderDetail_ProductOrder">
+            <End Role="ProductOrder" EntitySet="ProductOrder" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductOrderDetail_ProductSiteMapping" Association="Self.fk_ProductOrderDetail_ProductSiteMapping">
+            <End Role="ProductSiteMapping" EntitySet="ProductSiteMapping" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetail" />
           </AssociationSet>
           <AssociationSet Name="fk_ProductSiteMapping_Item" Association="Self.fk_ProductSiteMapping_Item">
             <End Role="ItemCategory" EntitySet="ItemCategory" />
@@ -372,18 +401,19 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
       <Schema Namespace="PlatformDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Customer">
           <Key>
-            <PropertyRef Name="MobileNumber" />
+            <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="AddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="AddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="District" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="State" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PostalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HomePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HomePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductOrders" Relationship="Self.fk_ProductOrder_CustomerId" FromRole="Customer" ToRole="ProductOrder" />
         </EntityType>
         <EntityType Name="CustomerPaymentTransaction">
           <Key>
@@ -392,10 +422,10 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Property Name="TransactionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="PaymentCrAmount" Type="Int64" Nullable="false" />
-          <Property Name="PaymentDrAmount" Type="Int64" Nullable="false" />
+          <Property Name="PaymentCrAmount" Type="Int64" />
+          <Property Name="PaymentDrAmount" Type="Int64" />
           <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PaymentReceivedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PaymentReceivedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -492,29 +522,19 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <PropertyRef Name="OrderId" />
           </Key>
           <Property Name="OrderId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="OrderProductId" Type="Int64" Nullable="false" />
           <Property Name="OrderPurchaseDtm" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OrderQuantity" Type="Int32" Nullable="false" />
-          <Property Name="OrderPrice" Type="Int64" Nullable="false" />
-          <Property Name="OrderStatus" Type="Int32" Nullable="false" />
-          <Property Name="OrderDeilveredDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OrderDeilveredBy" Type="Int32" Nullable="false" />
           <Property Name="OrderCustomerId" Type="Int32" />
           <Property Name="OrderPaymentMode" Type="Int32" Nullable="false" />
-          <Property Name="OrderComments" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="OrderAmount" Type="Int64" />
+          <Property Name="OrderTotalQuantity" Type="Int32" Nullable="false" />
+          <Property Name="OrderTotalPrice" Type="Int64" Nullable="false" />
           <Property Name="OrderTax" Type="Int64" />
           <Property Name="TotalAmount" Type="Int64" />
-          <Property Name="VehicleNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="DriverName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="DriverNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="JCBDriverNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="RoyaltyNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="OrderPriority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderComments" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ProductSiteMapping" Relationship="Self.fk_Order_ProductSiteMapping" FromRole="ProductOrder" ToRole="ProductSiteMapping" />
+          <NavigationProperty Name="Customer" Relationship="Self.fk_ProductOrder_CustomerId" FromRole="ProductOrder" ToRole="Customer" />
+          <NavigationProperty Name="ProductOrderDetails" Relationship="Self.fk_ProductOrderDetail_ProductOrder" FromRole="ProductOrder" ToRole="ProductOrderDetail" />
         </EntityType>
         <EntityType Name="ProductOrderDetail">
           <Key>
@@ -522,12 +542,22 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           </Key>
           <Property Name="ProductOrderDetailId" Type="Int64" Nullable="false" />
           <Property Name="OrderId" Type="Int64" />
-          <Property Name="ProductId" Type="Int64" />
+          <Property Name="OrderProductId" Type="Int64" />
+          <Property Name="OrderStatus" Type="Int32" Nullable="false" />
+          <Property Name="OrderDeilveredDate" Type="DateTime" Precision="3" />
+          <Property Name="OrderDeilveredBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="VehicleNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DriverName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DriverNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="JCBDriverNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="RoyaltyNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="UnitPrice" Type="Int64" />
           <Property Name="Total" Type="Int64" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductOrder" Relationship="Self.fk_ProductOrderDetail_ProductOrder" FromRole="ProductOrderDetail" ToRole="ProductOrder" />
+          <NavigationProperty Name="ProductSiteMapping" Relationship="Self.fk_ProductOrderDetail_ProductSiteMapping" FromRole="ProductOrderDetail" ToRole="ProductSiteMapping" />
         </EntityType>
         <EntityType Name="ProductSale">
           <Key>
@@ -553,7 +583,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Property Name="ProductId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="ItemCategory" Relationship="Self.fk_ProductSiteMapping_Item" FromRole="ProductSiteMapping" ToRole="ItemCategory" />
           <NavigationProperty Name="Product" Relationship="Self.fk_ProductSiteMapping_Product" FromRole="ProductSiteMapping" ToRole="Product" />
-          <NavigationProperty Name="ProductOrders" Relationship="Self.fk_Order_ProductSiteMapping" FromRole="ProductSiteMapping" ToRole="ProductOrder" />
+          <NavigationProperty Name="ProductOrderDetails" Relationship="Self.fk_ProductOrderDetail_ProductSiteMapping" FromRole="ProductSiteMapping" ToRole="ProductOrderDetail" />
           <NavigationProperty Name="ProductSales" Relationship="Self.fk_Sales_ProductSiteMapping" FromRole="ProductSiteMapping" ToRole="ProductSales" />
           <NavigationProperty Name="ProductStocks" Relationship="Self.fk_ProcutStock_ProductSiteMapping" FromRole="ProductSiteMapping" ToRole="ProductStock" />
           <NavigationProperty Name="Site" Relationship="Self.fk_ProductSiteMapping_Site" FromRole="ProductSiteMapping" ToRole="Site" />
@@ -618,6 +648,18 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="ModuleId" Type="Int32" Nullable="false" />
         </EntityType>
+        <Association Name="fk_ProductOrder_CustomerId">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="ProductOrder">
+              <PropertyRef Name="OrderCustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_ProductSiteMapping_Item">
           <End Role="ItemCategory" Type="Self.ItemCategory" Multiplicity="1" />
           <End Role="ProductSiteMapping" Type="Self.ProductSiteMapping" Multiplicity="*" />
@@ -642,14 +684,26 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Order_ProductSiteMapping">
-          <End Role="ProductSiteMapping" Type="Self.ProductSiteMapping" Multiplicity="1" />
-          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="*" />
+        <Association Name="fk_ProductOrderDetail_ProductOrder">
+          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductOrder">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductOrderDetail_ProductSiteMapping">
+          <End Role="ProductSiteMapping" Type="Self.ProductSiteMapping" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProductSiteMapping">
               <PropertyRef Name="ProductMappingId" />
             </Principal>
-            <Dependent Role="ProductOrder">
+            <Dependent Role="ProductOrderDetail">
               <PropertyRef Name="OrderProductId" />
             </Dependent>
           </ReferentialConstraint>
@@ -710,6 +764,10 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <EntitySet Name="Sites" EntityType="Self.Site" />
           <EntitySet Name="SiteConfigurations" EntityType="Self.SiteConfiguration" />
           <EntitySet Name="RoleModules" EntityType="Self.RoleModule" />
+          <AssociationSet Name="fk_ProductOrder_CustomerId" Association="Self.fk_ProductOrder_CustomerId">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="ProductOrder" EntitySet="ProductOrders" />
+          </AssociationSet>
           <AssociationSet Name="fk_ProductSiteMapping_Item" Association="Self.fk_ProductSiteMapping_Item">
             <End Role="ItemCategory" EntitySet="ItemCategories" />
             <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
@@ -718,9 +776,13 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
           </AssociationSet>
-          <AssociationSet Name="fk_Order_ProductSiteMapping" Association="Self.fk_Order_ProductSiteMapping">
-            <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
+          <AssociationSet Name="fk_ProductOrderDetail_ProductOrder" Association="Self.fk_ProductOrderDetail_ProductOrder">
             <End Role="ProductOrder" EntitySet="ProductOrders" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductOrderDetail_ProductSiteMapping" Association="Self.fk_ProductOrderDetail_ProductSiteMapping">
+            <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
           </AssociationSet>
           <AssociationSet Name="fk_Sales_ProductSiteMapping" Association="Self.fk_Sales_ProductSiteMapping">
             <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
@@ -869,26 +931,15 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <EntityTypeMapping TypeName="PlatformDBModel.ProductOrder">
               <MappingFragment StoreEntitySet="ProductOrder">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="OrderProductId" ColumnName="OrderProductId" />
                 <ScalarProperty Name="OrderPurchaseDtm" ColumnName="OrderPurchaseDtm" />
-                <ScalarProperty Name="OrderQuantity" ColumnName="OrderQuantity" />
-                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
-                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-                <ScalarProperty Name="OrderDeilveredDate" ColumnName="OrderDeilveredDate" />
-                <ScalarProperty Name="OrderDeilveredBy" ColumnName="OrderDeilveredBy" />
                 <ScalarProperty Name="OrderCustomerId" ColumnName="OrderCustomerId" />
                 <ScalarProperty Name="OrderPaymentMode" ColumnName="OrderPaymentMode" />
-                <ScalarProperty Name="OrderComments" ColumnName="OrderComments" />
-                <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+                <ScalarProperty Name="OrderTotalQuantity" ColumnName="OrderTotalQuantity" />
+                <ScalarProperty Name="OrderTotalPrice" ColumnName="OrderTotalPrice" />
                 <ScalarProperty Name="OrderTax" ColumnName="OrderTax" />
                 <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="VehicleNumber" ColumnName="VehicleNumber" />
-                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
-                <ScalarProperty Name="DriverNumber" ColumnName="DriverNumber" />
-                <ScalarProperty Name="JCBDriverNumber" ColumnName="JCBDriverNumber" />
-                <ScalarProperty Name="RoyaltyNumber" ColumnName="RoyaltyNumber" />
                 <ScalarProperty Name="OrderPriority" ColumnName="OrderPriority" />
+                <ScalarProperty Name="OrderComments" ColumnName="OrderComments" />
                 <ScalarProperty Name="Ref1" ColumnName="Ref1" />
                 <ScalarProperty Name="Ref2" ColumnName="Ref2" />
               </MappingFragment>
@@ -899,7 +950,15 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
               <MappingFragment StoreEntitySet="ProductOrderDetail">
                 <ScalarProperty Name="ProductOrderDetailId" ColumnName="ProductOrderDetailId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="OrderProductId" ColumnName="OrderProductId" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="OrderDeilveredDate" ColumnName="OrderDeilveredDate" />
+                <ScalarProperty Name="OrderDeilveredBy" ColumnName="OrderDeilveredBy" />
+                <ScalarProperty Name="VehicleNumber" ColumnName="VehicleNumber" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="DriverNumber" ColumnName="DriverNumber" />
+                <ScalarProperty Name="JCBDriverNumber" ColumnName="JCBDriverNumber" />
+                <ScalarProperty Name="RoyaltyNumber" ColumnName="RoyaltyNumber" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
                 <ScalarProperty Name="Total" ColumnName="Total" />

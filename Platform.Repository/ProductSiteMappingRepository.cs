@@ -13,6 +13,9 @@ namespace Platform.Repository
         public List<ProductSiteMapping> GetAll()
         {
 
+
+
+
             List<ProductSiteMapping> productSiteMappingList = new List<ProductSiteMapping>();
             productSiteMappingList = _repository.ProductSiteMappings.ToList<Sql.ProductSiteMapping>();
 

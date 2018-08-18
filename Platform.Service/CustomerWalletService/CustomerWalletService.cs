@@ -12,17 +12,19 @@ namespace Platform.Service
     public class CustomerWalletService : ICustomerWalletService
     {
 
-        private readonly CustomerWalletRepositoy customerWalletRepositoy;
+        private UnitOfWork unitOfWork;
 
-        public CustomerWalletService(CustomerWalletRepositoy customerWalletRepositoy)
+       
+
+        public CustomerWalletService()
         {
-            this.customerWalletRepositoy = customerWalletRepositoy;
+            unitOfWork = new UnitOfWork();
         }
         public void AddCustomerWallet(CustomerWalletDTO customerWalletDTO)
         {
             CustomerWallet customerWallet = new CustomerWallet();
             CustomerWalletConvertor.ConvertToCustomerWalletEntity(ref customerWallet, customerWalletDTO, false);
-            customerWalletRepositoy.Add(customerWallet);
+            unitOfWork.CustomerWalletRepository.Add(customerWallet);
         }
 
         public void DeleteCustomerWallet(int id)
@@ -43,6 +45,28 @@ namespace Platform.Service
         public void UpdateCustomerWallet(CustomerWalletDTO customerDto)
         {
             throw new NotImplementedException();
+        }
+
+
+       public  CustomerWalletRepository AddOrUpdateCustomerWallet(int customerId, double balance)
+        {
+            //check if customer wallet already exist;
+            var customerWallet = unitOfWork.CustomerWalletRepository.GetByCustomerId(customerId);
+            if(customerWallet!=null)
+            {
+                customerWallet.WalletBalance += (long)balance * 100;
+                unitOfWork.CustomerWalletRepository.Update(customerWallet);
+            }
+            else
+            {
+                 customerWallet = new CustomerWallet();
+                customerWallet.CustomerId = customerId;
+                customerWallet.WalletBalance= (long)balance * 100;
+                customerWallet.AmountDueDate = DateTime.Now.AddDays(10);
+                unitOfWork.CustomerWalletRepository.Add(customerWallet);
+            }
+
+            return unitOfWork.CustomerWalletRepository;
         }
     }
 }
