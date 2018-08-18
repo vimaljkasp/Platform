@@ -47,23 +47,9 @@ namespace Platform.Service
                 return siteConfigurationDTO;
             }
 
-            public String GetSiteConfigurationByKeyTypeAndKeyName(string keyData,string KeyName,string DefaultVal)
+       
 
-           {
-            var siteConfigurations = unitOfWork.SiteConfigurationRepository.GetAll();
-            if(siteConfigurations.Where(k=>k.KeyData.Equals(keyData,StringComparison.InvariantCultureIgnoreCase) &&
-                k.KeyName.Equals(KeyName,StringComparison.InvariantCultureIgnoreCase)).Any())
-            {
-                string value = siteConfigurations.Where(k => k.KeyData.Equals(keyData, StringComparison.InvariantCultureIgnoreCase) &&
-                  k.KeyName.Equals(KeyName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault().DataVal;
-                return value;
-            }
-            else
-            {
-                return DefaultVal;
-            }
-
-        }
+        
 
 
 

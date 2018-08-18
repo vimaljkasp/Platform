@@ -13,35 +13,31 @@ namespace Platform.Service
     public class ProductOrderService : IProductOrderService
     {
         private UnitOfWork unitOfWork;
-        private ISiteConfigurationService siteConfigurationService;
         public ProductOrderService()
         {
              unitOfWork = new UnitOfWork();
-            siteConfigurationService = new SiteConfigurationService();
-
         }
 
         public void AddProductOrder(ProductOrderDTO productOrderDTO)
         {
             ProductOrder productOrder = new ProductOrder();
             ProductOrderDetail productOrderDetail;
-
-          
-            //check for customer 
-            if (productOrderDTO.OrderCustomerId == 0)
-                productOrderDTO.OrderCustomerId = this.AddCustomer(productOrderDTO);
-
-
-            productOrderDTO.OrderTotalQuantity = (int)productOrderDTO.ProductOrderDetails.Sum(q => q.Quantity);
-            productOrderDTO.OrderTotalPrice = (long)productOrderDTO.ProductOrderDetails.Sum(p => p.Total);
-            //Calulate Tax
-            this.CalcualteOrderTax(productOrderDTO);
-
-            ProductOrderConvertor.ConvertToProductOrderEntity(ref productOrder,productOrderDTO,false);
-           
-              
-            if (productOrderDTO.ProductOrderDetails != null && productOrderDTO.ProductOrderDetails.Count() > 0)
+        
+                if (productOrderDTO.ProductOrderDetails != null && productOrderDTO.ProductOrderDetails.Count() > 0)
             {
+                //check for customer 
+                if (productOrderDTO.OrderCustomerId == 0)
+                    productOrderDTO.OrderCustomerId = this.AddCustomer(productOrderDTO);
+
+
+                 //Calculate Order Total Quantity and Total Price
+                productOrderDTO.OrderTotalQuantity = (int)productOrderDTO.ProductOrderDetails.Sum(q => q.Quantity);
+                productOrderDTO.OrderTotalPrice = (long)productOrderDTO.ProductOrderDetails.Sum(p => p.Total);
+
+                    //Calulate Tax
+                    this.CalcualteOrderTax(productOrderDTO);
+
+                ProductOrderConvertor.ConvertToProductOrderEntity(ref productOrder, productOrderDTO, false);
                 List<ProductOrderDetail> productOrderDetails = new List<ProductOrderDetail>();
                 foreach (ProductOrderDtlDTO productOrderDtlDTO in productOrderDTO.ProductOrderDetails)
                 {
@@ -52,6 +48,20 @@ namespace Platform.Service
                 }
          
                 productOrder.ProductOrderDetails = productOrderDetails;
+                unitOfWork.ProductOrderRepository.Add(productOrder);
+
+                //Add Customer Payment Transaction
+                this.AddCustomerPaymentTransaction(productOrderDTO);
+
+
+                //Add or Update Customer Wallet
+                this.AddOrUpdateCustomerWallet(productOrderDTO);
+
+                //Add or Update ProductSales
+                this.AddOrUpdateProductSales(productOrderDTO);
+
+                //    unitOfWork.SaveChanges();
+
             }
 
             else
@@ -59,17 +69,7 @@ namespace Platform.Service
                 throw new PlatformModuleException("Order Details Not Found !");
             }
           
-            unitOfWork.ProductOrderRepository.Add(productOrder);
-
-            //Add Customer Payment Transaction
-            this.AddCustomerPaymentTransaction(productOrderDTO);
-
-
-            //Add or Update Customer Wallet
-              this.AddOrUpdateCustomerWallet(productOrderDTO);
-
-        //    unitOfWork.SaveChanges();
-
+           
         }
 
         public void DeleteProductOrder(int productId)
@@ -96,10 +96,10 @@ namespace Platform.Service
         private void CalcualteOrderTax(ProductOrderDTO productOrderDTO)
         {
 
-            bool isTaxEnable = Convert.ToBoolean(siteConfigurationService.GetSiteConfigurationByKeyTypeAndKeyName("OrderTax", "IsEnable", "False"));
+            bool isTaxEnable = Convert.ToBoolean(unitOfWork.SiteConfigurationRepository.GetSiteConfigurationByKeyTypeAndKeyName("OrderTax", "IsEnable", "False"));
             if(isTaxEnable)
             {
-                double taxPrecentage = Convert.ToDouble(siteConfigurationService.GetSiteConfigurationByKeyTypeAndKeyName("OrderTax", "Percentage", "7"));
+                double taxPrecentage = Convert.ToDouble(unitOfWork.SiteConfigurationRepository.GetSiteConfigurationByKeyTypeAndKeyName("OrderTax", "Percentage", "7"));
                 productOrderDTO.OrderTax = (long)((productOrderDTO.OrderTotalPrice * taxPrecentage) / 100.00);
              }
             else
@@ -156,6 +156,30 @@ namespace Platform.Service
             customer.MobileNumber = productOrderDTO.CustomerMobileNumber;
             unitOfWork.CustomerRepository.Add(customer);
             return customer.CustomerId;
+        }
+
+
+        private void AddOrUpdateProductSales(ProductOrderDTO productOrderDTO)
+        {
+            foreach(ProductOrderDtlDTO productOrderDtlDto in productOrderDTO.ProductOrderDetails)
+            {
+                var sales=unitOfWork.ProductSalesRepository.GetByProductAndSalesDate(productOrderDtlDto.OrderProductId, DateTime.Now.Date);
+                if(sales==null)
+                {
+                    ProductSale productSale = new ProductSale();
+                    productSale.SalesDate = DateTime.Now.Date;
+                    productSale.SalesPrice =(long) productOrderDtlDto.Total * 100;
+                    productSale.SalesProductId = productOrderDtlDto.OrderProductId;
+                    productSale.SalesQuantity =(int) productOrderDtlDto.Quantity;
+                    unitOfWork.ProductSalesRepository.Add(productSale);
+                }
+                else
+                {
+                    sales.SalesQuantity+= (int)productOrderDtlDto.Quantity;
+                    sales.SalesPrice += (long)productOrderDtlDto.Total * 100;
+                    unitOfWork.ProductSalesRepository.Update(sales);
+                }
+            }
         }
 
     }

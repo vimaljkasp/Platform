@@ -20,33 +20,29 @@ namespace Platform.Repository
             return productList;
         }
 
-        public Product GetById(int productId)
+
+
+       public Product GetById(int productId)
         {
             Product product = new Product();
 
             product = _repository.Products.FirstOrDefault(x => x.ProductId == productId);
 
-
-
             return product;
         }
+
+       
 
 
         public void Add(Product product)
         {
 
-
-
-
             if (product != null)
             {
                 _repository.Products.Add(product);
-            //    _repository.SaveChanges();
+                //    _repository.SaveChanges();
 
             }
-
-
-
 
         }
 

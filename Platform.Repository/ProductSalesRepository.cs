@@ -32,6 +32,17 @@ namespace Platform.Repository
         }
 
 
+        public ProductSale GetByProductAndSalesDate(long productId, DateTime saleDate)
+        {
+
+            var sale = _repository.ProductSales.FirstOrDefault(x => x.SalesProductId == productId && x.SalesDate == saleDate.Date);
+
+            return sale;
+
+
+        }
+
+
         public void Add(ProductSale sale)
         {
 

@@ -31,6 +31,16 @@ namespace Platform.Repository
             return siteConfiguration;
         }
 
+        public string GetSiteConfigurationByKeyTypeAndKeyName(string keyData, string KeyName, string DefaultVal)
+        {
+          var  siteConfiguration = _repository.SiteConfigurations.FirstOrDefault(x => x.KeyData == keyData && x.KeyName==KeyName);
+            if (siteConfiguration == null)
+                return DefaultVal;
+            else
+                return siteConfiguration.DataVal;
+
+        }
+
 
         public void Add(SiteConfiguration siteConfiguration)
         {

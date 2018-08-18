@@ -46,7 +46,7 @@ namespace Platform.DTO
             //   RuleFor(x => x.CustomerId).NotEmpty().WithMessage("The UserName cannot be blank.")
             //                               .Length(1, 10).WithMessage("The User Name cannot be more than 10 characters.");
 
-            //      RuleFor(x => x.WalletBalance).NotEmpty().WithMessage("The Password cannot be blank.");
+               //  RuleFor(x => x.).NotEmpty().WithMessage("The Password cannot be blank.");
 
             //       RuleFor(x => x.BirthDate).LessThan(DateTime.Today).WithMessage("You cannot enter a birth date in the future.");
 
