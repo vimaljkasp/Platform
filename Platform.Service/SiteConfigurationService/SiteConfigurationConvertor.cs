@@ -10,7 +10,7 @@ namespace Platform.Service
 {
     public class SiteConfigurationConvertor
     {
-        public static SiteConfigurationDTO ConvertToCustomerDto(SiteConfiguration siteConfiguration)
+        public static SiteConfigurationDTO ConvertToSiteConfigurationDto(SiteConfiguration siteConfiguration)
         {
             SiteConfigurationDTO siteConfigurationDTO = new SiteConfigurationDTO();
             siteConfigurationDTO.Id = siteConfiguration.Id;
@@ -25,7 +25,7 @@ namespace Platform.Service
 
         }
 
-        public static void ConvertToCustomerEntity(ref SiteConfiguration siteConfiguration, SiteConfigurationDTO siteConfigurationDTO, bool isUpdate)
+        public static void ConvertToSiteConfigurationEntity(ref SiteConfiguration siteConfiguration, SiteConfigurationDTO siteConfigurationDTO, bool isUpdate)
         {
             if (isUpdate)
                 siteConfiguration.Id = siteConfigurationDTO.Id;

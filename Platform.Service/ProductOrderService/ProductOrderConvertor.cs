@@ -45,12 +45,19 @@ namespace Platform.Service
 
         public static void ConvertToProductOrderEntity(ref ProductOrder productOrder, ProductOrderDTO productOrderDTO, bool isUpdate)
         {
-            if(isUpdate)
-            productOrderDTO.OrderId = productOrder.OrderId;
-
-            productOrder.OrderDate = productOrderDTO.OrderDate;
+            if (isUpdate)
+            {
+                productOrderDTO.OrderId = productOrder.OrderId;
+              
+            }
+            else
+            {
+                productOrder.OrderDate = DateTime.Now.Date;
+                productOrder.OrderPurchaseDtm = DateTime.Now;
+            }
+          
             productOrder.OrderProductId = productOrderDTO.OrderProductId;
-            productOrder.OrderPurchaseDtm = productOrderDTO.OrderPurchaseDtm;
+            
             productOrder.OrderQuantity = productOrderDTO.OrderQuantity;
             productOrder.OrderPrice = productOrderDTO.OrderPrice;
             productOrder.OrderStatus = productOrderDTO.OrderStatus;

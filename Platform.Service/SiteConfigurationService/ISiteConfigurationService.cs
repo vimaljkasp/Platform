@@ -13,9 +13,9 @@ namespace Platform.Service
 
         SiteConfigurationDTO GetSiteConfigurationById(int siteConfigurationId);
 
-        void AddSiteConfiguration(SiteConfigurationDTO customerDto);
+        void AddSiteConfiguration(SiteConfigurationDTO siteConfigurationDTO);
 
-        void UpdateSiteConfiguration(SiteConfigurationDTO customerDto);
+        void UpdateSiteConfiguration(SiteConfigurationDTO siteConfigurationDTO);
 
         void DeleteSiteConfiguration(int siteConfigurationId);
 

@@ -11,29 +11,77 @@ namespace Platform.Service
 {
     public class ModuleService : IModuleService
     {
-        public void AddModule(ModuleDTO customerDto)
+        private readonly ModuleDashboardRepository moduleDashboardRepository;
+
+        public ModuleService(ModuleDashboardRepository moduleDashboardRepository)
         {
-            throw new NotImplementedException();
+            this.moduleDashboardRepository = moduleDashboardRepository;
+        }
+
+
+        public List<ModuleDTO> GetAllModules()
+        {
+            List<ModuleDTO> moduleList = new List<ModuleDTO>();
+            var modules = moduleDashboardRepository.GetAll();
+            if (modules != null)
+            {
+                foreach (var module in modules)
+                {
+                    moduleList.Add(ModuleConvertor.ConvertToModuleDto(module));
+                }
+
+            }
+
+            return moduleList;
+
+        }
+
+
+        public ModuleDTO GetModuleById(int moduleId)
+        {
+            ModuleDTO moduleDTO = null;
+            var module = moduleDashboardRepository.GetById(moduleId);
+            if (module != null)
+            {
+                moduleDTO = ModuleConvertor.ConvertToModuleDto(module);
+            }
+            return moduleDTO;
+        }
+
+
+
+        public void AddModule(ModuleDTO moduleDTO)
+        {
+            Module module = new Module();
+
+            ModuleConvertor.ConvertToModuleEntity(ref module, moduleDTO, false);
+            UnitOfWork unitOfWork = new UnitOfWork();
+            unitOfWork.ModuleDashboardRepository.Add(module);
+            unitOfWork.SaveChanges();
+
+
+        }
+
+
+        public void UpdateModule(ModuleDTO moduleDTO)
+        {
+            Module module = new Module();
+            ModuleConvertor.ConvertToModuleEntity(ref module, moduleDTO, true);
+            UnitOfWork unitOfWork = new UnitOfWork();
+            unitOfWork.ModuleDashboardRepository.Update(module);
+            unitOfWork.SaveChanges();
         }
 
         public void DeleteModule(int moduleId)
         {
-            throw new NotImplementedException();
+            UnitOfWork unitOfWork = new UnitOfWork();
+            unitOfWork.ModuleDashboardRepository.Delete(moduleId);
+            unitOfWork.SaveChanges();
+
         }
 
-        public List<ModuleDTO> GetAllModules()
-        {
-            throw new NotImplementedException();
-        }
 
-        public ModuleDTO GetModuleById(int moduleId)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void UpdateModule(ModuleDTO customerDto)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
+

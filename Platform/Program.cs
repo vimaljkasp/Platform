@@ -17,6 +17,7 @@ namespace Platform
             //Start OWIN
            WebApp.Start<Startup>(baseAddress);
             Console.WriteLine("Service Started");
+            Console.WriteLine(baseAddress);
             Console.ReadLine();
         }
     }

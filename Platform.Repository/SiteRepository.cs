@@ -34,20 +34,12 @@ namespace Platform.Repository
 
         public void Add(Site site)
         {
-
-
-
-
             if (site != null)
             {
                 _repository.Sites.Add(site);
-                _repository.SaveChanges();
+               
 
             }
-
-
-
-
         }
 
         public void Update(Site site)
@@ -56,7 +48,7 @@ namespace Platform.Repository
                 if (site != null)
                 {
                     _repository.Entry<Sql.Site>(site).State = System.Data.Entity.EntityState.Modified;
-                    _repository.SaveChanges();
+                    
 
                 }
 
@@ -69,7 +61,7 @@ namespace Platform.Repository
             if (site != null)
                 _repository.Sites.Remove(site);
 
-            _repository.SaveChanges();
+         
 
         }
 

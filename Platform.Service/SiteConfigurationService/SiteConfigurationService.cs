@@ -11,29 +11,80 @@ namespace Platform.Service
 {
     public class SiteConfigurationService : ISiteConfigurationService
     {
-        public void AddSiteConfiguration(SiteConfigurationDTO customerDto)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void DeleteSiteConfiguration(int siteConfigurationId)
-        {
-            throw new NotImplementedException();
-        }
+  
+        private readonly SiteConfigurationRepository siteConfigurationRepository;
 
-        public List<SiteConfigurationDTO> GetAllSiteConfigurations()
-        {
-            throw new NotImplementedException();
-        }
+            public SiteConfigurationService(SiteConfigurationRepository siteConfigurationRepository)
+            {
+                this.siteConfigurationRepository = siteConfigurationRepository;
+            }
 
-        public SiteConfigurationDTO GetSiteConfigurationById(int siteConfigurationId)
-        {
-            throw new NotImplementedException();
-        }
+            public List<SiteConfigurationDTO> GetAllSiteConfigurations()
+            {
+                List<SiteConfigurationDTO> siteConfgurationList = new List<SiteConfigurationDTO>();
+                var siteConfigurations = siteConfigurationRepository.GetAll();
+                if (siteConfigurations != null)
+                {
+                    foreach (var siteConfiguration in siteConfigurations)
+                    {
+                    siteConfgurationList.Add(SiteConfigurationConvertor.ConvertToSiteConfigurationDto(siteConfiguration));
+                    }
 
-        public void UpdateSiteConfiguration(SiteConfigurationDTO customerDto)
-        {
-            throw new NotImplementedException();
+                }
+
+                return siteConfgurationList;
+
+            }
+
+
+            public SiteConfigurationDTO GetSiteConfigurationById(int siteConfigurationId)
+            {
+            SiteConfigurationDTO siteConfigurationDTO = null;
+                var siteConfiguration = siteConfigurationRepository.GetById(siteConfigurationId);
+                if (siteConfiguration != null)
+                {
+                siteConfigurationDTO = SiteConfigurationConvertor.ConvertToSiteConfigurationDto(siteConfiguration);
+                }
+                return siteConfigurationDTO;
+            }
+
+
+
+            public void AddSiteConfiguration(SiteConfigurationDTO siteConfigurationDTO)
+            {
+                SiteConfiguration siteConfiguration = new SiteConfiguration();
+
+                SiteConfigurationConvertor.ConvertToSiteConfigurationEntity(ref siteConfiguration, siteConfigurationDTO, false);
+                UnitOfWork unitOfWork = new UnitOfWork();
+                unitOfWork.SiteConfigurationRepository.Add(siteConfiguration);
+                unitOfWork.SaveChanges();
+
+
+            }
+
+
+            public void UpdateSiteConfiguration(SiteConfigurationDTO siteConfigurationDTO)
+            {
+                SiteConfiguration siteConfiguration = new SiteConfiguration();
+            SiteConfigurationConvertor.ConvertToSiteConfigurationEntity(ref siteConfiguration, siteConfigurationDTO, true);
+                UnitOfWork unitOfWork = new UnitOfWork();
+                unitOfWork.SiteConfigurationRepository.Update(siteConfiguration);
+                unitOfWork.SaveChanges();
+            }
+
+            public void DeleteSiteConfiguration(int id)
+            {
+                UnitOfWork unitOfWork = new UnitOfWork();
+                unitOfWork.SiteConfigurationRepository.Delete(id);
+                unitOfWork.SaveChanges();
+
+            }
+
+
+
         }
     }
-}
+
+
+

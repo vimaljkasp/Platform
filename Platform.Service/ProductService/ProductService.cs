@@ -11,29 +11,77 @@ namespace Platform.Service
 {
     public class ProductService : IProductService
     {
-        public void AddProduct(ProductDTO productDTO)
-        {
-            throw new NotImplementedException();
-        }
+        private readonly ProductRepository productRepository;
 
-        public void DeleteProduct(int productId)
+        public ProductService(ProductRepository productRepository)
         {
-            throw new NotImplementedException();
+           this.productRepository = productRepository;
         }
+   
 
         public List<ProductDTO> GetAllProducts()
-        {
-            throw new NotImplementedException();
-        }
+            {
+                List<ProductDTO> productList = new List<ProductDTO>();
+                var products = productRepository.GetAll();
+                if (products != null)
+                {
+                    foreach (var product in products)
+                    {
+                    productList.Add(ProductConvertor.ConvertToProductDto(product));
+                    }
 
-        public ProductDTO GetProductById(int productId)
-        {
-            throw new NotImplementedException();
-        }
+                }
 
-        public void UpdateProduct(ProductDTO productDTO)
-        {
-            throw new NotImplementedException();
+                return productList;
+
+            }
+
+
+            public ProductDTO GetProductById(int productId)
+            {
+            ProductDTO productDTO = null;
+                var product = productRepository.GetById(productId);
+                if (product != null)
+                {
+                productDTO = ProductConvertor.ConvertToProductDto(product);
+                }
+                return productDTO;
+            }
+
+
+
+            public void AddProduct(ProductDTO productDTO)
+            {
+                Product product = new Product();
+
+            ProductConvertor.ConvertToProductEntity(ref product, productDTO, false);
+                UnitOfWork unitOfWork = new UnitOfWork();
+                unitOfWork.ProductRepository.Add(product);
+                unitOfWork.SaveChanges();
+
+
+            }
+
+
+            public void UpdateProduct(ProductDTO productDTO)
+            {
+            Product product = new Product();
+            ProductConvertor.ConvertToProductEntity(ref product, productDTO, true);
+                UnitOfWork unitOfWork = new UnitOfWork();
+                unitOfWork.ProductRepository.Update(product);
+                unitOfWork.SaveChanges();
+            }
+
+            public void DeleteProduct(int id)
+            {
+                UnitOfWork unitOfWork = new UnitOfWork();
+                unitOfWork.ProductRepository.Delete(id);
+                unitOfWork.SaveChanges();
+
+            }
+
+
+
         }
     }
-}
+

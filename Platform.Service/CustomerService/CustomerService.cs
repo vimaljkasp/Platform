@@ -56,7 +56,10 @@ namespace Platform.Service
             Customer customer = new Customer(); 
             
             CustomerConvertor.ConvertToCustomerEntity(ref customer, customerDto, false);
-            customerRepository.Add(customer);
+            UnitOfWork unitOfWork = new UnitOfWork();
+            unitOfWork.CustomerRepository.Add(customer);
+            unitOfWork.SaveChanges();
+           
             
         }
 
@@ -69,15 +72,20 @@ namespace Platform.Service
 
         public void UpdateCustomer(CustomerDto customerDto)
         {
-            this.CheckForExisitngCustomer(customerDto.MobileNumber);
-            Customer customer = new Customer();
+
+            var customer = customerRepository.GetById(customerDto.CustomerId);
             CustomerConvertor.ConvertToCustomerEntity(ref customer, customerDto, true);
-            customerRepository.Update(customer);
+            UnitOfWork unitOfWork = new UnitOfWork();
+            unitOfWork.CustomerRepository.Update(customer);
+            unitOfWork.SaveChanges();
         }
 
         public void DeleteCustomer(int id)
         {
-            customerRepository.Delete(id);
+            UnitOfWork unitOfWork = new UnitOfWork();
+            unitOfWork.CustomerRepository.Delete(id);
+            unitOfWork.SaveChanges();
+  
         }
 
         

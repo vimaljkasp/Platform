@@ -27,7 +27,9 @@ namespace Platform
         public void Configuration(IAppBuilder appBuilder)
         {
             HttpConfiguration config = new HttpConfiguration();
-
+            //Microsoft.Owin.Cors.CorsOptions corsOptions = new Microsoft.Owin.Cors.CorsOptions();            
+            //CorsExtensions.UseCors(appBuilder, corsOptions);
+            config.EnableCors();
             //For Dependency Injection
             Register(config);
 
@@ -44,6 +46,7 @@ namespace Platform
             config.Services.Add(typeof(IExceptionLogger), new GlobalErrorLogger());
 
             config.MapHttpAttributeRoutes();
+            config.EnableCors();
             //For Route Mechanism
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

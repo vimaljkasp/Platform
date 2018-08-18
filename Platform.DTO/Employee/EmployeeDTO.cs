@@ -3,32 +3,49 @@ using FluentValidation.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Platform.DTO
 {
     [Validator(typeof(EmployeeValidator))]
+   
     public class EmployeeDTO
     {
+      
         public int EmployeeId { get; set; }
+       
         public string Name { get; set; }
+       
+
+
+
+
+
+
+
+
         public string UserName { get; set; }
+       
         public string Password { get; set; }
-
+       
         public string EncryptedPassword { get; set; }
-
+       
         public string AddressLine1 { get; set; }
-
+       
         public string AddressLine2 { get; set; }
-
+       
         public string City { get; set; }
-
+       
         public string District { get; set; }
+       
         public string PostalCode { get; set; }
+       
         public string MobileNumber { get; set; }
-
+       
         public string HomePhone { get; set; }
+       
         public Nullable<bool> IsActive { get; set; }
     }
 

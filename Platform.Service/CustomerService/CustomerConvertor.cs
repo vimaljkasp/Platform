@@ -13,6 +13,7 @@ namespace Platform.Service
         public static CustomerDto ConvertToCustomerDto(Customer customer)
         {
             CustomerDto customerDto = new CustomerDto();
+            customerDto.CustomerId = customer.CustomerId;
             customerDto.Name = customer.Name;
             customerDto.AddressLine1 = customer.AddressLine1;
             customerDto.AddressLine2 = customer.AddressLine2;

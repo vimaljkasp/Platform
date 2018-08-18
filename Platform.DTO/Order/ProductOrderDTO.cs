@@ -34,6 +34,8 @@ namespace Platform.DTO
         public string OrderPriority { get; set; }
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }
+
+       public List<ProductOrderDtlDTO> ProductOrderDetails { get; set; }
     }
 
     public class ProductOrderValidator : AbstractValidator<ProductOrderDTO>

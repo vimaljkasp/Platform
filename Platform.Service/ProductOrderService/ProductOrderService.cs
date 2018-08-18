@@ -13,7 +13,22 @@ namespace Platform.Service
     {
         public void AddProductOrder(ProductOrderDTO productOrderDTO)
         {
-            throw new NotImplementedException();
+            ProductOrder productOrder = new ProductOrder();
+            ProductOrderDetail productOrderDetail;
+            ProductOrderConvertor.ConvertToProductOrderEntity(ref productOrder,productOrderDTO,false);
+            UnitOfWork unitOfWork = new UnitOfWork();
+            unitOfWork.ProductOrderRepository.Add(productOrder);
+            if(productOrderDTO.ProductOrderDetails !=null && productOrderDTO.ProductOrderDetails.Count()>0)
+            {
+                foreach(ProductOrderDtlDTO productOrderDtlDTO in productOrderDTO.ProductOrderDetails)
+                {
+                    productOrderDetail = new ProductOrderDetail();
+                    ProductOrderDtlDTOConvertor.ConvertToProductOrderDetailEntity(ref productOrderDetail, productOrderDtlDTO, false);
+                    unitOfWork.ProductOrderDtlRepository.Add(productOrderDetail);
+                }
+            }
+            unitOfWork.SaveChanges();
+
         }
 
         public void DeleteProductOrder(int productId)
