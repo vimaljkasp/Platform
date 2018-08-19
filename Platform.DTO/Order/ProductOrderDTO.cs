@@ -30,6 +30,7 @@ namespace Platform.DTO
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }
 
+        public string OrderAddress { get; set; }
         //Will be used if new customer
         public string CustomerName { get; set; }
         public string CustomerMobileNumber { get; set; }

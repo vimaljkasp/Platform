@@ -49,6 +49,7 @@ namespace Platform.Service
             productOrder.TotalAmount = (long)productOrderDTO.TotalAmount*100;
             productOrder.OrderPriority = productOrderDTO.OrderPriority;
             productOrder.OrderComments = productOrderDTO.OrderComments;
+            productOrder.OrderAddress = productOrderDTO.OrderAddress;
             productOrder.Ref1 = productOrderDTO.Ref1;
             productOrder.Ref2 = productOrderDTO.Ref2;
 

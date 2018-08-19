@@ -29,6 +29,7 @@ namespace Platform.Sql
         public Nullable<long> OrderTax { get; set; }
         public Nullable<long> TotalAmount { get; set; }
         public string OrderPriority { get; set; }
+        public string OrderAddress { get; set; }
         public string OrderComments { get; set; }
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }

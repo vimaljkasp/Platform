@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PlatformDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PlatformDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerId" />
@@ -133,6 +133,7 @@
           <Property Name="OrderTax" Type="bigint" />
           <Property Name="TotalAmount" Type="bigint" />
           <Property Name="OrderPriority" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderAddress" Type="nvarchar" MaxLength="200" />
           <Property Name="OrderComments" Type="nvarchar" MaxLength="80" />
           <Property Name="Ref1" Type="nvarchar" MaxLength="50" />
           <Property Name="Ref2" Type="nvarchar" MaxLength="50" />
@@ -141,7 +142,7 @@
           <Key>
             <PropertyRef Name="ProductOrderDetailId" />
           </Key>
-          <Property Name="ProductOrderDetailId" Type="bigint" Nullable="false" />
+          <Property Name="ProductOrderDetailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderId" Type="bigint" />
           <Property Name="OrderProductId" Type="bigint" />
           <Property Name="OrderStatus" Type="int" Nullable="false" />
@@ -394,8 +395,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <End Role="ProductSales" EntitySet="ProductSales" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PlatformDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -530,17 +530,18 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Property Name="OrderTax" Type="Int64" />
           <Property Name="TotalAmount" Type="Int64" />
           <Property Name="OrderPriority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="OrderComments" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Customer" Relationship="Self.fk_ProductOrder_CustomerId" FromRole="ProductOrder" ToRole="Customer" />
-          <NavigationProperty Name="ProductOrderDetails" Relationship="Self.fk_ProductOrderDetail_ProductOrder" FromRole="ProductOrder" ToRole="ProductOrderDetail" />
+          <NavigationProperty Name="ProductOrderDetails" Relationship="PlatformDBModel.fk_ProductOrderDetail_ProductOrder" FromRole="ProductOrder" ToRole="ProductOrderDetail" />
         </EntityType>
         <EntityType Name="ProductOrderDetail">
           <Key>
             <PropertyRef Name="ProductOrderDetailId" />
           </Key>
-          <Property Name="ProductOrderDetailId" Type="Int64" Nullable="false" />
+          <Property Name="ProductOrderDetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderId" Type="Int64" />
           <Property Name="OrderProductId" Type="Int64" />
           <Property Name="OrderStatus" Type="Int32" Nullable="false" />
@@ -556,8 +557,8 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Property Name="Total" Type="Int64" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ProductOrder" Relationship="Self.fk_ProductOrderDetail_ProductOrder" FromRole="ProductOrderDetail" ToRole="ProductOrder" />
-          <NavigationProperty Name="ProductSiteMapping" Relationship="Self.fk_ProductOrderDetail_ProductSiteMapping" FromRole="ProductOrderDetail" ToRole="ProductSiteMapping" />
+          <NavigationProperty Name="ProductOrder" Relationship="PlatformDBModel.fk_ProductOrderDetail_ProductOrder" FromRole="ProductOrderDetail" ToRole="ProductOrder" />
+          <NavigationProperty Name="ProductSiteMapping" Relationship="PlatformDBModel.fk_ProductOrderDetail_ProductSiteMapping" FromRole="ProductOrderDetail" ToRole="ProductSiteMapping" />
         </EntityType>
         <EntityType Name="ProductSale">
           <Key>
@@ -583,10 +584,10 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Property Name="ProductId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="ItemCategory" Relationship="Self.fk_ProductSiteMapping_Item" FromRole="ProductSiteMapping" ToRole="ItemCategory" />
           <NavigationProperty Name="Product" Relationship="Self.fk_ProductSiteMapping_Product" FromRole="ProductSiteMapping" ToRole="Product" />
-          <NavigationProperty Name="ProductOrderDetails" Relationship="Self.fk_ProductOrderDetail_ProductSiteMapping" FromRole="ProductSiteMapping" ToRole="ProductOrderDetail" />
           <NavigationProperty Name="ProductSales" Relationship="Self.fk_Sales_ProductSiteMapping" FromRole="ProductSiteMapping" ToRole="ProductSales" />
           <NavigationProperty Name="ProductStocks" Relationship="Self.fk_ProcutStock_ProductSiteMapping" FromRole="ProductSiteMapping" ToRole="ProductStock" />
           <NavigationProperty Name="Site" Relationship="Self.fk_ProductSiteMapping_Site" FromRole="ProductSiteMapping" ToRole="Site" />
+          <NavigationProperty Name="ProductOrderDetails" Relationship="PlatformDBModel.fk_ProductOrderDetail_ProductSiteMapping" FromRole="ProductSiteMapping" ToRole="ProductOrderDetail" />
         </EntityType>
         <EntityType Name="ProductStock">
           <Key>
@@ -684,30 +685,6 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_ProductOrderDetail_ProductOrder">
-          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="0..1" />
-          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductOrder">
-              <PropertyRef Name="OrderId" />
-            </Principal>
-            <Dependent Role="ProductOrderDetail">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_ProductOrderDetail_ProductSiteMapping">
-          <End Role="ProductSiteMapping" Type="Self.ProductSiteMapping" Multiplicity="0..1" />
-          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductSiteMapping">
-              <PropertyRef Name="ProductMappingId" />
-            </Principal>
-            <Dependent Role="ProductOrderDetail">
-              <PropertyRef Name="OrderProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_Sales_ProductSiteMapping">
           <End Role="ProductSiteMapping" Type="Self.ProductSiteMapping" Multiplicity="1" />
           <End Role="ProductSales" Type="Self.ProductSale" Multiplicity="*" />
@@ -776,14 +753,6 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
           </AssociationSet>
-          <AssociationSet Name="fk_ProductOrderDetail_ProductOrder" Association="Self.fk_ProductOrderDetail_ProductOrder">
-            <End Role="ProductOrder" EntitySet="ProductOrders" />
-            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="fk_ProductOrderDetail_ProductSiteMapping" Association="Self.fk_ProductOrderDetail_ProductSiteMapping">
-            <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
-            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
-          </AssociationSet>
           <AssociationSet Name="fk_Sales_ProductSiteMapping" Association="Self.fk_Sales_ProductSiteMapping">
             <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
             <End Role="ProductSales" EntitySet="ProductSales" />
@@ -796,7 +765,39 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <End Role="Site" EntitySet="Sites" />
             <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
           </AssociationSet>
+          <AssociationSet Name="fk_ProductOrderDetail_ProductOrder" Association="PlatformDBModel.fk_ProductOrderDetail_ProductOrder">
+            <End Role="ProductOrder" EntitySet="ProductOrders" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductOrderDetail_ProductSiteMapping" Association="PlatformDBModel.fk_ProductOrderDetail_ProductSiteMapping">
+            <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="fk_ProductOrderDetail_ProductOrder">
+          <End Type="PlatformDBModel.ProductOrder" Role="ProductOrder" Multiplicity="0..1" />
+          <End Type="PlatformDBModel.ProductOrderDetail" Role="ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductOrder">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductOrderDetail_ProductSiteMapping">
+          <End Type="PlatformDBModel.ProductSiteMapping" Role="ProductSiteMapping" Multiplicity="0..1" />
+          <End Type="PlatformDBModel.ProductOrderDetail" Role="ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSiteMapping">
+              <PropertyRef Name="ProductMappingId" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="OrderProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -939,6 +940,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
                 <ScalarProperty Name="OrderTax" ColumnName="OrderTax" />
                 <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
                 <ScalarProperty Name="OrderPriority" ColumnName="OrderPriority" />
+                <ScalarProperty Name="OrderAddress" ColumnName="OrderAddress" />
                 <ScalarProperty Name="OrderComments" ColumnName="OrderComments" />
                 <ScalarProperty Name="Ref1" ColumnName="Ref1" />
                 <ScalarProperty Name="Ref2" ColumnName="Ref2" />
