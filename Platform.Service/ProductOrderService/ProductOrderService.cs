@@ -32,7 +32,7 @@ namespace Platform.Service
 
                  //Calculate Order Total Quantity and Total Price
                 productOrderDTO.OrderTotalQuantity = (int)productOrderDTO.ProductOrderDetails.Sum(q => q.Quantity);
-                productOrderDTO.OrderTotalPrice = (long)productOrderDTO.ProductOrderDetails.Sum(p => p.Total);
+                productOrderDTO.OrderTotalPrice = (long)productOrderDTO.ProductOrderDetails.Sum(p => p.TotalPrice);
 
                     //Calulate Tax
                     this.CalcualteOrderTax(productOrderDTO);
@@ -79,17 +79,27 @@ namespace Platform.Service
 
         public List<ProductOrderDTO> GetAllProductOrders()
         {
-            throw new NotImplementedException();
+          var productOrders=  unitOfWork.ProductOrderRepository.GetAll();
+            List<ProductOrderDTO> productOrderDTOList = new List<ProductOrderDTO>();
+            foreach(ProductOrder productOrder in productOrders)
+            {
+                productOrderDTOList.Add(ProductOrderConvertor.ConvertToProductOrderDto(productOrder));
+               
+            }
+            return productOrderDTOList;
         }
 
         public ProductOrderDTO GetProductOrderById(int productId)
         {
-            throw new NotImplementedException();
+            var productOrder = unitOfWork.ProductOrderRepository.GetById(productId);
+
+            return ProductOrderConvertor.ConvertToProductOrderDto(productOrder);
+
         }
 
         public void UpdateProductOrder(ProductOrderDTO productOrderDTO)
         {
-            throw new NotImplementedException();
+           
         }
 
 
@@ -99,8 +109,8 @@ namespace Platform.Service
             bool isTaxEnable = Convert.ToBoolean(unitOfWork.SiteConfigurationRepository.GetSiteConfigurationByKeyTypeAndKeyName("OrderTax", "IsEnable", "False"));
             if(isTaxEnable)
             {
-                double taxPrecentage = Convert.ToDouble(unitOfWork.SiteConfigurationRepository.GetSiteConfigurationByKeyTypeAndKeyName("OrderTax", "Percentage", "7"));
-                productOrderDTO.OrderTax = (long)((productOrderDTO.OrderTotalPrice * taxPrecentage) / 100.00);
+                decimal taxPrecentage = Convert.ToDecimal(unitOfWork.SiteConfigurationRepository.GetSiteConfigurationByKeyTypeAndKeyName("OrderTax", "Percentage", "7"));
+                productOrderDTO.OrderTax = ((productOrderDTO.OrderTotalPrice * taxPrecentage) / (decimal)100.00);
              }
             else
             {
@@ -108,7 +118,7 @@ namespace Platform.Service
                 
             }
 
-            productOrderDTO.TotalAmount = productOrderDTO.OrderTotalPrice + productOrderDTO.OrderTax;
+            productOrderDTO.OrderTotalPrice = productOrderDTO.OrderTotalPrice + productOrderDTO.OrderTax;
         }
 
         private void AddOrUpdateCustomerWallet(ProductOrderDTO productOrderDTO)
@@ -116,14 +126,14 @@ namespace Platform.Service
             var customerWallet = unitOfWork.CustomerWalletRepository.GetByCustomerId(productOrderDTO.OrderCustomerId);
             if (customerWallet != null)
             {
-                customerWallet.WalletBalance += (long)productOrderDTO.TotalAmount * 100;
+                customerWallet.WalletBalance += (long)productOrderDTO.OrderTotalPrice * 100;
                 unitOfWork.CustomerWalletRepository.Update(customerWallet);
             }
             else
             {
                 customerWallet = new CustomerWallet();
                 customerWallet.CustomerId = productOrderDTO.OrderCustomerId;
-                customerWallet.WalletBalance = (long)productOrderDTO.TotalAmount * 100;
+                customerWallet.WalletBalance = (long)productOrderDTO.OrderTotalPrice * 100;
                 customerWallet.AmountDueDate = DateTime.Now.AddDays(10);
                 unitOfWork.CustomerWalletRepository.Add(customerWallet);
             }
@@ -142,7 +152,7 @@ namespace Platform.Service
             }
             else
             {
-                customerPaymentTransaction.PaymentDrAmount = (long)productOrderDTO.TotalAmount * 100;
+                customerPaymentTransaction.PaymentDrAmount = (long)productOrderDTO.OrderTotalPrice * 100;
                 customerPaymentTransaction.PaymentReceivedBy = "No Payment";
 
             }
@@ -163,20 +173,20 @@ namespace Platform.Service
         {
             foreach(ProductOrderDtlDTO productOrderDtlDto in productOrderDTO.ProductOrderDetails)
             {
-                var sales=unitOfWork.ProductSalesRepository.GetByProductAndSalesDate(productOrderDtlDto.OrderProductId, DateTime.Now.Date);
+                var sales=unitOfWork.ProductSalesRepository.GetByProductAndSalesDate(productOrderDtlDto.OrderProductMappingId, DateTime.Now.Date);
                 if(sales==null)
                 {
                     ProductSale productSale = new ProductSale();
                     productSale.SalesDate = DateTime.Now.Date;
-                    productSale.SalesPrice =(long) productOrderDtlDto.Total * 100;
-                    productSale.SalesProductId = productOrderDtlDto.OrderProductId;
-                    productSale.SalesQuantity =(int) productOrderDtlDto.Quantity;
+                    productSale.TotalPrice = productOrderDtlDto.TotalPrice;
+                    productSale.ProductMappingId = productOrderDtlDto.OrderProductMappingId;
+                    productSale.Quantity = productOrderDtlDto.Quantity;
                     unitOfWork.ProductSalesRepository.Add(productSale);
                 }
                 else
                 {
-                    sales.SalesQuantity+= (int)productOrderDtlDto.Quantity;
-                    sales.SalesPrice += (long)productOrderDtlDto.Total * 100;
+                    sales.Quantity+= productOrderDtlDto.Quantity;
+                    sales.TotalPrice += productOrderDtlDto.TotalPrice ;
                     unitOfWork.ProductSalesRepository.Update(sales);
                 }
             }

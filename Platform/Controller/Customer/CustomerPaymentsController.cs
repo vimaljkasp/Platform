@@ -78,7 +78,7 @@ namespace Platform.Controller
         {
             try
             {
-                customerPaymentDTO.TransactionId = id;
+                customerPaymentDTO.CustomerPaymentId = id;
                 if (customerPaymentDTO == null)
                     return BadRequest("Argument Null");
 

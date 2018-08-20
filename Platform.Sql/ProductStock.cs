@@ -14,12 +14,12 @@ namespace Platform.Sql
     
     public partial class ProductStock
     {
-        public long StockId { get; set; }
+        public int StockId { get; set; }
         public System.DateTime StockDate { get; set; }
-        public long StockProductId { get; set; }
+        public int StockProductId { get; set; }
         public int StockCreatedBy { get; set; }
         public System.DateTime StockCreatedDtm { get; set; }
-        public int StockQuantiy { get; set; }
+        public decimal StockQuantiy { get; set; }
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }
     

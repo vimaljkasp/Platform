@@ -13,7 +13,7 @@ namespace Platform.DTO
     {
         public int WalletId { get; set; }
         public int CustomerId { get; set; }
-        public long WalletBalance { get; set; }
+        public decimal WalletBalance { get; set; }
         public System.DateTime AmountDueDate { get; set; }
     }
 

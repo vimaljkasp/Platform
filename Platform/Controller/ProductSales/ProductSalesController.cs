@@ -109,5 +109,37 @@ namespace Platform.Controller
                 return BadRequest(ex.Message);
             }
         }
+
+        [Route("api/ProductSales/")]
+        public IHttpActionResult Get([FromUri] string saleDate)
+        {
+            try
+            {
+
+                _productSalesService.GetProductSalesById(1);
+                return Ok();
+            }
+            catch (PlatformModuleException ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("api/ProductSales/")]
+        public IHttpActionResult Get([FromUri] string fromSale,[FromUri] string toSale)
+        {
+            try
+            {
+
+                _productSalesService.GetProductSalesById(1);
+                return Ok();
+            }
+            catch (PlatformModuleException ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -37,6 +37,7 @@ namespace Platform.Repository
             if (employee != null)
             {
                 _repository.Employees.Add(employee);
+                
                 _repository.SaveChanges();
 
             }

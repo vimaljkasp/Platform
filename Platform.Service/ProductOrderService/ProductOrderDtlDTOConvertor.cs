@@ -15,15 +15,15 @@ namespace Platform.Service
             ProductOrderDtlDTO productOrderDtlDTO = new ProductOrderDtlDTO();
             productOrderDtlDTO.ProductOrderDetailId = productOrderDetail.ProductOrderDetailId;
             productOrderDtlDTO.OrderId = productOrderDetail.OrderId.GetValueOrDefault();
-            productOrderDtlDTO.OrderProductId = productOrderDetail.ProductOrderDetailId;
+            productOrderDtlDTO.OrderProductMappingId = productOrderDetail.ProductMappingId.GetValueOrDefault();
             productOrderDtlDTO.Quantity = productOrderDetail.Quantity.GetValueOrDefault();
 
             productOrderDtlDTO.UnitPrice = productOrderDetail.UnitPrice.GetValueOrDefault();
-            productOrderDtlDTO.Total =(double) productOrderDetail.Total/100.00;
+            productOrderDtlDTO.TotalPrice = productOrderDetail.TotalPrice.GetValueOrDefault();
 
             productOrderDtlDTO.OrderStatus = productOrderDetail.OrderStatus;
-            productOrderDtlDTO.OrderDeilveredDate = productOrderDetail.OrderDeilveredDate.GetValueOrDefault();
-            productOrderDtlDTO.OrderDeilveredBy = productOrderDetail.OrderDeilveredBy;
+            productOrderDtlDTO.DeilveredDate = productOrderDetail.DeilveredDate.GetValueOrDefault();
+            productOrderDtlDTO.DeilveredBy = productOrderDetail.DeilveredBy;
             productOrderDtlDTO.VehicleNumber = productOrderDetail.VehicleNumber;
             productOrderDtlDTO.DriverName = productOrderDetail.DriverName;
             productOrderDtlDTO.DriverNumber = productOrderDetail.DriverNumber;
@@ -50,11 +50,11 @@ namespace Platform.Service
             else
             {
                 productOrderDetail.OrderId = productOrderDtlDTO.OrderId;
-                productOrderDetail.OrderProductId = productOrderDtlDTO.OrderProductId;
+                productOrderDetail.ProductMappingId = productOrderDtlDTO.OrderProductMappingId;
                 productOrderDetail.Quantity = productOrderDtlDTO.Quantity;
-                productOrderDetail.UnitPrice = (long)productOrderDtlDTO.UnitPrice*100;
-                productOrderDetail.Total =(long) productOrderDtlDTO.Total*100;
-                productOrderDetail.OrderDeilveredDate = DateTime.Now.AddDays(2);
+                productOrderDetail.UnitPrice = productOrderDtlDTO.UnitPrice;
+                productOrderDetail.TotalPrice = productOrderDtlDTO.TotalPrice;
+                productOrderDetail.DeilveredDate = DateTime.Now.AddDays(2);
 
 
             }

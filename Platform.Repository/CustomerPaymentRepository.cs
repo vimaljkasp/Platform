@@ -24,7 +24,7 @@ namespace Platform.Repository
         {
             CustomerPaymentTransaction customerPaymentTransaction = new CustomerPaymentTransaction();
 
-            customerPaymentTransaction = _repository.CustomerPaymentTransactions.FirstOrDefault(x => x.TransactionId == customerPaymentTransactionId);
+            customerPaymentTransaction = _repository.CustomerPaymentTransactions.FirstOrDefault(x => x.CustomerPaymentId == customerPaymentTransactionId);
 
 
 
@@ -62,7 +62,7 @@ namespace Platform.Repository
 
         public void Delete(int customerPaymentTransactionId)
         {
-            var customerPaymentTransaction = _repository.CustomerPaymentTransactions.Where(x => x.TransactionId == customerPaymentTransactionId).FirstOrDefault();
+            var customerPaymentTransaction = _repository.CustomerPaymentTransactions.Where(x => x.CustomerPaymentId == customerPaymentTransactionId).FirstOrDefault();
             if (customerPaymentTransaction != null)
                 _repository.CustomerPaymentTransactions.Remove(customerPaymentTransaction);
 

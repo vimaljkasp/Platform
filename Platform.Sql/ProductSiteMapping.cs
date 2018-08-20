@@ -17,24 +17,24 @@ namespace Platform.Sql
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProductSiteMapping()
         {
+            this.ProductOrderDetails = new HashSet<ProductOrderDetail>();
             this.ProductSales = new HashSet<ProductSale>();
             this.ProductStocks = new HashSet<ProductStock>();
-            this.ProductOrderDetails = new HashSet<ProductOrderDetail>();
         }
     
-        public long ProductMappingId { get; set; }
+        public int ProductMappingId { get; set; }
         public int SiteId { get; set; }
         public int ItemId { get; set; }
-        public long ProductId { get; set; }
+        public int ProductId { get; set; }
     
         public virtual ItemCategory ItemCategory { get; set; }
         public virtual Product Product { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductOrderDetail> ProductOrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductSale> ProductSales { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductStock> ProductStocks { get; set; }
         public virtual Site Site { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductOrderDetail> ProductOrderDetails { get; set; }
     }
 }

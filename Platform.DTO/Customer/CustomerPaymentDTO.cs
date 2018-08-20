@@ -11,11 +11,11 @@ namespace Platform.DTO
     [Validator(typeof(CustomerPaymentValidator))]
     public class CustomerPaymentDTO
     {
-        public long TransactionId { get; set; }
+        public int CustomerPaymentId { get; set; }
         public int CustomerId { get; set; }
         public int OrderId { get; set; }
-        public long PaymentCrAmount { get; set; }
-        public long PaymentDrAmount { get; set; }
+        public decimal PaymentCrAmount { get; set; }
+        public decimal PaymentDrAmount { get; set; }
         public System.DateTime PaymentDate { get; set; }
         public string PaymentReceivedBy { get; set; }
         public string Ref1 { get; set; }

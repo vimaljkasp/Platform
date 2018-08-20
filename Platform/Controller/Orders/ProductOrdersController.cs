@@ -21,7 +21,7 @@ namespace Platform.Controller
         }
 
        
-        [Authorize]
+      
         public IEnumerable<ProductOrderDTO> Get()
         {
 
@@ -65,5 +65,9 @@ namespace Platform.Controller
         
             _productOrderService.DeleteProductOrder(id);
         }
+
+
+
+
     }
 }

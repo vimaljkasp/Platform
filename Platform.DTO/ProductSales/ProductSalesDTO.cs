@@ -11,11 +11,11 @@ namespace Platform.DTO
     [Validator(typeof(ProductSalesValidator))]
     public class ProductSalesDTO
     {
-        public long SalesId { get; set; }
+        public int SalesId { get; set; }
         public System.DateTime SalesDate { get; set; }
-        public long SalesProductId { get; set; }
-        public int SalesQuantity { get; set; }
-        public long SalesPrice { get; set; }
+        public int ProductMappingId { get; set; }
+        public decimal SalesQuantity { get; set; }
+        public decimal SalesPrice { get; set; }
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }
     }

@@ -12,10 +12,10 @@ namespace Platform.DTO
     public class ProductSiteMappingDTO
     {
 
-        public long ProductMappingId { get; set; }
+        public int ProductMappingId { get; set; }
         public int SiteId { get; set; }
         public int ItemId { get; set; }
-        public long ProductId { get; set; }
+        public int ProductId { get; set; }
     }
 
     public class ProductSiteMappingValidator : AbstractValidator<ProductSiteMappingDTO>

@@ -11,15 +11,15 @@ namespace Platform.DTO
     [Validator(typeof(ProductOrderDtlValidator))]
     public class ProductOrderDtlDTO
     {
-        public long ProductOrderDetailId { get; set; }
-        public long OrderId { get; set; }
-        public long OrderProductId { get; set; }
+        public Int32 ProductOrderDetailId { get; set; }
+        public Int32 OrderId { get; set; }
+        public Int32 OrderProductMappingId { get; set; }
         public decimal Quantity { get; set; }
-        public double UnitPrice { get; set; }
-        public double Total { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal TotalPrice { get; set; }
         public int OrderStatus { get; set; }
-        public System.DateTime OrderDeilveredDate { get; set; }
-        public string OrderDeilveredBy { get; set; }
+        public System.DateTime DeilveredDate { get; set; }
+        public string DeilveredBy { get; set; }
         public string VehicleNumber { get; set; }
         public string DriverName { get; set; }
         public string DriverNumber { get; set; }
@@ -42,9 +42,9 @@ namespace Platform.DTO
             //   RuleFor(x => x.CustomerId).NotEmpty().WithMessage("The UserName cannot be blank.")
             //                               .Length(1, 10).WithMessage("The User Name cannot be more than 10 characters.");
 
-                 RuleFor(x => x.OrderProductId).NotEmpty().WithMessage("Product Id cannot be blank.");
+                 RuleFor(x => x.OrderProductMappingId).NotEmpty().WithMessage("Product Id cannot be blank.");
 
-            RuleFor(x => x.OrderProductId).GreaterThan(0).WithMessage("Product Id cannot be blank.");
+            RuleFor(x => x.OrderProductMappingId).GreaterThan(0).WithMessage("Product Id cannot be blank.");
             //       RuleFor(x => x.BirthDate).LessThan(DateTime.Today).WithMessage("You cannot enter a birth date in the future.");
 
             //     RuleFor(x => x.Username).Length(8, 999).WithMessage("The user name must be at least 8 characters long.");

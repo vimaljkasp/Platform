@@ -11,13 +11,13 @@ namespace Platform.DTO
     [Validator(typeof(ProductValidator))]
     public class ProductDTO
     {
-        public long ProductId { get; set; }
+        public Int32 ProductId { get; set; }
         public string ProductCode { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
-        public Nullable<int> ProductQuantity { get; set; }
-        public Nullable<long> ProductPrice { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public decimal ProductQuantity { get; set; }
+        public decimal ProductPrice { get; set; }
+        public bool IsActive { get; set; }
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }
     }

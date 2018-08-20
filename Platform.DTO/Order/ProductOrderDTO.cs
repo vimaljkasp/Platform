@@ -19,12 +19,12 @@ namespace Platform.DTO
         public int OrderCustomerId { get; set; }
         public int OrderPaymentMode { get; set; }
         public string OrderComments { get; set; }
-        public int OrderTotalQuantity { get; set; }
+        public decimal OrderTotalQuantity { get; set; }
 
-        public double OrderTotalPrice { get; set; }
-        public double OrderTax { get; set; }
-        public double TotalAmount { get; set; }
-        public double PaidAmount { get; set; }
+        public decimal OrderTotalPrice { get; set; }
+        public decimal OrderTax { get; set; }
+        public decimal OrderPrice { get; set; }
+        public decimal PaidAmount { get; set; }
         public string OrderPriority { get; set; }
         public string PaymentReceivedBy { get; set; }
         public string Ref1 { get; set; }

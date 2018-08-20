@@ -17,9 +17,9 @@ namespace Platform.Service
             productDTO.ProductCode = product.ProductCode;
             productDTO.ProductName = product.ProductName;
             productDTO.ProductDescription = product.ProductDescription;
-            productDTO.ProductQuantity = product.ProductQuantity;
-            productDTO.ProductPrice = product.ProductPrice;
-            productDTO.IsActive = product.IsActive;
+            productDTO.ProductQuantity = product.ProductQuantity.GetValueOrDefault();
+            productDTO.ProductPrice = product.ProductPrice.GetValueOrDefault();
+            productDTO.IsActive = product.IsActive.HasValue ? product.IsActive.Value : false;
             productDTO.Ref1 = product.Ref1;
             productDTO.Ref2 = product.Ref2;
             return productDTO;

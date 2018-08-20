@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PlatformCommonDlls\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -66,6 +70,8 @@
     <Compile Include="CustomerWalletService\CustomerWalletConvertor.cs" />
     <Compile Include="CustomerWalletService\CustomerWalletService.cs" />
     <Compile Include="CustomerWalletService\ICustomerWalletService.cs" />
+    <Compile Include="DashboardService\DashboardService.cs" />
+    <Compile Include="DashboardService\IDashboardService.cs" />
     <Compile Include="EmployeeRoleService\EmployeeRoleConvertor.cs" />
     <Compile Include="EmployeeRoleService\EmployeeRoleService.cs" />
     <Compile Include="EmployeeRoleService\IEmployeeRoleService.cs" />

@@ -15,9 +15,9 @@ namespace Platform.Service
             ProductSalesDTO productSalesDTO = new ProductSalesDTO();
             productSalesDTO.SalesId = sale.SalesId;
             productSalesDTO.SalesDate = sale.SalesDate;
-            productSalesDTO.SalesProductId = sale.SalesProductId;
-            productSalesDTO.SalesQuantity = sale.SalesQuantity;
-            productSalesDTO.SalesPrice = sale.SalesPrice;
+            productSalesDTO.ProductMappingId = sale.ProductMappingId;
+            productSalesDTO.SalesQuantity = sale.Quantity;
+            productSalesDTO.SalesPrice = sale.TotalPrice;
             productSalesDTO.Ref1 = sale.Ref1;
             productSalesDTO.Ref2 = sale.Ref2;
    
@@ -32,9 +32,9 @@ namespace Platform.Service
             sale.SalesId = productSalesDTO.SalesId;
 
             sale.SalesDate = productSalesDTO.SalesDate;
-            sale.SalesProductId = productSalesDTO.SalesProductId;
-            sale.SalesQuantity = productSalesDTO.SalesQuantity;
-            sale.SalesPrice = productSalesDTO.SalesPrice;
+            sale.ProductMappingId = productSalesDTO.ProductMappingId;
+            sale.Quantity = productSalesDTO.SalesQuantity;
+            sale.TotalPrice = productSalesDTO.SalesPrice;
             sale.Ref1 = productSalesDTO.Ref1;
             sale.Ref2 = productSalesDTO.Ref2;
 

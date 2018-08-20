@@ -53,23 +53,49 @@ namespace Platform
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
                 );
-         
+          
+
+
 
             //Invoke fluent validation
             FluentValidationModelValidatorProvider.Configure(config);
             appBuilder.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
             appBuilder.UseWebApi(config);
+       
+
+     
         }
 
         public static void Register(HttpConfiguration config)
         {
             var container = new UnityContainer();
+            //Customer
             container.RegisterType<ICustomerService, CustomerService>(new HierarchicalLifetimeManager());
-            container.RegisterType<IEmployeeService, EmployeeService>(new HierarchicalLifetimeManager());
-            container.RegisterType<IProductOrderService, ProductOrderService>(new HierarchicalLifetimeManager());
+            container.RegisterType<ICustomerWalletService, CustomerWalletService>(new HierarchicalLifetimeManager());
+            container.RegisterType<ICustomerPaymentService, CustomerPaymentService>(new HierarchicalLifetimeManager());
+
+            //Site
             container.RegisterType<ISiteService, SiteService>(new HierarchicalLifetimeManager());
+            container.RegisterType<ISiteConfigurationService, SiteConfigurationService>(new HierarchicalLifetimeManager());
+
+            //Product
             container.RegisterType<IProductService, ProductService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IProductSiteMappingService, ProductSiteMappingService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IProductOrderService, ProductOrderService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IProductOrderDtlService, ProductOrderDtlService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IProductSalesService, ProductSalesService>(new HierarchicalLifetimeManager());
+
+            //Employee
+
+            container.RegisterType<IEmployeeService, EmployeeService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IEmployeeRoleService, EmployeeRoleService>(new HierarchicalLifetimeManager());
+
+
+            //Dashboard
+
+            container.RegisterType<IDashboardService, DashboardService>(new HierarchicalLifetimeManager());
+
             config.DependencyResolver = new UnityResolver(container);
             
         }

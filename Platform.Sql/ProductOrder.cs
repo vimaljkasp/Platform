@@ -20,14 +20,14 @@ namespace Platform.Sql
             this.ProductOrderDetails = new HashSet<ProductOrderDetail>();
         }
     
-        public long OrderId { get; set; }
+        public int OrderId { get; set; }
         public System.DateTime OrderPurchaseDtm { get; set; }
         public Nullable<int> OrderCustomerId { get; set; }
         public int OrderPaymentMode { get; set; }
-        public int OrderTotalQuantity { get; set; }
-        public long OrderTotalPrice { get; set; }
-        public Nullable<long> OrderTax { get; set; }
-        public Nullable<long> TotalAmount { get; set; }
+        public decimal OrderTotalQuantity { get; set; }
+        public decimal OrderPrice { get; set; }
+        public Nullable<decimal> OrderTax { get; set; }
+        public Nullable<decimal> OrderTotalPrice { get; set; }
         public string OrderPriority { get; set; }
         public string OrderAddress { get; set; }
         public string OrderComments { get; set; }

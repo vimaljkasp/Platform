@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PlatformDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="PlatformDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerId" />
@@ -22,13 +22,13 @@
         </EntityType>
         <EntityType Name="CustomerPaymentTransaction">
           <Key>
-            <PropertyRef Name="TransactionId" />
+            <PropertyRef Name="CustomerPaymentId" />
           </Key>
-          <Property Name="TransactionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerPaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="OrderId" Type="int" Nullable="false" />
-          <Property Name="PaymentCrAmount" Type="bigint" />
-          <Property Name="PaymentDrAmount" Type="bigint" />
+          <Property Name="PaymentCrAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PaymentDrAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PaymentDate" Type="datetime" Nullable="false" />
           <Property Name="PaymentReceivedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="Ref1" Type="nvarchar" MaxLength="50" />
@@ -46,11 +46,11 @@
         </EntityType>
         <EntityType Name="CustomerWallet">
           <Key>
-            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="WalletId" />
           </Key>
           <Property Name="WalletId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
-          <Property Name="WalletBalance" Type="bigint" Nullable="false" />
+          <Property Name="WalletBalance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="AmountDueDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
@@ -110,12 +110,12 @@
           <Key>
             <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="ProductId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductCode" Type="nvarchar" MaxLength="20" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="40" />
           <Property Name="ProductDescription" Type="nvarchar" MaxLength="100" />
-          <Property Name="ProductQuantity" Type="int" />
-          <Property Name="ProductPrice" Type="bigint" />
+          <Property Name="ProductQuantity" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ProductPrice" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="Ref1" Type="nvarchar" MaxLength="50" />
           <Property Name="Ref2" Type="nvarchar" MaxLength="50" />
@@ -124,14 +124,14 @@
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
-          <Property Name="OrderId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderPurchaseDtm" Type="datetime" Nullable="false" />
           <Property Name="OrderCustomerId" Type="int" />
           <Property Name="OrderPaymentMode" Type="int" Nullable="false" />
-          <Property Name="OrderTotalQuantity" Type="int" Nullable="false" />
-          <Property Name="OrderTotalPrice" Type="bigint" Nullable="false" />
-          <Property Name="OrderTax" Type="bigint" />
-          <Property Name="TotalAmount" Type="bigint" />
+          <Property Name="OrderTotalQuantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OrderPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OrderTax" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OrderTotalPrice" Type="decimal" Precision="18" Scale="2" />
           <Property Name="OrderPriority" Type="nvarchar" MaxLength="50" />
           <Property Name="OrderAddress" Type="nvarchar" MaxLength="200" />
           <Property Name="OrderComments" Type="nvarchar" MaxLength="80" />
@@ -142,33 +142,33 @@
           <Key>
             <PropertyRef Name="ProductOrderDetailId" />
           </Key>
-          <Property Name="ProductOrderDetailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OrderId" Type="bigint" />
-          <Property Name="OrderProductId" Type="bigint" />
+          <Property Name="ProductOrderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="ProductMappingId" Type="int" />
           <Property Name="OrderStatus" Type="int" Nullable="false" />
-          <Property Name="OrderDeilveredDate" Type="datetime" />
-          <Property Name="OrderDeilveredBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="DeilveredDate" Type="datetime" />
+          <Property Name="DeilveredBy" Type="nvarchar" MaxLength="150" />
           <Property Name="VehicleNumber" Type="nvarchar" MaxLength="150" />
           <Property Name="DriverName" Type="nvarchar" MaxLength="150" />
           <Property Name="DriverNumber" Type="nvarchar" MaxLength="150" />
           <Property Name="JCBDriverNumber" Type="nvarchar" MaxLength="150" />
           <Property Name="RoyaltyNumber" Type="nvarchar" MaxLength="150" />
-          <Property Name="Quantity" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="UnitPrice" Type="bigint" />
-          <Property Name="Total" Type="bigint" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Ref1" Type="nvarchar" MaxLength="50" />
           <Property Name="Ref2" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ProductSales">
           <Key>
             <PropertyRef Name="SalesDate" />
-            <PropertyRef Name="SalesProductId" />
+            <PropertyRef Name="ProductMappingId" />
           </Key>
-          <Property Name="SalesId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SalesDate" Type="date" Nullable="false" />
-          <Property Name="SalesProductId" Type="bigint" Nullable="false" />
-          <Property Name="SalesQuantity" Type="int" Nullable="false" />
-          <Property Name="SalesPrice" Type="bigint" Nullable="false" />
+          <Property Name="ProductMappingId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Ref1" Type="nvarchar" MaxLength="50" />
           <Property Name="Ref2" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -176,22 +176,22 @@
           <Key>
             <PropertyRef Name="ProductMappingId" />
           </Key>
-          <Property Name="ProductMappingId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductMappingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SiteId" Type="int" Nullable="false" />
           <Property Name="ItemId" Type="int" Nullable="false" />
-          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ProductStock">
           <Key>
             <PropertyRef Name="StockDate" />
             <PropertyRef Name="StockProductId" />
           </Key>
-          <Property Name="StockId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StockDate" Type="date" Nullable="false" />
-          <Property Name="StockProductId" Type="bigint" Nullable="false" />
+          <Property Name="StockProductId" Type="int" Nullable="false" />
           <Property Name="StockCreatedBy" Type="int" Nullable="false" />
           <Property Name="StockCreatedDtm" Type="datetime" Nullable="false" />
-          <Property Name="StockQuantiy" Type="int" Nullable="false" />
+          <Property Name="StockQuantiy" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Ref1" Type="nvarchar" MaxLength="50" />
           <Property Name="Ref2" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -285,7 +285,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
               <PropertyRef Name="ProductMappingId" />
             </Principal>
             <Dependent Role="ProductOrderDetail">
-              <PropertyRef Name="OrderProductId" />
+              <PropertyRef Name="ProductMappingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -333,7 +333,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
               <PropertyRef Name="ProductMappingId" />
             </Principal>
             <Dependent Role="ProductSales">
-              <PropertyRef Name="SalesProductId" />
+              <PropertyRef Name="ProductMappingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -395,7 +395,8 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <End Role="ProductSales" EntitySet="ProductSales" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PlatformDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -417,13 +418,13 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
         </EntityType>
         <EntityType Name="CustomerPaymentTransaction">
           <Key>
-            <PropertyRef Name="TransactionId" />
+            <PropertyRef Name="CustomerPaymentId" />
           </Key>
-          <Property Name="TransactionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerPaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="PaymentCrAmount" Type="Int64" />
-          <Property Name="PaymentDrAmount" Type="Int64" />
+          <Property Name="PaymentCrAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PaymentDrAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PaymentReceivedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -441,11 +442,11 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
         </EntityType>
         <EntityType Name="CustomerWallet">
           <Key>
-            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="WalletId" />
           </Key>
           <Property Name="WalletId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <Property Name="WalletBalance" Type="Int64" Nullable="false" />
+          <Property Name="WalletBalance" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="AmountDueDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Employee">
@@ -506,12 +507,12 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="ProductId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ProductName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="ProductDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ProductQuantity" Type="Int32" />
-          <Property Name="ProductPrice" Type="Int64" />
+          <Property Name="ProductQuantity" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProductPrice" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -521,55 +522,55 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
-          <Property Name="OrderId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderPurchaseDtm" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OrderCustomerId" Type="Int32" />
           <Property Name="OrderPaymentMode" Type="Int32" Nullable="false" />
-          <Property Name="OrderTotalQuantity" Type="Int32" Nullable="false" />
-          <Property Name="OrderTotalPrice" Type="Int64" Nullable="false" />
-          <Property Name="OrderTax" Type="Int64" />
-          <Property Name="TotalAmount" Type="Int64" />
+          <Property Name="OrderTotalQuantity" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OrderPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OrderTax" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OrderTotalPrice" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="OrderPriority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OrderAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="OrderComments" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Customer" Relationship="Self.fk_ProductOrder_CustomerId" FromRole="ProductOrder" ToRole="Customer" />
-          <NavigationProperty Name="ProductOrderDetails" Relationship="PlatformDBModel.fk_ProductOrderDetail_ProductOrder" FromRole="ProductOrder" ToRole="ProductOrderDetail" />
+          <NavigationProperty Name="ProductOrderDetails" Relationship="Self.fk_ProductOrderDetail_ProductOrder" FromRole="ProductOrder" ToRole="ProductOrderDetail" />
         </EntityType>
         <EntityType Name="ProductOrderDetail">
           <Key>
             <PropertyRef Name="ProductOrderDetailId" />
           </Key>
-          <Property Name="ProductOrderDetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderId" Type="Int64" />
-          <Property Name="OrderProductId" Type="Int64" />
+          <Property Name="ProductOrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="ProductMappingId" Type="Int32" />
           <Property Name="OrderStatus" Type="Int32" Nullable="false" />
-          <Property Name="OrderDeilveredDate" Type="DateTime" Precision="3" />
-          <Property Name="OrderDeilveredBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DeilveredDate" Type="DateTime" Precision="3" />
+          <Property Name="DeilveredBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="VehicleNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="DriverName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="DriverNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="JCBDriverNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="RoyaltyNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="UnitPrice" Type="Int64" />
-          <Property Name="Total" Type="Int64" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ProductOrder" Relationship="PlatformDBModel.fk_ProductOrderDetail_ProductOrder" FromRole="ProductOrderDetail" ToRole="ProductOrder" />
-          <NavigationProperty Name="ProductSiteMapping" Relationship="PlatformDBModel.fk_ProductOrderDetail_ProductSiteMapping" FromRole="ProductOrderDetail" ToRole="ProductSiteMapping" />
+          <NavigationProperty Name="ProductOrder" Relationship="Self.fk_ProductOrderDetail_ProductOrder" FromRole="ProductOrderDetail" ToRole="ProductOrder" />
+          <NavigationProperty Name="ProductSiteMapping" Relationship="Self.fk_ProductOrderDetail_ProductSiteMapping" FromRole="ProductOrderDetail" ToRole="ProductSiteMapping" />
         </EntityType>
         <EntityType Name="ProductSale">
           <Key>
             <PropertyRef Name="SalesDate" />
-            <PropertyRef Name="SalesProductId" />
+            <PropertyRef Name="ProductMappingId" />
           </Key>
-          <Property Name="SalesId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SalesDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="SalesProductId" Type="Int64" Nullable="false" />
-          <Property Name="SalesQuantity" Type="Int32" Nullable="false" />
-          <Property Name="SalesPrice" Type="Int64" Nullable="false" />
+          <Property Name="ProductMappingId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProductSiteMapping" Relationship="Self.fk_Sales_ProductSiteMapping" FromRole="ProductSales" ToRole="ProductSiteMapping" />
@@ -578,28 +579,28 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="ProductMappingId" />
           </Key>
-          <Property Name="ProductMappingId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductMappingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SiteId" Type="Int32" Nullable="false" />
           <Property Name="ItemId" Type="Int32" Nullable="false" />
-          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ItemCategory" Relationship="Self.fk_ProductSiteMapping_Item" FromRole="ProductSiteMapping" ToRole="ItemCategory" />
           <NavigationProperty Name="Product" Relationship="Self.fk_ProductSiteMapping_Product" FromRole="ProductSiteMapping" ToRole="Product" />
+          <NavigationProperty Name="ProductOrderDetails" Relationship="Self.fk_ProductOrderDetail_ProductSiteMapping" FromRole="ProductSiteMapping" ToRole="ProductOrderDetail" />
           <NavigationProperty Name="ProductSales" Relationship="Self.fk_Sales_ProductSiteMapping" FromRole="ProductSiteMapping" ToRole="ProductSales" />
           <NavigationProperty Name="ProductStocks" Relationship="Self.fk_ProcutStock_ProductSiteMapping" FromRole="ProductSiteMapping" ToRole="ProductStock" />
           <NavigationProperty Name="Site" Relationship="Self.fk_ProductSiteMapping_Site" FromRole="ProductSiteMapping" ToRole="Site" />
-          <NavigationProperty Name="ProductOrderDetails" Relationship="PlatformDBModel.fk_ProductOrderDetail_ProductSiteMapping" FromRole="ProductSiteMapping" ToRole="ProductOrderDetail" />
         </EntityType>
         <EntityType Name="ProductStock">
           <Key>
             <PropertyRef Name="StockDate" />
             <PropertyRef Name="StockProductId" />
           </Key>
-          <Property Name="StockId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StockDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="StockProductId" Type="Int64" Nullable="false" />
+          <Property Name="StockProductId" Type="Int32" Nullable="false" />
           <Property Name="StockCreatedBy" Type="Int32" Nullable="false" />
           <Property Name="StockCreatedDtm" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="StockQuantiy" Type="Int32" Nullable="false" />
+          <Property Name="StockQuantiy" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProductSiteMapping" Relationship="Self.fk_ProcutStock_ProductSiteMapping" FromRole="ProductStock" ToRole="ProductSiteMapping" />
@@ -685,6 +686,30 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_ProductOrderDetail_ProductOrder">
+          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductOrder">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductOrderDetail_ProductSiteMapping">
+          <End Role="ProductSiteMapping" Type="Self.ProductSiteMapping" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSiteMapping">
+              <PropertyRef Name="ProductMappingId" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="ProductMappingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Sales_ProductSiteMapping">
           <End Role="ProductSiteMapping" Type="Self.ProductSiteMapping" Multiplicity="1" />
           <End Role="ProductSales" Type="Self.ProductSale" Multiplicity="*" />
@@ -693,7 +718,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
               <PropertyRef Name="ProductMappingId" />
             </Principal>
             <Dependent Role="ProductSales">
-              <PropertyRef Name="SalesProductId" />
+              <PropertyRef Name="ProductMappingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -753,6 +778,14 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
           </AssociationSet>
+          <AssociationSet Name="fk_ProductOrderDetail_ProductOrder" Association="Self.fk_ProductOrderDetail_ProductOrder">
+            <End Role="ProductOrder" EntitySet="ProductOrders" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductOrderDetail_ProductSiteMapping" Association="Self.fk_ProductOrderDetail_ProductSiteMapping">
+            <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
+          </AssociationSet>
           <AssociationSet Name="fk_Sales_ProductSiteMapping" Association="Self.fk_Sales_ProductSiteMapping">
             <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
             <End Role="ProductSales" EntitySet="ProductSales" />
@@ -765,39 +798,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <End Role="Site" EntitySet="Sites" />
             <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
           </AssociationSet>
-          <AssociationSet Name="fk_ProductOrderDetail_ProductOrder" Association="PlatformDBModel.fk_ProductOrderDetail_ProductOrder">
-            <End Role="ProductOrder" EntitySet="ProductOrders" />
-            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="fk_ProductOrderDetail_ProductSiteMapping" Association="PlatformDBModel.fk_ProductOrderDetail_ProductSiteMapping">
-            <End Role="ProductSiteMapping" EntitySet="ProductSiteMappings" />
-            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="fk_ProductOrderDetail_ProductOrder">
-          <End Type="PlatformDBModel.ProductOrder" Role="ProductOrder" Multiplicity="0..1" />
-          <End Type="PlatformDBModel.ProductOrderDetail" Role="ProductOrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductOrder">
-              <PropertyRef Name="OrderId" />
-            </Principal>
-            <Dependent Role="ProductOrderDetail">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_ProductOrderDetail_ProductSiteMapping">
-          <End Type="PlatformDBModel.ProductSiteMapping" Role="ProductSiteMapping" Multiplicity="0..1" />
-          <End Type="PlatformDBModel.ProductOrderDetail" Role="ProductOrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductSiteMapping">
-              <PropertyRef Name="ProductMappingId" />
-            </Principal>
-            <Dependent Role="ProductOrderDetail">
-              <PropertyRef Name="OrderProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -823,7 +824,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <EntitySetMapping Name="CustomerPaymentTransactions">
             <EntityTypeMapping TypeName="PlatformDBModel.CustomerPaymentTransaction">
               <MappingFragment StoreEntitySet="CustomerPaymentTransaction">
-                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="CustomerPaymentId" ColumnName="CustomerPaymentId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="PaymentCrAmount" ColumnName="PaymentCrAmount" />
@@ -936,9 +937,9 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
                 <ScalarProperty Name="OrderCustomerId" ColumnName="OrderCustomerId" />
                 <ScalarProperty Name="OrderPaymentMode" ColumnName="OrderPaymentMode" />
                 <ScalarProperty Name="OrderTotalQuantity" ColumnName="OrderTotalQuantity" />
-                <ScalarProperty Name="OrderTotalPrice" ColumnName="OrderTotalPrice" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
                 <ScalarProperty Name="OrderTax" ColumnName="OrderTax" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="OrderTotalPrice" ColumnName="OrderTotalPrice" />
                 <ScalarProperty Name="OrderPriority" ColumnName="OrderPriority" />
                 <ScalarProperty Name="OrderAddress" ColumnName="OrderAddress" />
                 <ScalarProperty Name="OrderComments" ColumnName="OrderComments" />
@@ -952,10 +953,10 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
               <MappingFragment StoreEntitySet="ProductOrderDetail">
                 <ScalarProperty Name="ProductOrderDetailId" ColumnName="ProductOrderDetailId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="OrderProductId" ColumnName="OrderProductId" />
+                <ScalarProperty Name="ProductMappingId" ColumnName="ProductMappingId" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-                <ScalarProperty Name="OrderDeilveredDate" ColumnName="OrderDeilveredDate" />
-                <ScalarProperty Name="OrderDeilveredBy" ColumnName="OrderDeilveredBy" />
+                <ScalarProperty Name="DeilveredDate" ColumnName="DeilveredDate" />
+                <ScalarProperty Name="DeilveredBy" ColumnName="DeilveredBy" />
                 <ScalarProperty Name="VehicleNumber" ColumnName="VehicleNumber" />
                 <ScalarProperty Name="DriverName" ColumnName="DriverName" />
                 <ScalarProperty Name="DriverNumber" ColumnName="DriverNumber" />
@@ -963,7 +964,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
                 <ScalarProperty Name="RoyaltyNumber" ColumnName="RoyaltyNumber" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
                 <ScalarProperty Name="Ref1" ColumnName="Ref1" />
                 <ScalarProperty Name="Ref2" ColumnName="Ref2" />
               </MappingFragment>
@@ -974,9 +975,9 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
               <MappingFragment StoreEntitySet="ProductSales">
                 <ScalarProperty Name="SalesId" ColumnName="SalesId" />
                 <ScalarProperty Name="SalesDate" ColumnName="SalesDate" />
-                <ScalarProperty Name="SalesProductId" ColumnName="SalesProductId" />
-                <ScalarProperty Name="SalesQuantity" ColumnName="SalesQuantity" />
-                <ScalarProperty Name="SalesPrice" ColumnName="SalesPrice" />
+                <ScalarProperty Name="ProductMappingId" ColumnName="ProductMappingId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
                 <ScalarProperty Name="Ref1" ColumnName="Ref1" />
                 <ScalarProperty Name="Ref2" ColumnName="Ref2" />
               </MappingFragment>

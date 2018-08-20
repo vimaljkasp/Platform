@@ -14,20 +14,20 @@ namespace Platform.Sql
     
     public partial class ProductOrderDetail
     {
-        public long ProductOrderDetailId { get; set; }
-        public Nullable<long> OrderId { get; set; }
-        public Nullable<long> OrderProductId { get; set; }
+        public int ProductOrderDetailId { get; set; }
+        public Nullable<int> OrderId { get; set; }
+        public Nullable<int> ProductMappingId { get; set; }
         public int OrderStatus { get; set; }
-        public Nullable<System.DateTime> OrderDeilveredDate { get; set; }
-        public string OrderDeilveredBy { get; set; }
+        public Nullable<System.DateTime> DeilveredDate { get; set; }
+        public string DeilveredBy { get; set; }
         public string VehicleNumber { get; set; }
         public string DriverName { get; set; }
         public string DriverNumber { get; set; }
         public string JCBDriverNumber { get; set; }
         public string RoyaltyNumber { get; set; }
         public Nullable<decimal> Quantity { get; set; }
-        public Nullable<long> UnitPrice { get; set; }
-        public Nullable<long> Total { get; set; }
+        public Nullable<decimal> UnitPrice { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }
     

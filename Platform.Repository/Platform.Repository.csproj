@@ -52,6 +52,7 @@
     <Compile Include="CustomerRepository.cs" />
     <Compile Include="CustomerSessionRepository.cs" />
     <Compile Include="CustomerWalletRepositoy.cs" />
+    <Compile Include="DashboardRepository.cs" />
     <Compile Include="EmployeeRepository.cs" />
     <Compile Include="EmployeeRoleRepository.cs" />
     <Compile Include="EmployeeSessionRepository.cs" />
@@ -69,6 +70,10 @@
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Platform.DTO\Platform.DTO.csproj">
+      <Project>{58292060-6e50-4fb7-ac50-a7c67caa9b1c}</Project>
+      <Name>Platform.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Platform.Sql\Platform.Sql.csproj">
       <Project>{be316c17-5a9f-447a-a681-e40e3281375d}</Project>
       <Name>Platform.Sql</Name>

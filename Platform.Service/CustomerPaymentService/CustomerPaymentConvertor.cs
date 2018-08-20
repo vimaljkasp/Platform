@@ -13,7 +13,7 @@ namespace Platform.Service
         public static CustomerPaymentDTO ConvertToCustomerPaymentDto(CustomerPaymentTransaction customerPaymentTransaction)
         {
             CustomerPaymentDTO customerPaymentDTO = new CustomerPaymentDTO();
-            customerPaymentDTO.TransactionId = customerPaymentTransaction.TransactionId;
+            customerPaymentDTO.CustomerPaymentId = customerPaymentTransaction.CustomerPaymentId;
             customerPaymentDTO.CustomerId = customerPaymentTransaction.CustomerId;
             customerPaymentDTO.OrderId = customerPaymentTransaction.OrderId;
             customerPaymentDTO.PaymentCrAmount = customerPaymentTransaction.PaymentCrAmount.GetValueOrDefault();
@@ -30,7 +30,7 @@ namespace Platform.Service
         public static void ConvertToCustomerPaymentEntity(ref CustomerPaymentTransaction customerPaymentTransaction, CustomerPaymentDTO customerPaymentDTO, bool isUpdate)
         {
             if(isUpdate)
-            customerPaymentTransaction.TransactionId = customerPaymentDTO.TransactionId;
+            customerPaymentTransaction.CustomerPaymentId = customerPaymentDTO.CustomerPaymentId;
 
             customerPaymentTransaction.CustomerId = customerPaymentDTO.CustomerId;
             customerPaymentTransaction.OrderId = customerPaymentDTO.OrderId;
