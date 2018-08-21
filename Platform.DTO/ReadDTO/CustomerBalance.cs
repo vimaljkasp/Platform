@@ -13,7 +13,7 @@ namespace Platform.DTO
 
         public string CustomerName { get; set; }
 
-        public long PendingAmount { get; set; }
+        public decimal PendingAmount { get; set; }
 
         public string MobileNumber { get; set; }
     }

@@ -13,9 +13,11 @@ namespace Platform.Service
     public class ProductOrderService : IProductOrderService
     {
         private UnitOfWork unitOfWork;
+        private ProductOrderRepository productOrderRepository;
         public ProductOrderService()
         {
              unitOfWork = new UnitOfWork();
+            productOrderRepository = new ProductOrderRepository();
         }
 
         public void AddProductOrder(ProductOrderDTO productOrderDTO)
@@ -99,7 +101,15 @@ namespace Platform.Service
 
         public void UpdateProductOrder(ProductOrderDTO productOrderDTO)
         {
-           
+
+            if (productOrderDTO.OrderId != 0 && productOrderDTO.OrderCustomerId != 0)
+            {
+                if (productOrderDTO.PaidAmount > 0)
+                    this.AddCustomerPaymentTransaction(productOrderDTO);
+
+                this.AddOrUpdateCustomerWallet(productOrderDTO);
+
+                         }
         }
 
 
@@ -126,14 +136,14 @@ namespace Platform.Service
             var customerWallet = unitOfWork.CustomerWalletRepository.GetByCustomerId(productOrderDTO.OrderCustomerId);
             if (customerWallet != null)
             {
-                customerWallet.WalletBalance += (long)productOrderDTO.OrderTotalPrice * 100;
+                customerWallet.WalletBalance +=(productOrderDTO.OrderTotalPrice-productOrderDTO.PaidAmount);
                 unitOfWork.CustomerWalletRepository.Update(customerWallet);
             }
             else
             {
                 customerWallet = new CustomerWallet();
                 customerWallet.CustomerId = productOrderDTO.OrderCustomerId;
-                customerWallet.WalletBalance = (long)productOrderDTO.OrderTotalPrice * 100;
+                customerWallet.WalletBalance = (productOrderDTO.OrderTotalPrice - productOrderDTO.PaidAmount);
                 customerWallet.AmountDueDate = DateTime.Now.AddDays(10);
                 unitOfWork.CustomerWalletRepository.Add(customerWallet);
             }
@@ -144,15 +154,18 @@ namespace Platform.Service
             CustomerPaymentTransaction customerPaymentTransaction = new CustomerPaymentTransaction();
             customerPaymentTransaction.CustomerId = productOrderDTO.OrderCustomerId;
             customerPaymentTransaction.PaymentDate = DateTime.Now;
+            customerPaymentTransaction.OrderId = productOrderDTO.OrderId;
+            customerPaymentTransaction.Ref1 = productOrderDTO.Ref1;
+            customerPaymentTransaction.Ref2 = productOrderDTO.Ref2;
 
             if (productOrderDTO.PaidAmount > 0)
             {
-                customerPaymentTransaction.PaymentCrAmount = (long)productOrderDTO.PaidAmount * 100;
+                customerPaymentTransaction.PaymentCrAmount = productOrderDTO.PaidAmount;
                 customerPaymentTransaction.PaymentReceivedBy = productOrderDTO.PaymentReceivedBy;
             }
             else
             {
-                customerPaymentTransaction.PaymentDrAmount = (long)productOrderDTO.OrderTotalPrice * 100;
+                customerPaymentTransaction.PaymentDrAmount = productOrderDTO.OrderTotalPrice;
                 customerPaymentTransaction.PaymentReceivedBy = "No Payment";
 
             }

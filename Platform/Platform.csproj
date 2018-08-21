@@ -148,6 +148,7 @@
     <Compile Include="Controller\Dashboard\DashboardController.cs" />
     <Compile Include="Controller\Employee\EmployeesController.cs" />
     <Compile Include="Controller\Employee\LoginController.cs" />
+    <Compile Include="Controller\Orders\OrderDetailsController.cs" />
     <Compile Include="Controller\Orders\ProductOrdersController.cs" />
     <Compile Include="Controller\Product\ProductsController.cs" />
     <Compile Include="Controller\ProductSales\ProductSalesController.cs" />

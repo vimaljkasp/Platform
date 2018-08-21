@@ -17,7 +17,7 @@ namespace Platform.DTO
         public decimal Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
-        public int OrderStatus { get; set; }
+        public String OrderStatus { get; set; }
         public System.DateTime DeilveredDate { get; set; }
         public string DeilveredBy { get; set; }
         public string VehicleNumber { get; set; }

@@ -40,12 +40,12 @@ namespace Platform.Repository
                                 CustomerId = reader.GetInt32(0),
                                 CustomerName = reader.GetString(1),
                                 CustomerMobileNumber = reader.GetString(2),
-                                OrderId = reader.GetInt64(3),
-                                ProductOrderDetailId = reader.GetInt64(4),
-                                ProductMappingId = reader.GetInt64(5),
+                                OrderId = reader.GetInt32(3),
+                                ProductOrderDetailId = reader.GetInt32(4),
+                                ProductMappingId = reader.GetInt32(5),
                                 ProductName = reader.GetString(6),
                                 Quantity = reader.GetDecimal(7),
-                                Amount = reader.GetInt64(8),
+                                Amount = reader.GetDecimal(8),
                                 OrderStatus = (OrderStatus)reader.GetInt32(9),
 
                                 OrderPlacedDtm = reader.GetDateTime(10),
@@ -60,11 +60,11 @@ namespace Platform.Repository
                         dashboardDTO.productSalesList.Add(
                             new ProductSales()
                             {
-                                SalesId = reader.GetInt64(0),
+                                SalesId = reader.GetInt32(0),
                                 SalesDate = reader.GetDateTime(1),
                                 SaleQuantity = reader.GetDecimal(2),
-                                SalesAmount = reader.GetInt64(3),
-                                ProductMappingid = reader.GetInt64(4),
+                                SalesAmount = reader.GetDecimal(3),
+                                ProductMappingId = reader.GetInt32(4),
                                 ProductName = reader.GetString(5)
                             });
                     }
@@ -76,7 +76,7 @@ namespace Platform.Repository
                             {
                                 CustomerId = reader.GetInt32(0),
                                 CustomerName = reader.GetString(1),
-                                PendingAmount = reader.GetInt64(2),
+                                PendingAmount = reader.GetDecimal(2),
                                 MobileNumber = reader.GetString(3),
                             });
                     }

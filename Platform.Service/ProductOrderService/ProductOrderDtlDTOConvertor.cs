@@ -21,7 +21,7 @@ namespace Platform.Service
             productOrderDtlDTO.UnitPrice = productOrderDetail.UnitPrice.GetValueOrDefault();
             productOrderDtlDTO.TotalPrice = productOrderDetail.TotalPrice.GetValueOrDefault();
 
-            productOrderDtlDTO.OrderStatus = productOrderDetail.OrderStatus;
+            productOrderDtlDTO.OrderStatus = productOrderDetail.OrderStatus.ToString();
             productOrderDtlDTO.DeilveredDate = productOrderDetail.DeilveredDate.GetValueOrDefault();
             productOrderDtlDTO.DeilveredBy = productOrderDetail.DeilveredBy;
             productOrderDtlDTO.VehicleNumber = productOrderDetail.VehicleNumber;
@@ -44,8 +44,7 @@ namespace Platform.Service
         {
             if (isUpdate)
             {
-                productOrderDetail.ProductOrderDetailId = productOrderDtlDTO.ProductOrderDetailId;
-
+                productOrderDetail.DeilveredDate = productOrderDtlDTO.DeilveredDate;
             }
             else
             {
@@ -58,14 +57,12 @@ namespace Platform.Service
 
 
             }
-            productOrderDetail.OrderStatus = productOrderDtlDTO.OrderStatus;
+            productOrderDetail.OrderStatus = (int)((OrderStatus)Enum.Parse(typeof(OrderStatus), productOrderDtlDTO.OrderStatus));
             productOrderDetail.VehicleNumber = productOrderDtlDTO.VehicleNumber;
             productOrderDetail.DriverName = productOrderDtlDTO.DriverName;
             productOrderDetail.DriverNumber = productOrderDtlDTO.DriverNumber;
             productOrderDetail.JCBDriverNumber = productOrderDtlDTO.JCBDriverNumber;
-            productOrderDetail.RoyaltyNumber = productOrderDtlDTO.RoyaltyNumber;
-
-      
+            productOrderDetail.RoyaltyNumber = productOrderDtlDTO.RoyaltyNumber; 
             productOrderDetail.Ref1 = productOrderDtlDTO.Ref1;
             productOrderDetail.Ref2 = productOrderDtlDTO.Ref2;
 

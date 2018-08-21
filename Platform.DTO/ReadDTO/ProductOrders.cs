@@ -9,17 +9,17 @@ namespace Platform.DTO
     public class ProductOrders
     {
 
-        public long OrderId { get; set; }
+        public int OrderId { get; set; }
 
-        public long ProductMappingId { get; set; }
+        public int ProductMappingId { get; set; }
 
-        public long ProductOrderDetailId { get; set; }
+        public int ProductOrderDetailId { get; set; }
 
         public string ProductName { get; set; }
 
         public decimal Quantity { get; set; }
 
-        public long Amount { get; set; }
+        public decimal Amount { get; set; }
 
         public OrderStatus OrderStatus { get; set; }
 

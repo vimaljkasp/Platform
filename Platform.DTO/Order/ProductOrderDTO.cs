@@ -11,7 +11,7 @@ namespace Platform.DTO
     [Validator(typeof(ProductOrderValidator))]
     public class ProductOrderDTO
     {
-        public long OrderId { get; set; }
+        public int OrderId { get; set; }
   
         public System.DateTime OrderPurchaseDtm { get; set; }
      
