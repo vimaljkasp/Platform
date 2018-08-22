@@ -18,15 +18,16 @@ namespace Platform.Sql
         public Nullable<int> OrderId { get; set; }
         public Nullable<int> ProductMappingId { get; set; }
         public int OrderStatus { get; set; }
-        public Nullable<System.DateTime> DeilveredDate { get; set; }
-        public string DeilveredBy { get; set; }
+        public string OrderAddress { get; set; }
+        public System.DateTime DeliveryExpectedDate { get; set; }
+        public Nullable<System.DateTime> DeliveredDate { get; set; }
+        public string DeliveredBy { get; set; }
         public string VehicleNumber { get; set; }
         public string DriverName { get; set; }
         public string DriverNumber { get; set; }
         public string JCBDriverNumber { get; set; }
         public string RoyaltyNumber { get; set; }
         public Nullable<decimal> Quantity { get; set; }
-        public Nullable<decimal> UnitPrice { get; set; }
         public Nullable<decimal> TotalPrice { get; set; }
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }

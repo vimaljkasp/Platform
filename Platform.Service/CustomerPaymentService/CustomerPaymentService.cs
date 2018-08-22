@@ -13,9 +13,12 @@ namespace Platform.Service
     {
         private readonly CustomerPaymentRepository customerPaymentRepository;
 
+        private readonly UnitOfWork unitOfWork;
+
         public CustomerPaymentService(CustomerPaymentRepository customerPaymentRepository)
         {
             this.customerPaymentRepository = customerPaymentRepository;
+            this.unitOfWork = new UnitOfWork();
         }
 
         public void AddCustomerPayment(CustomerPaymentDTO customerPaymentDTO)
@@ -24,6 +27,27 @@ namespace Platform.Service
             CustomerPaymentTransaction customerPaymentTransaction = new CustomerPaymentTransaction();
             CustomerPaymentConvertor.ConvertToCustomerPaymentEntity(ref customerPaymentTransaction, customerPaymentDTO, false);
             customerPaymentRepository.Add(customerPaymentTransaction);
+            this.UpdateCustomerWallet(customerPaymentDTO);
+        }
+
+        private void UpdateCustomerWallet(CustomerPaymentDTO customerPaymentDTO)
+        {
+            var customerWallet = unitOfWork.CustomerWalletRepository.GetByCustomerId(customerPaymentDTO.CustomerId);
+            if (customerWallet != null)
+            {
+                customerWallet.WalletBalance -= customerPaymentDTO.PaymentCrAmount;
+                if(customerWallet.WalletBalance>0)
+                customerWallet.AmountDueDate = DateTime.Now.AddDays(10);
+                unitOfWork.CustomerWalletRepository.Update(customerWallet);
+            }
+            else
+            {
+                customerWallet = new CustomerWallet();
+                customerWallet.CustomerId = customerPaymentDTO.CustomerId;
+                customerWallet.WalletBalance = customerPaymentDTO.PaymentCrAmount;
+                customerWallet.AmountDueDate = DateTime.Now.AddDays(10);
+                unitOfWork.CustomerWalletRepository.Add(customerWallet);
+            }
         }
 
         public void DeleteCustomerPayemt(int customerPaymentId)

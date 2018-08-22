@@ -21,15 +21,13 @@ namespace Platform.Sql
         }
     
         public int OrderId { get; set; }
+        public string OrderNumber { get; set; }
         public System.DateTime OrderPurchaseDtm { get; set; }
         public Nullable<int> OrderCustomerId { get; set; }
-        public int OrderPaymentMode { get; set; }
-        public decimal OrderTotalQuantity { get; set; }
         public decimal OrderPrice { get; set; }
         public Nullable<decimal> OrderTax { get; set; }
         public Nullable<decimal> OrderTotalPrice { get; set; }
         public string OrderPriority { get; set; }
-        public string OrderAddress { get; set; }
         public string OrderComments { get; set; }
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }

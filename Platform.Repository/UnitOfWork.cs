@@ -20,6 +20,7 @@ namespace Platform.Service
         private ProductSalesRepository productSalesRepository;
         private CustomerWalletRepository customerWalletRepositoy;
         private CustomerPaymentRepository customerPaymentRepository;
+        private ProductSiteMappingRepository productSiteMappingRepository;
         private DashboardRepository dashboardRepository;
         PlatformDBEntities _repository;
         public UnitOfWork()
@@ -170,6 +171,18 @@ namespace Platform.Service
                     return customerPaymentRepository = new CustomerPaymentRepository();
                 else
                     return customerPaymentRepository;
+            }
+        }
+
+
+        public ProductSiteMappingRepository ProductSiteMappingRepository
+        {
+            get
+            {
+                if (productSiteMappingRepository == null)
+                    return productSiteMappingRepository = new ProductSiteMappingRepository();
+                else
+                    return productSiteMappingRepository;
             }
         }
 

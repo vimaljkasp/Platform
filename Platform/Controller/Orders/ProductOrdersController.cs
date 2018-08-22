@@ -22,7 +22,7 @@ namespace Platform.Controller
 
        
       
-        public IEnumerable<ProductOrderDTO> Get()
+        public IEnumerable<ProductOrders> Get()
         {
 
             return _productOrderService.GetAllProductOrders();

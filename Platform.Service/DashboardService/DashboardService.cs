@@ -30,5 +30,13 @@ namespace Platform.Service
            
             return dashboardDTO;
         }
+
+        public List<ProductOrders> GetProductOrders()
+        {
+            
+           return unitOfWork.DashboardRepository.GetProductOrders();
+
+          
+        }
     }
 }

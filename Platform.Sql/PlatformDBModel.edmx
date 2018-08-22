@@ -125,15 +125,13 @@
             <PropertyRef Name="OrderId" />
           </Key>
           <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OrderPurchaseDtm" Type="datetime" Nullable="false" />
           <Property Name="OrderCustomerId" Type="int" />
-          <Property Name="OrderPaymentMode" Type="int" Nullable="false" />
-          <Property Name="OrderTotalQuantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="OrderPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="OrderTax" Type="decimal" Precision="18" Scale="2" />
           <Property Name="OrderTotalPrice" Type="decimal" Precision="18" Scale="2" />
           <Property Name="OrderPriority" Type="nvarchar" MaxLength="50" />
-          <Property Name="OrderAddress" Type="nvarchar" MaxLength="200" />
           <Property Name="OrderComments" Type="nvarchar" MaxLength="80" />
           <Property Name="Ref1" Type="nvarchar" MaxLength="50" />
           <Property Name="Ref2" Type="nvarchar" MaxLength="50" />
@@ -146,15 +144,16 @@
           <Property Name="OrderId" Type="int" />
           <Property Name="ProductMappingId" Type="int" />
           <Property Name="OrderStatus" Type="int" Nullable="false" />
-          <Property Name="DeilveredDate" Type="datetime" />
-          <Property Name="DeilveredBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="OrderAddress" Type="nvarchar" MaxLength="1" />
+          <Property Name="DeliveryExpectedDate" Type="date" Nullable="false" />
+          <Property Name="DeliveredDate" Type="datetime" />
+          <Property Name="DeliveredBy" Type="nvarchar" MaxLength="150" />
           <Property Name="VehicleNumber" Type="nvarchar" MaxLength="150" />
           <Property Name="DriverName" Type="nvarchar" MaxLength="150" />
           <Property Name="DriverNumber" Type="nvarchar" MaxLength="150" />
           <Property Name="JCBDriverNumber" Type="nvarchar" MaxLength="150" />
           <Property Name="RoyaltyNumber" Type="nvarchar" MaxLength="150" />
           <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Ref1" Type="nvarchar" MaxLength="50" />
           <Property Name="Ref2" Type="nvarchar" MaxLength="50" />
@@ -523,15 +522,13 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <PropertyRef Name="OrderId" />
           </Key>
           <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="OrderPurchaseDtm" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OrderCustomerId" Type="Int32" />
-          <Property Name="OrderPaymentMode" Type="Int32" Nullable="false" />
-          <Property Name="OrderTotalQuantity" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="OrderPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="OrderTax" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="OrderTotalPrice" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="OrderPriority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrderAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="OrderComments" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -546,15 +543,16 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Property Name="OrderId" Type="Int32" />
           <Property Name="ProductMappingId" Type="Int32" />
           <Property Name="OrderStatus" Type="Int32" Nullable="false" />
-          <Property Name="DeilveredDate" Type="DateTime" Precision="3" />
-          <Property Name="DeilveredBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OrderAddress" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryExpectedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DeliveredDate" Type="DateTime" Precision="3" />
+          <Property Name="DeliveredBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="VehicleNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="DriverName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="DriverNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="JCBDriverNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="RoyaltyNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -933,15 +931,13 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <EntityTypeMapping TypeName="PlatformDBModel.ProductOrder">
               <MappingFragment StoreEntitySet="ProductOrder">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
                 <ScalarProperty Name="OrderPurchaseDtm" ColumnName="OrderPurchaseDtm" />
                 <ScalarProperty Name="OrderCustomerId" ColumnName="OrderCustomerId" />
-                <ScalarProperty Name="OrderPaymentMode" ColumnName="OrderPaymentMode" />
-                <ScalarProperty Name="OrderTotalQuantity" ColumnName="OrderTotalQuantity" />
                 <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
                 <ScalarProperty Name="OrderTax" ColumnName="OrderTax" />
                 <ScalarProperty Name="OrderTotalPrice" ColumnName="OrderTotalPrice" />
                 <ScalarProperty Name="OrderPriority" ColumnName="OrderPriority" />
-                <ScalarProperty Name="OrderAddress" ColumnName="OrderAddress" />
                 <ScalarProperty Name="OrderComments" ColumnName="OrderComments" />
                 <ScalarProperty Name="Ref1" ColumnName="Ref1" />
                 <ScalarProperty Name="Ref2" ColumnName="Ref2" />
@@ -955,15 +951,16 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="ProductMappingId" ColumnName="ProductMappingId" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-                <ScalarProperty Name="DeilveredDate" ColumnName="DeilveredDate" />
-                <ScalarProperty Name="DeilveredBy" ColumnName="DeilveredBy" />
+                <ScalarProperty Name="OrderAddress" ColumnName="OrderAddress" />
+                <ScalarProperty Name="DeliveryExpectedDate" ColumnName="DeliveryExpectedDate" />
+                <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+                <ScalarProperty Name="DeliveredBy" ColumnName="DeliveredBy" />
                 <ScalarProperty Name="VehicleNumber" ColumnName="VehicleNumber" />
                 <ScalarProperty Name="DriverName" ColumnName="DriverName" />
                 <ScalarProperty Name="DriverNumber" ColumnName="DriverNumber" />
                 <ScalarProperty Name="JCBDriverNumber" ColumnName="JCBDriverNumber" />
                 <ScalarProperty Name="RoyaltyNumber" ColumnName="RoyaltyNumber" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
                 <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
                 <ScalarProperty Name="Ref1" ColumnName="Ref1" />
                 <ScalarProperty Name="Ref2" ColumnName="Ref2" />

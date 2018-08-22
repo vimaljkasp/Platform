@@ -16,62 +16,24 @@ namespace Platform.Service
         private ProductOrderRepository productOrderRepository;
         public ProductOrderService()
         {
-             unitOfWork = new UnitOfWork();
+            unitOfWork = new UnitOfWork();
             productOrderRepository = new ProductOrderRepository();
         }
 
         public void AddProductOrder(ProductOrderDTO productOrderDTO)
         {
             ProductOrder productOrder = new ProductOrder();
-            ProductOrderDetail productOrderDetail;
-        
-                if (productOrderDTO.ProductOrderDetails != null && productOrderDTO.ProductOrderDetails.Count() > 0)
-            {
-                //check for customer 
-                if (productOrderDTO.OrderCustomerId == 0)
-                    productOrderDTO.OrderCustomerId = this.AddCustomer(productOrderDTO);
-
-
-                 //Calculate Order Total Quantity and Total Price
-                productOrderDTO.OrderTotalQuantity = (int)productOrderDTO.ProductOrderDetails.Sum(q => q.Quantity);
-                productOrderDTO.OrderTotalPrice = (long)productOrderDTO.ProductOrderDetails.Sum(p => p.TotalPrice);
-
-                    //Calulate Tax
-                    this.CalcualteOrderTax(productOrderDTO);
-
-                ProductOrderConvertor.ConvertToProductOrderEntity(ref productOrder, productOrderDTO, false);
-                List<ProductOrderDetail> productOrderDetails = new List<ProductOrderDetail>();
-                foreach (ProductOrderDtlDTO productOrderDtlDTO in productOrderDTO.ProductOrderDetails)
-                {
-                    productOrderDtlDTO.OrderId = productOrder.OrderId;
-                    productOrderDetail = new ProductOrderDetail();
-                    ProductOrderDtlDTOConvertor.ConvertToProductOrderDetailEntity(ref productOrderDetail, productOrderDtlDTO, false);
-                    productOrderDetails.Add(productOrderDetail);
-                }
-         
-                productOrder.ProductOrderDetails = productOrderDetails;
-                unitOfWork.ProductOrderRepository.Add(productOrder);
-
-                //Add Customer Payment Transaction
-                this.AddCustomerPaymentTransaction(productOrderDTO);
-
-
-                //Add or Update Customer Wallet
-                this.AddOrUpdateCustomerWallet(productOrderDTO);
-
-                //Add or Update ProductSales
-                this.AddOrUpdateProductSales(productOrderDTO);
-
-                //    unitOfWork.SaveChanges();
-
-            }
-
-            else
-            {
-                throw new PlatformModuleException("Order Details Not Found !");
-            }
-          
-           
+            productOrder.OrderNumber = Guid.NewGuid().ToString() ;
+            List<ProductOrderDetail> productOrderDetails = new List<ProductOrderDetail>();
+            ProductOrderConvertor.ConvertToProductOrderEntity(ref productOrder, productOrderDTO, false);
+            ProductOrderDetail productOrderDetail = new ProductOrderDetail();
+            productOrderDetail.OrderId = productOrder.OrderId;
+            productOrderDetail.ProductMappingId = productOrderDTO.ProductMappingId;
+            productOrderDetail.Quantity = productOrderDTO.Qunatity;
+            productOrderDetails.Add(productOrderDetail);
+            productOrder.ProductOrderDetails = productOrderDetails;
+            unitOfWork.ProductOrderRepository.Add(productOrder);
+            unitOfWork.SaveChanges();           
         }
 
         public void DeleteProductOrder(int productId)
@@ -79,16 +41,9 @@ namespace Platform.Service
             throw new NotImplementedException();
         }
 
-        public List<ProductOrderDTO> GetAllProductOrders()
+        public List<ProductOrders> GetAllProductOrders()
         {
-          var productOrders=  unitOfWork.ProductOrderRepository.GetAll();
-            List<ProductOrderDTO> productOrderDTOList = new List<ProductOrderDTO>();
-            foreach(ProductOrder productOrder in productOrders)
-            {
-                productOrderDTOList.Add(ProductOrderConvertor.ConvertToProductOrderDto(productOrder));
-               
-            }
-            return productOrderDTOList;
+           return unitOfWork.DashboardRepository.GetProductOrders();
         }
 
         public ProductOrderDTO GetProductOrderById(int productId)
@@ -101,109 +56,7 @@ namespace Platform.Service
 
         public void UpdateProductOrder(ProductOrderDTO productOrderDTO)
         {
-
-            if (productOrderDTO.OrderId != 0 && productOrderDTO.OrderCustomerId != 0)
-            {
-                if (productOrderDTO.PaidAmount > 0)
-                    this.AddCustomerPaymentTransaction(productOrderDTO);
-
-                this.AddOrUpdateCustomerWallet(productOrderDTO);
-
-                         }
+            throw new NotImplementedException();
         }
-
-
-        private void CalcualteOrderTax(ProductOrderDTO productOrderDTO)
-        {
-
-            bool isTaxEnable = Convert.ToBoolean(unitOfWork.SiteConfigurationRepository.GetSiteConfigurationByKeyTypeAndKeyName("OrderTax", "IsEnable", "False"));
-            if(isTaxEnable)
-            {
-                decimal taxPrecentage = Convert.ToDecimal(unitOfWork.SiteConfigurationRepository.GetSiteConfigurationByKeyTypeAndKeyName("OrderTax", "Percentage", "7"));
-                productOrderDTO.OrderTax = ((productOrderDTO.OrderTotalPrice * taxPrecentage) / (decimal)100.00);
-             }
-            else
-            {
-                productOrderDTO.OrderTax = 0;
-                
-            }
-
-            productOrderDTO.OrderTotalPrice = productOrderDTO.OrderTotalPrice + productOrderDTO.OrderTax;
-        }
-
-        private void AddOrUpdateCustomerWallet(ProductOrderDTO productOrderDTO)
-        {
-            var customerWallet = unitOfWork.CustomerWalletRepository.GetByCustomerId(productOrderDTO.OrderCustomerId);
-            if (customerWallet != null)
-            {
-                customerWallet.WalletBalance +=(productOrderDTO.OrderTotalPrice-productOrderDTO.PaidAmount);
-                unitOfWork.CustomerWalletRepository.Update(customerWallet);
-            }
-            else
-            {
-                customerWallet = new CustomerWallet();
-                customerWallet.CustomerId = productOrderDTO.OrderCustomerId;
-                customerWallet.WalletBalance = (productOrderDTO.OrderTotalPrice - productOrderDTO.PaidAmount);
-                customerWallet.AmountDueDate = DateTime.Now.AddDays(10);
-                unitOfWork.CustomerWalletRepository.Add(customerWallet);
-            }
-        }
-
-        private void AddCustomerPaymentTransaction(ProductOrderDTO productOrderDTO)
-        {
-            CustomerPaymentTransaction customerPaymentTransaction = new CustomerPaymentTransaction();
-            customerPaymentTransaction.CustomerId = productOrderDTO.OrderCustomerId;
-            customerPaymentTransaction.PaymentDate = DateTime.Now;
-            customerPaymentTransaction.OrderId = productOrderDTO.OrderId;
-            customerPaymentTransaction.Ref1 = productOrderDTO.Ref1;
-            customerPaymentTransaction.Ref2 = productOrderDTO.Ref2;
-
-            if (productOrderDTO.PaidAmount > 0)
-            {
-                customerPaymentTransaction.PaymentCrAmount = productOrderDTO.PaidAmount;
-                customerPaymentTransaction.PaymentReceivedBy = productOrderDTO.PaymentReceivedBy;
-            }
-            else
-            {
-                customerPaymentTransaction.PaymentDrAmount = productOrderDTO.OrderTotalPrice;
-                customerPaymentTransaction.PaymentReceivedBy = "No Payment";
-
-            }
-            unitOfWork.CustomerPaymentRepository.Add(customerPaymentTransaction);
-        }
-
-        private int AddCustomer(ProductOrderDTO productOrderDTO)
-        {
-            Customer customer = new Customer();
-            customer.Name = productOrderDTO.CustomerName;
-            customer.MobileNumber = productOrderDTO.CustomerMobileNumber;
-            unitOfWork.CustomerRepository.Add(customer);
-            return customer.CustomerId;
-        }
-
-
-        private void AddOrUpdateProductSales(ProductOrderDTO productOrderDTO)
-        {
-            foreach(ProductOrderDtlDTO productOrderDtlDto in productOrderDTO.ProductOrderDetails)
-            {
-                var sales=unitOfWork.ProductSalesRepository.GetByProductAndSalesDate(productOrderDtlDto.OrderProductMappingId, DateTime.Now.Date);
-                if(sales==null)
-                {
-                    ProductSale productSale = new ProductSale();
-                    productSale.SalesDate = DateTime.Now.Date;
-                    productSale.TotalPrice = productOrderDtlDto.TotalPrice;
-                    productSale.ProductMappingId = productOrderDtlDto.OrderProductMappingId;
-                    productSale.Quantity = productOrderDtlDto.Quantity;
-                    unitOfWork.ProductSalesRepository.Add(productSale);
-                }
-                else
-                {
-                    sales.Quantity+= productOrderDtlDto.Quantity;
-                    sales.TotalPrice += productOrderDtlDto.TotalPrice ;
-                    unitOfWork.ProductSalesRepository.Update(sales);
-                }
-            }
-        }
-
     }
 }

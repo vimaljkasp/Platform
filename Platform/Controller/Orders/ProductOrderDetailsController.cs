@@ -9,13 +9,13 @@ using System.Web.Http;
 
 namespace Platform.Controller
 {
-    [Route("api/OrderDetails")]
-    public class OrderDetailsController : ApiController
+    [Route("api/ProductOrderDetails")]
+    public class ProductOrderDetailsController : ApiController
     {
 
         private readonly IProductOrderDtlService _productOrderDtlService;
 
-        public OrderDetailsController(IProductOrderDtlService productOrderDtlService)
+        public ProductOrderDetailsController(IProductOrderDtlService productOrderDtlService)
         {
             _productOrderDtlService = productOrderDtlService;
         }
@@ -31,9 +31,9 @@ namespace Platform.Controller
 
 
 
-        public ProductOrderDtlDTO Get(int orderDetailId)
+        public ProductOrderDtlDTO Get(int id)
         {
-            return _productOrderDtlService.GetProductOrderDtlById(orderDetailId);
+            return _productOrderDtlService.GetProductOrderDtlById(id);
         }
 
 
@@ -50,11 +50,12 @@ namespace Platform.Controller
         //}
 
         //Put api/Customer/5
-        public IHttpActionResult Put(int orderDetailId, [FromBody]ProductOrderDtlDTO productOrderDtlDTO)
+        [Route("api/ProductOrderDetails/{id}")]
+        public IHttpActionResult Put(int id, [FromBody]ProductOrderDtlDTO productOrderDtlDTO)
         {
             if (productOrderDtlDTO == null)
                 return BadRequest("Argument Null");
-            productOrderDtlDTO.ProductOrderDetailId = orderDetailId;
+            productOrderDtlDTO.ProductOrderDetailId = id;
 
             _productOrderDtlService.UpdateProductOrderDtl(productOrderDtlDTO);
 

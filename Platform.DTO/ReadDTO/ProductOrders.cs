@@ -21,7 +21,7 @@ namespace Platform.DTO
 
         public decimal Amount { get; set; }
 
-        public OrderStatus OrderStatus { get; set; }
+        public String OrderStatus { get; set; }
 
         public int CustomerId { get; set; }
 

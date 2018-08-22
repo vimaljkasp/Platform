@@ -12,22 +12,24 @@ namespace Platform.Service
     public class ProductService : IProductService
     {
         private readonly ProductRepository productRepository;
-
+        private readonly UnitOfWork unitOfWork;
         public ProductService(ProductRepository productRepository)
         {
            this.productRepository = productRepository;
+            unitOfWork = new UnitOfWork();
         }
    
 
         public List<ProductDTO> GetAllProducts()
             {
                 List<ProductDTO> productList = new List<ProductDTO>();
-                var products = productRepository.GetAll();
+                var products = unitOfWork.ProductRepository.GetAll();
+            var prouctMapping = unitOfWork.ProductSiteMappingRepository.GetAll();
                 if (products != null)
                 {
                     foreach (var product in products)
                     {
-                    productList.Add(ProductConvertor.ConvertToProductDto(product));
+                    productList.Add(ProductConvertor.ConvertToProductDto(product, prouctMapping.Where(p=>p.ProductId==product.ProductId).FirstOrDefault().ProductMappingId));
                     }
 
                 }
@@ -40,10 +42,12 @@ namespace Platform.Service
             public ProductDTO GetProductById(int productId)
             {
             ProductDTO productDTO = null;
-                var product = productRepository.GetById(productId);
+            var prouctMapping = unitOfWork.ProductSiteMappingRepository.GetAll();
+
+            var product = productRepository.GetById(productId);
                 if (product != null)
                 {
-                productDTO = ProductConvertor.ConvertToProductDto(product);
+                productDTO = ProductConvertor.ConvertToProductDto(product, prouctMapping.Where(p => p.ProductId == product.ProductId).FirstOrDefault().ProductMappingId);
                 }
                 return productDTO;
             }

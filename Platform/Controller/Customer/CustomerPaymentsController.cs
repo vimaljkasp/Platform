@@ -37,7 +37,7 @@ namespace Platform.Controller
         }
 
 
-        [Authorize]
+      //  [Authorize]
         [Route("api/CustomerPayments/{id}")]
         public IHttpActionResult Get(int id)
         {
@@ -52,7 +52,7 @@ namespace Platform.Controller
         }
 
 
-        [Authorize]
+     //   [Authorize]
         public IHttpActionResult Post([FromBody]CustomerPaymentDTO customerPaymentDTO)
         {
             try
@@ -72,7 +72,7 @@ namespace Platform.Controller
         }
 
 
-        [Authorize]
+    //    [Authorize]
         [Route("api/CustomerPayments/{id}")]
         public IHttpActionResult Put(int id, [FromBody]CustomerPaymentDTO customerPaymentDTO)
         {
@@ -93,7 +93,7 @@ namespace Platform.Controller
             }
         }
 
-        [Authorize]
+   //     [Authorize]
         [Route("api/CustomerPayments/{id}")]
         public IHttpActionResult Delete(int id)
         {

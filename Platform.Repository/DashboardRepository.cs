@@ -12,6 +12,52 @@ namespace Platform.Repository
     public class DashboardRepository 
     {
 
+        public List<ProductOrders> GetProductOrders()
+        {
+            List<ProductOrders> productOrders = new List<ProductOrders>();
+            using (var db = new PlatformDBEntities())
+            {
+                // Create a SQL command to execute the sproc 
+                var cmd = db.Database.Connection.CreateCommand();
+                cmd.CommandText = "[dbo].[GetProductOrders]";
+
+                try
+                {
+                    db.Database.Connection.Open();
+
+                    // Run the sproc  
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+
+                        productOrders.Add(
+                            new ProductOrders()
+                            {
+                                CustomerId = reader.GetInt32(0),
+                                CustomerName = reader.GetString(1),
+                                CustomerMobileNumber = reader.GetString(2),
+                                OrderId = reader.GetInt32(3),
+                                ProductOrderDetailId = reader.GetInt32(4),
+                                ProductMappingId = reader.GetInt32(5),
+                                ProductName = reader.GetString(6),
+                                Quantity = reader.GetDecimal(7),
+                                Amount = reader.GetDecimal(8),
+                                OrderStatus = ((OrderStatus)reader.GetInt32(9)).ToString(),
+
+                                OrderPlacedDtm = reader.GetDateTime(10),
+
+                            });
+
+                }
+
+                finally
+                {
+                    db.Database.Connection.Close();
+                }
+            }
+            return productOrders;
+
+        }
+
         public DashboardDTO GetDashBoardDetails(DateTime salesDate)
         {
             DashboardDTO dashboardDTO = new DashboardDTO()
@@ -46,7 +92,7 @@ namespace Platform.Repository
                                 ProductName = reader.GetString(6),
                                 Quantity = reader.GetDecimal(7),
                                 Amount = reader.GetDecimal(8),
-                                OrderStatus = (OrderStatus)reader.GetInt32(9),
+                                OrderStatus = ((OrderStatus)reader.GetInt32(9)).ToString(),
 
                                 OrderPlacedDtm = reader.GetDateTime(10),
 

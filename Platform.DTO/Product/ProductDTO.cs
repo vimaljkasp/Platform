@@ -12,6 +12,7 @@ namespace Platform.DTO
     public class ProductDTO
     {
         public Int32 ProductId { get; set; }
+        public int ProductMappingId { get; set; }
         public string ProductCode { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }

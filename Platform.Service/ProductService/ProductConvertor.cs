@@ -10,10 +10,11 @@ namespace Platform.Service
 {
     public class ProductConvertor
     {
-        public static ProductDTO ConvertToProductDto(Product product)
+        public static ProductDTO ConvertToProductDto(Product product,int productMappingId)
         {
             ProductDTO productDTO = new ProductDTO();
             productDTO.ProductId = product.ProductId;
+            productDTO.ProductMappingId = productMappingId;
             productDTO.ProductCode = product.ProductCode;
             productDTO.ProductName = product.ProductName;
             productDTO.ProductDescription = product.ProductDescription;
