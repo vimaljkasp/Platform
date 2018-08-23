@@ -23,6 +23,8 @@ namespace Platform.DTO
         public decimal OrderTax { get; set; }
         public decimal OrderPrice { get; set; }
         public string OrderPriority { get; set; }
+        public string OrderAddress { get; set; }
+        public DateTime ExpectedDeliveryDate { get; set; }
         public string Ref1 { get; set; }
         public string Ref2 { get; set; }
 

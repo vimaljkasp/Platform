@@ -32,6 +32,8 @@ namespace Platform.Service
             productOrderDetail.OrderId = productOrder.OrderId;
             productOrderDetail.ProductMappingId = productOrderDTO.ProductMappingId;
             productOrderDetail.Quantity = productOrderDTO.Qunatity;
+            productOrderDetail.OrderAddress = productOrderDTO.OrderAddress;
+            productOrderDetail.DeliveryExpectedDate = productOrderDTO.ExpectedDeliveryDate;
             productOrderDetails.Add(productOrderDetail);
             productOrder.ProductOrderDetails = productOrderDetails;
             unitOfWork.ProductOrderRepository.Add(productOrder);

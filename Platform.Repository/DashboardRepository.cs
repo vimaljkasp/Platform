@@ -44,8 +44,11 @@ namespace Platform.Repository
                                 Quantity = reader.GetDecimal(7),
                                 Amount = reader.GetDecimal(8),
                                 OrderStatus = ((OrderStatus)reader.GetInt32(9)).ToString(),
-
                                 OrderPlacedDtm = reader.GetDateTime(10),
+                                OrderNumber=reader.GetString(11),
+                                OrderAddress=reader.GetString(12),
+                                OrderComments =reader.GetString(13),
+                                ExpectedDeliveryDate=reader.GetDateTime(14)
 
                             });
 

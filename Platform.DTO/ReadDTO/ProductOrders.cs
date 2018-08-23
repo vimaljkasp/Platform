@@ -11,6 +11,8 @@ namespace Platform.DTO
 
         public int OrderId { get; set; }
 
+        public string OrderNumber { get; set; }
+
         public int ProductMappingId { get; set; }
 
         public int ProductOrderDetailId { get; set; }
@@ -30,6 +32,12 @@ namespace Platform.DTO
         public string CustomerMobileNumber { get; set; }
 
         public DateTime OrderPlacedDtm { get; set; }
+
+        public string OrderComments { get; set; }
+
+        public string OrderAddress { get; set; }
+
+        public DateTime ExpectedDeliveryDate { get; set; }
     }
 
     public enum OrderStatus
