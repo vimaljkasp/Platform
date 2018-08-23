@@ -9,14 +9,9 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class ItemService : IItemService
+    public class ItemService : IItemService,IDisposable
     {
-        private readonly ItemRepository itemRepository;
-
-        public ItemService(ItemRepository itemRepository)
-        {
-            this.itemRepository = itemRepository;
-        }
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
 
         public void AddItemCategory(ItemCategoryDTO itemDTO)
@@ -25,18 +20,18 @@ namespace Platform.Service
             ItemCategory itemCategory = new ItemCategory();
 
             ItemConvertor.ConvertToItemCategoryEntity(ref itemCategory, itemDTO, false);
-            itemRepository.Add(itemCategory);
+            unitOfWork.ItemRepository.Add(itemCategory);
         }
 
         public void DeleteItemCategory(int itemId)
         {
-            itemRepository.Delete(itemId);
+            unitOfWork.ItemRepository.Delete(itemId);
         }
 
         public List<ItemCategoryDTO> GetAllItemCategory()
         {
             List<ItemCategoryDTO> itemCategoryList = new List<ItemCategoryDTO>();
-            var itemCategories = itemRepository.GetAll();
+            var itemCategories = unitOfWork.ItemRepository.GetAll();
             if (itemCategories != null)
             {
                 foreach (var itemCategory in itemCategories)
@@ -52,8 +47,8 @@ namespace Platform.Service
         public ItemCategoryDTO GetItemCategoryById(int itemId)
         {
             ItemCategoryDTO itemCategoryDTO = null;
-            var itemCategory = itemRepository.GetById(itemId);
-            if (itemRepository != null)
+            var itemCategory = unitOfWork.ItemRepository.GetById(itemId);
+            if (itemCategory != null)
             {
                 itemCategoryDTO = ItemConvertor.ConvertToItemCategoryDto(itemCategory);
             }
@@ -64,7 +59,25 @@ namespace Platform.Service
         {
             ItemCategory itemCategory = new ItemCategory();
             ItemConvertor.ConvertToItemCategoryEntity(ref itemCategory, itemCategoryDTO, true);
-            itemRepository.Update(itemCategory);
+            unitOfWork.ItemRepository.Update(itemCategory);
+        }
+
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

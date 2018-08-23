@@ -6,10 +6,14 @@ using Platform.Sql;
 
 namespace Platform.Repository
 {
-    public class SiteConfigurationRepository : IDisposable
+    public class SiteConfigurationRepository
     {
 
-        PlatformDBEntities _repository = new PlatformDBEntities();
+        PlatformDBEntities _repository;
+        public SiteConfigurationRepository(PlatformDBEntities repository)
+        {
+            _repository = repository;
+        }
         public List<SiteConfiguration> GetAll()
         {
 
@@ -51,7 +55,7 @@ namespace Platform.Repository
             if (siteConfiguration != null)
             {
                 _repository.SiteConfigurations.Add(siteConfiguration);
-                _repository.SaveChanges();
+             //   _repository.SaveChanges();
 
             }
 
@@ -66,7 +70,7 @@ namespace Platform.Repository
             if (siteConfiguration != null)
             {
                 _repository.Entry<Sql.SiteConfiguration>(siteConfiguration).State = System.Data.Entity.EntityState.Modified;
-                _repository.SaveChanges();
+             //   _repository.SaveChanges();
 
             }
 
@@ -79,27 +83,11 @@ namespace Platform.Repository
             if (site != null)
                 _repository.SiteConfigurations.Remove(site);
 
-            _repository.SaveChanges();
+           // _repository.SaveChanges();
 
         }
 
-        protected void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_repository != null)
-                {
-                    _repository.Dispose();
-                    _repository = null;
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        
 
 
     }

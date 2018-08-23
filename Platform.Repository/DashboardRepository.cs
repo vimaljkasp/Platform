@@ -13,19 +13,23 @@ namespace Platform.Repository
 {
     public class DashboardRepository 
     {
+        PlatformDBEntities _repository;
+        public DashboardRepository(PlatformDBEntities repository)
+        {
+            _repository = repository;
+        }
 
         public List<ProductOrders> GetProductOrders()
         {
             List<ProductOrders> productOrders = new List<ProductOrders>();
-            using (var db = new PlatformDBEntities())
-            {
+            
                 // Create a SQL command to execute the sproc 
-                var cmd = db.Database.Connection.CreateCommand();
+                var cmd = _repository.Database.Connection.CreateCommand();
                 cmd.CommandText = "[dbo].[GetProductOrders]";
 
                 try
                 {
-                    db.Database.Connection.Open();
+                _repository.Database.Connection.Open();
 
                     // Run the sproc  
                     var reader = cmd.ExecuteReader();
@@ -56,9 +60,9 @@ namespace Platform.Repository
 
                 finally
                 {
-                    db.Database.Connection.Close();
+                _repository.Database.Connection.Close();
                 }
-            }
+            
             return productOrders;
 
         }
@@ -71,15 +75,14 @@ namespace Platform.Repository
                 productSalesList=new List<ProductSales>(),
                 customerBalanceList=new List<CustomerBalance>()
             };
-            using (var db = new PlatformDBEntities())
-            {
+          
                 // Create a SQL command to execute the sproc 
-                var cmd = db.Database.Connection.CreateCommand();
+                var cmd = _repository.Database.Connection.CreateCommand();
                 cmd.CommandText = "[dbo].[GetDashBoardDetails]";
 
                 try
                 {
-                    db.Database.Connection.Open();
+                _repository.Database.Connection.Open();
 
                     // Run the sproc  
                     var reader = cmd.ExecuteReader();
@@ -136,9 +139,9 @@ namespace Platform.Repository
 
                 finally
                 {
-                    db.Database.Connection.Close();
+                _repository.Database.Connection.Close();
                 }
-            }
+            
             return dashboardDTO;
         }
 
@@ -146,10 +149,9 @@ namespace Platform.Repository
         public Int32 NextNumberGenerator(string enitityCode)
         {
             int nextNumber = 0;
-            using (var db = new PlatformDBEntities())
-            {
+            
                 // Create a SQL command to execute the sproc 
-                var cmd = db.Database.Connection.CreateCommand();
+                var cmd = _repository.Database.Connection.CreateCommand();
                 cmd.CommandText = "[dbo].[GetNextEntityNumber]";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new SqlParameter("@EntityName",SqlDbType.NVarChar,50));
@@ -159,7 +161,7 @@ namespace Platform.Repository
                 cmd.Parameters["@EntityName"].Value = enitityCode;
                 try
                 {
-                    db.Database.Connection.Open();
+                _repository.Database.Connection.Open();
 
                     // Run the sproc  
                     var reader = cmd.ExecuteReader();
@@ -171,9 +173,9 @@ namespace Platform.Repository
 
                 finally
                 {
-                    db.Database.Connection.Close();
+                _repository.Database.Connection.Close();
                 }
-            }
+            
             return nextNumber;
         }
      

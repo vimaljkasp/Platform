@@ -15,13 +15,10 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class DashboardService : IDashboardService
+    public class DashboardService : IDashboardService,IDisposable
     {
-        private UnitOfWork unitOfWork;
-        public DashboardService()
-        {
-            unitOfWork = new UnitOfWork(); 
-        }
+        private UnitOfWork unitOfWork=new UnitOfWork(); 
+        
 
         public DashboardDTO GetDashboardDetails()
         {
@@ -37,6 +34,23 @@ namespace Platform.Service
            return unitOfWork.DashboardRepository.GetProductOrders();
 
           
+        }
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

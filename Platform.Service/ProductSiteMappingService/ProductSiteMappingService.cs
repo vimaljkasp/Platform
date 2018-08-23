@@ -9,15 +9,10 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class ProductSiteMappingService : IProductSiteMappingService
+    public class ProductSiteMappingService : IProductSiteMappingService, IDisposable
     {
-        private readonly ProductSiteMappingRepository productSiteMappingRepository;
+        private UnitOfWork unitOfWork =new UnitOfWork();
 
-
-        public ProductSiteMappingService(ProductSiteMappingRepository productSiteMappingRepository)
-        {
-            this.productSiteMappingRepository = productSiteMappingRepository;
-        }
         
 
 
@@ -26,18 +21,18 @@ namespace Platform.Service
             ProductSiteMapping productSiteMapping = new ProductSiteMapping();
 
             ProductSiteMappingConvertor.ConvertToProductSiteMappingEntity(ref productSiteMapping, productSiteMappingDTO, false);
-            productSiteMappingRepository.Add(productSiteMapping);
+            unitOfWork.ProductSiteMappingRepository.Add(productSiteMapping);
         }
 
         public void DeleteProductSiteMapping(int productSiteMappingId)
         {
-            productSiteMappingRepository.Delete(productSiteMappingId);
+            unitOfWork.ProductSiteMappingRepository.Delete(productSiteMappingId);
         }
 
         public List<ProductSiteMappingDTO> GetAllProductSiteMapping()
         {
             List<ProductSiteMappingDTO> productSiteMappingList = new List<ProductSiteMappingDTO>();
-            var productSiteMappings = productSiteMappingRepository.GetAll();
+            var productSiteMappings = unitOfWork.ProductSiteMappingRepository.GetAll();
             if (productSiteMappings != null)
             {
                 foreach (var productSiteMapping in productSiteMappings)
@@ -53,7 +48,7 @@ namespace Platform.Service
         public ProductSiteMappingDTO GetProductSiteMappinById(int productSiteMappingId)
         {
             ProductSiteMappingDTO productSiteMappingDTO = null;
-            var productSiteMapping = productSiteMappingRepository.GetById(productSiteMappingId);
+            var productSiteMapping = unitOfWork.ProductSiteMappingRepository.GetById(productSiteMappingId);
             if (productSiteMapping != null)
             {
                 productSiteMappingDTO = ProductSiteMappingConvertor.ConvertToProductSiteMappingDto(productSiteMapping);
@@ -65,7 +60,24 @@ namespace Platform.Service
         {
             ProductSiteMapping productSiteMapping = new ProductSiteMapping();
             ProductSiteMappingConvertor.ConvertToProductSiteMappingEntity(ref productSiteMapping, productSiteMappingDTO, true);
-            productSiteMappingRepository.Update(productSiteMapping);
+            unitOfWork.ProductSiteMappingRepository.Update(productSiteMapping);
+        }
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

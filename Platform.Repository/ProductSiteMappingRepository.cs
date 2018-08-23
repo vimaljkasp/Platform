@@ -6,10 +6,15 @@ using Platform.Sql;
 
 namespace Platform.Repository
 {
-    public class ProductSiteMappingRepository : IDisposable
+    public class ProductSiteMappingRepository 
     {
 
-        PlatformDBEntities _repository = new PlatformDBEntities();
+
+        PlatformDBEntities _repository;
+        public ProductSiteMappingRepository(PlatformDBEntities repository)
+        {
+            _repository = repository;
+        }
         public List<ProductSiteMapping> GetAll()
         {
 
@@ -44,7 +49,7 @@ namespace Platform.Repository
             if (productSiteMapping != null)
             {
                 _repository.ProductSiteMappings.Add(productSiteMapping);
-                _repository.SaveChanges();
+             //   _repository.SaveChanges();
 
             }
 
@@ -59,7 +64,7 @@ namespace Platform.Repository
             if (productSiteMapping != null)
             {
                 _repository.Entry<Sql.ProductSiteMapping>(productSiteMapping).State = System.Data.Entity.EntityState.Modified;
-                _repository.SaveChanges();
+           //     _repository.SaveChanges();
 
             }
 
@@ -72,27 +77,11 @@ namespace Platform.Repository
             if (productSiteMapping != null)
                 _repository.ProductSiteMappings.Remove(productSiteMapping);
 
-            _repository.SaveChanges();
+         //   _repository.SaveChanges();
 
         }
 
-        protected void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_repository != null)
-                {
-                    _repository.Dispose();
-                    _repository = null;
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+     
 
 
     }

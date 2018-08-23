@@ -6,10 +6,14 @@ using Platform.Sql;
 
 namespace Platform.Repository
 {
-    public class ModuleDashboardRepository : IDisposable
+    public class ModuleDashboardRepository 
     {
 
-        PlatformDBEntities _repository = new PlatformDBEntities();
+        PlatformDBEntities _repository;
+        public ModuleDashboardRepository(PlatformDBEntities repository)
+        {
+            _repository = repository;
+        }
         public List<Module> GetAll()
         {
 
@@ -41,7 +45,7 @@ namespace Platform.Repository
             if (module != null)
             {
                 _repository.Modules.Add(module);
-                _repository.SaveChanges();
+             //   _repository.SaveChanges();
 
             }
 
@@ -56,7 +60,7 @@ namespace Platform.Repository
             if (module != null)
             {
                 _repository.Entry<Sql.Module>(module).State = System.Data.Entity.EntityState.Modified;
-                _repository.SaveChanges();
+//_repository.SaveChanges();
 
             }
 
@@ -69,27 +73,11 @@ namespace Platform.Repository
             if (module != null)
                 _repository.Modules.Remove(module);
 
-            _repository.SaveChanges();
+         //   _repository.SaveChanges();
 
         }
 
-        protected void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_repository != null)
-                {
-                    _repository.Dispose();
-                    _repository = null;
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+       
 
 
     }

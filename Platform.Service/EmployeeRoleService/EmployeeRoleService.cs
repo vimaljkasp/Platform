@@ -9,20 +9,17 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class EmployeeRoleService : IEmployeeRoleService
+    public class EmployeeRoleService : IEmployeeRoleService,IDisposable
 
     {
-        private readonly EmployeeRoleRepository employeeRoleRepository;
+        private  UnitOfWork unitOfWork=new UnitOfWork();
         
-        public EmployeeRoleService(EmployeeRoleRepository employeeRoleRepository)
-        {
-            this.employeeRoleRepository = employeeRoleRepository;
-        }
+      
 
         public List<EmployeeRoleDTO> GetAllEmployeeRoles()
         {
             List<EmployeeRoleDTO> employeeRoleList = new List<EmployeeRoleDTO>();
-            var employeeRoles = employeeRoleRepository.GetAll();
+            var employeeRoles = unitOfWork.EmployeeRoleRepository.GetAll();
             if (employeeRoles != null)
             {
                 foreach (var employee in employeeRoles)
@@ -40,7 +37,7 @@ namespace Platform.Service
         public EmployeeRoleDTO GetEmployeeRoleById(int employeeRoleId)
         {
             EmployeeRoleDTO employeeRoleDTO = null;
-            var employeeRole = employeeRoleRepository.GetById(employeeRoleId);
+            var employeeRole = unitOfWork.EmployeeRoleRepository.GetById(employeeRoleId);
             if (employeeRole != null)
             {
                 employeeRoleDTO = EmployeeRoleConvertor.ConvertToEmployeeRoleDto(employeeRole);
@@ -52,7 +49,7 @@ namespace Platform.Service
         {
             EmployeeRole employeeRole = new EmployeeRole();
             EmployeeRoleConvertor.ConvertToEmployeeRoleEntity(ref employeeRole, employeeRoleDTO, false);
-            employeeRoleRepository.Add(employeeRole);
+            unitOfWork.EmployeeRoleRepository.Add(employeeRole);
             
         }
 
@@ -60,13 +57,29 @@ namespace Platform.Service
         {
             EmployeeRole employeeRole = null;
             EmployeeRoleConvertor.ConvertToEmployeeRoleEntity(ref employeeRole, employeeRoleDTO, true);
-            employeeRoleRepository.Update(employeeRole);
+            unitOfWork.EmployeeRoleRepository.Update(employeeRole);
         }
 
         public void DeleteEmployeeRole(int employeeRoleId)
         {
-            employeeRoleRepository.Delete(employeeRoleId);
+            unitOfWork.EmployeeRoleRepository.Delete(employeeRoleId);
+        }
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

@@ -57,7 +57,6 @@
     <Compile Include="EmployeeRoleRepository.cs" />
     <Compile Include="EmployeeSessionRepository.cs" />
     <Compile Include="ItemRepository.cs" />
-    <Compile Include="LoggerRepository.cs" />
     <Compile Include="ModuleDashboardRepository.cs" />
     <Compile Include="ProductSiteMappingRepository.cs" />
     <Compile Include="ProductOrderDtlRepository.cs" />

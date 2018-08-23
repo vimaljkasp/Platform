@@ -7,11 +7,15 @@ using System.Threading.Tasks;
 
 namespace Platform.Repository
 {
-    public class EmployeeRepository : IDisposable
+    public class EmployeeRepository 
     {
 
-        PlatformDBEntities _repository = new PlatformDBEntities();
 
+        PlatformDBEntities _repository;
+        public EmployeeRepository(PlatformDBEntities repository)
+        {
+            _repository = repository;
+        }
         public List<Employee> GetAllEmployees()
         {
             List<Employee> employees = new List<Employee>();
@@ -38,7 +42,7 @@ namespace Platform.Repository
             {
                 _repository.Employees.Add(employee);
                 
-                _repository.SaveChanges();
+              //  _repository.SaveChanges();
 
             }
         }
@@ -49,7 +53,7 @@ namespace Platform.Repository
                 if (employee != null)
                 {
                     _repository.Entry<Sql.Employee>(employee).State = System.Data.Entity.EntityState.Modified;
-                    _repository.SaveChanges();
+                 //   _repository.SaveChanges();
                 }
 
            
@@ -62,7 +66,7 @@ namespace Platform.Repository
             if (employee != null)
                 _repository.Employees.Remove(employee);
 
-            _repository.SaveChanges();
+          //  _repository.SaveChanges();
 
         }
 
@@ -74,23 +78,7 @@ namespace Platform.Repository
         }
 
 
-        protected void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_repository != null)
-                {
-                    _repository.Dispose();
-                    _repository = null;
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+      
 
     }
 }

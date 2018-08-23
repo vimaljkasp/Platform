@@ -9,19 +9,15 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class SiteService : ISiteService
+    public class SiteService : ISiteService,IDisposable
     {
-        private readonly SiteRepository siteRepository;
+        private  UnitOfWork unitOfWork=new UnitOfWork();
 
-        public SiteService(SiteRepository siteRepository)
-        {
-           this.siteRepository = siteRepository;
-        }
 
             public List<SiteDTO> GetAllSites()
             {
                 List<SiteDTO> siteList = new List<SiteDTO>();
-                var sites = siteRepository.GetAll();
+                var sites = unitOfWork.SiteRepository.GetAll();
                 if (sites != null)
                 {
                     foreach (var site in sites)
@@ -39,7 +35,7 @@ namespace Platform.Service
             public SiteDTO GetSiteById(int siteId)
             {
             SiteDTO siteDTO = null;
-                var site = siteRepository.GetById(siteId);
+                var site = unitOfWork.SiteRepository.GetById(siteId);
                 if (site != null)
                 {
                 siteDTO = SiteConvertor.ConvertToSiteDTO(site);
@@ -79,8 +75,24 @@ namespace Platform.Service
 
             }
 
-
-
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+    }
     }
 

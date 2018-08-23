@@ -9,15 +9,10 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class ProductService : IProductService
+    public class ProductService : IProductService,IDisposable
     {
-        private readonly ProductRepository productRepository;
-        private readonly UnitOfWork unitOfWork;
-        public ProductService(ProductRepository productRepository)
-        {
-           this.productRepository = productRepository;
-            unitOfWork = new UnitOfWork();
-        }
+        private  UnitOfWork unitOfWork=new UnitOfWork();
+      
    
 
         public List<ProductDTO> GetAllProducts()
@@ -44,7 +39,7 @@ namespace Platform.Service
             ProductDTO productDTO = null;
             var prouctMapping = unitOfWork.ProductSiteMappingRepository.GetAll();
 
-            var product = productRepository.GetById(productId);
+            var product = unitOfWork.ProductRepository.GetById(productId);
                 if (product != null)
                 {
                 productDTO = ProductConvertor.ConvertToProductDto(product, prouctMapping.Where(p => p.ProductId == product.ProductId).FirstOrDefault().ProductMappingId);
@@ -84,8 +79,24 @@ namespace Platform.Service
 
             }
 
-
-
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+    }
     }
 

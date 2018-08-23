@@ -34,6 +34,7 @@ namespace Platform.Sql
         public virtual DbSet<EmployeeSession> EmployeeSessions { get; set; }
         public virtual DbSet<ItemCategory> ItemCategories { get; set; }
         public virtual DbSet<Module> Modules { get; set; }
+        public virtual DbSet<NumberMaster> NumberMasters { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductOrder> ProductOrders { get; set; }
         public virtual DbSet<ProductOrderDetail> ProductOrderDetails { get; set; }

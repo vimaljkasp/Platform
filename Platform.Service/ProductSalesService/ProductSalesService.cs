@@ -9,20 +9,17 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class ProductSalesService : IProductSalesService
+    public class ProductSalesService : IProductSalesService, IDisposable
     {
-        private readonly ProductSalesRepository productSalesRepository;
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
-        public ProductSalesService(ProductSalesRepository productSalesRepository)
-        {
-            this.productSalesRepository = productSalesRepository;
-        }
+       
 
 
         public List<ProductSalesDTO> GetAllProductSales()
         {
             List<ProductSalesDTO> productSalesList = new List<ProductSalesDTO>();
-            var productSales = productSalesRepository.GetAll();
+            var productSales = unitOfWork.ProductSalesRepository.GetAll();
             if (productSales != null)
             {
                 foreach (var productSale in productSales)
@@ -40,7 +37,7 @@ namespace Platform.Service
         public ProductSalesDTO GetProductSalesById(int productSalesId)
         {
             ProductSalesDTO productSaleDTO = null;
-            var productSales = productSalesRepository.GetById(productSalesId);
+            var productSales = unitOfWork.ProductSalesRepository.GetById(productSalesId);
             if (productSales != null)
             {
                 productSaleDTO = ProductSalesConvertor.ConvertToProductSaleDto(productSales);
@@ -80,7 +77,23 @@ namespace Platform.Service
 
         }
 
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
+        }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
     }
 }

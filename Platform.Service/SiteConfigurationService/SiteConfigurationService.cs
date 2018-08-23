@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class SiteConfigurationService : ISiteConfigurationService
+    public class SiteConfigurationService : ISiteConfigurationService, IDisposable
     {
         private UnitOfWork unitOfWork;
 
@@ -83,9 +83,25 @@ namespace Platform.Service
 
             }
 
-
-
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+    }
     }
 
 

@@ -9,20 +9,15 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class ModuleService : IModuleService
+    public class ModuleService : IModuleService,IDisposable
     {
-        private readonly ModuleDashboardRepository moduleDashboardRepository;
-
-        public ModuleService(ModuleDashboardRepository moduleDashboardRepository)
-        {
-            this.moduleDashboardRepository = moduleDashboardRepository;
-        }
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
 
         public List<ModuleDTO> GetAllModules()
         {
             List<ModuleDTO> moduleList = new List<ModuleDTO>();
-            var modules = moduleDashboardRepository.GetAll();
+            var modules = unitOfWork.ModuleDashboardRepository.GetAll();
             if (modules != null)
             {
                 foreach (var module in modules)
@@ -40,7 +35,7 @@ namespace Platform.Service
         public ModuleDTO GetModuleById(int moduleId)
         {
             ModuleDTO moduleDTO = null;
-            var module = moduleDashboardRepository.GetById(moduleId);
+            var module = unitOfWork.ModuleDashboardRepository.GetById(moduleId);
             if (module != null)
             {
                 moduleDTO = ModuleConvertor.ConvertToModuleDto(module);
@@ -80,7 +75,23 @@ namespace Platform.Service
 
         }
 
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
+        }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
     }
 }

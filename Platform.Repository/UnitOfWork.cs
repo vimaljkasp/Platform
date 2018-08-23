@@ -15,13 +15,24 @@ namespace Platform.Service
         private ProductRepository productRepository;
         private ProductOrderRepository productOrderRepository;
         private ProductOrderDtlRepository productOrderDtlRepository;
-        private CustomerRepository customerRepository;
+        
         private ModuleDashboardRepository moduleDashboardRepository;
         private ProductSalesRepository productSalesRepository;
+
+        private CustomerRepository customerRepository;
         private CustomerWalletRepository customerWalletRepositoy;
         private CustomerPaymentRepository customerPaymentRepository;
+        private CustomerSessionRepository customerSessionRepository;
+
         private ProductSiteMappingRepository productSiteMappingRepository;
         private DashboardRepository dashboardRepository;
+
+
+        private EmployeeRepository employeeRepository;
+        private EmployeeRoleRepository employeeRoleRepository;
+        private EmployeeSessionRepository employeeSessionRepository;
+
+        private ItemRepository itemRepository;
         PlatformDBEntities _repository;
         public UnitOfWork()
         {
@@ -33,7 +44,7 @@ namespace Platform.Service
             get
             {
                 if (SiteRepository == null)
-                    return siteRepository = new SiteRepository();
+                    return siteRepository = new SiteRepository(_repository);
               
                 else
                 {
@@ -48,7 +59,7 @@ namespace Platform.Service
             get
             {
                 if (siteConfigurationRepository == null)
-                    return siteConfigurationRepository = new SiteConfigurationRepository();
+                    return siteConfigurationRepository = new SiteConfigurationRepository(_repository);
                 else
                 {
                     return siteConfigurationRepository;
@@ -63,7 +74,7 @@ namespace Platform.Service
             get
             {
                 if (customerRepository == null)
-                    return customerRepository = new CustomerRepository();
+                    return customerRepository = new CustomerRepository(_repository);
 
                 else
                 {
@@ -78,7 +89,7 @@ namespace Platform.Service
             get
             {
                 if (productRepository == null)
-                    return productRepository = new ProductRepository();
+                    return productRepository = new ProductRepository(_repository);
                 else
                 {
                     return productRepository;
@@ -93,7 +104,7 @@ namespace Platform.Service
             get
             {
                 if (productSalesRepository == null)
-                    return productSalesRepository = new ProductSalesRepository();
+                    return productSalesRepository = new ProductSalesRepository(_repository);
                 else
                 {
                     return productSalesRepository;
@@ -108,7 +119,7 @@ namespace Platform.Service
             get
             {
                 if (productOrderRepository == null)
-                    return productOrderRepository = new ProductOrderRepository();
+                    return productOrderRepository = new ProductOrderRepository(_repository);
                 else
                 {
                     return productOrderRepository;
@@ -123,7 +134,7 @@ namespace Platform.Service
             get
             {
                 if (productOrderDtlRepository == null)
-                    return productOrderDtlRepository = new ProductOrderDtlRepository();
+                    return productOrderDtlRepository = new ProductOrderDtlRepository(_repository);
 
                 else
                 {
@@ -140,7 +151,7 @@ namespace Platform.Service
             get
             {
                 if (moduleDashboardRepository == null)
-                    return moduleDashboardRepository = new ModuleDashboardRepository();
+                    return moduleDashboardRepository = new ModuleDashboardRepository(_repository);
 
                 else
                 {
@@ -157,7 +168,7 @@ namespace Platform.Service
             get
             {
                 if (customerWalletRepositoy == null)
-                    return customerWalletRepositoy = new CustomerWalletRepository();
+                    return customerWalletRepositoy = new CustomerWalletRepository(_repository);
                 else
                     return customerWalletRepositoy;
             }
@@ -168,9 +179,20 @@ namespace Platform.Service
             get
             {
                 if (customerPaymentRepository == null)
-                    return customerPaymentRepository = new CustomerPaymentRepository();
+                    return customerPaymentRepository = new CustomerPaymentRepository(_repository);
                 else
                     return customerPaymentRepository;
+            }
+        }
+
+        public CustomerSessionRepository CustomerSessionRepository
+        {
+            get
+            {
+                if (customerSessionRepository == null)
+                    return customerSessionRepository = new CustomerSessionRepository(_repository);
+                else
+                    return customerSessionRepository;
             }
         }
 
@@ -180,9 +202,42 @@ namespace Platform.Service
             get
             {
                 if (productSiteMappingRepository == null)
-                    return productSiteMappingRepository = new ProductSiteMappingRepository();
+                    return productSiteMappingRepository = new ProductSiteMappingRepository(_repository);
                 else
                     return productSiteMappingRepository;
+            }
+        }
+
+        public EmployeeRoleRepository EmployeeRoleRepository
+        {
+            get
+            {
+                if (employeeRoleRepository == null)
+                    return employeeRoleRepository = new EmployeeRoleRepository(_repository);
+                else
+                    return employeeRoleRepository;
+            }
+        }
+
+        public EmployeeRepository EmployeeRepository
+        {
+            get
+            {
+                if (employeeRepository == null)
+                    return employeeRepository = new EmployeeRepository(_repository);
+                else
+                    return employeeRepository;
+            }
+        }
+
+        public EmployeeSessionRepository EmployeeSessionRepository
+        {
+            get
+            {
+                if (employeeSessionRepository == null)
+                    return employeeSessionRepository = new EmployeeSessionRepository(_repository);
+                else
+                    return employeeSessionRepository;
             }
         }
 
@@ -192,13 +247,22 @@ namespace Platform.Service
             get
             {
                 if (dashboardRepository == null)
-                    return dashboardRepository = new DashboardRepository();
+                    return dashboardRepository = new DashboardRepository(_repository);
                 else
                     return dashboardRepository;
             }
         }
 
-
+        public ItemRepository ItemRepository
+        {
+            get
+            {
+                if (itemRepository == null)
+                    return itemRepository = new ItemRepository(_repository);
+                else
+                    return itemRepository;
+            }
+        }
 
         //To save multiple repository and maintain consistency
         public void SaveChanges()

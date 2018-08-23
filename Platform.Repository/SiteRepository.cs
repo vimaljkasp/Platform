@@ -6,10 +6,14 @@ using Platform.Sql;
 
 namespace Platform.Repository
 {
-    public class SiteRepository : IDisposable
+    public class SiteRepository 
     {
 
-        PlatformDBEntities _repository = new PlatformDBEntities();
+        PlatformDBEntities _repository;
+        public SiteRepository(PlatformDBEntities repository)
+        {
+            _repository = repository;
+        }
         public List<Site> GetAll()
         {
 
@@ -65,23 +69,7 @@ namespace Platform.Repository
 
         }
 
-        protected void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_repository != null)
-                {
-                    _repository.Dispose();
-                    _repository = null;
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+   
 
 
     }

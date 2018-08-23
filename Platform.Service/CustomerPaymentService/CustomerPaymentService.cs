@@ -9,25 +9,20 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class CustomerPaymentService : ICustomerPaymentService
+    public class CustomerPaymentService : ICustomerPaymentService,IDisposable
     {
-        private readonly CustomerPaymentRepository customerPaymentRepository;
+        private  UnitOfWork unitOfWork = new UnitOfWork();
 
-        private readonly UnitOfWork unitOfWork;
-
-        public CustomerPaymentService(CustomerPaymentRepository customerPaymentRepository)
-        {
-            this.customerPaymentRepository = customerPaymentRepository;
-            this.unitOfWork = new UnitOfWork();
-        }
 
         public void AddCustomerPayment(CustomerPaymentDTO customerPaymentDTO)
         {
 
             CustomerPaymentTransaction customerPaymentTransaction = new CustomerPaymentTransaction();
+            customerPaymentTransaction.CustomerPaymentId = unitOfWork.DashboardRepository.NextNumberGenerator("CustomerPaymentTransaction");
             CustomerPaymentConvertor.ConvertToCustomerPaymentEntity(ref customerPaymentTransaction, customerPaymentDTO, false);
-            customerPaymentRepository.Add(customerPaymentTransaction);
+            unitOfWork.CustomerPaymentRepository.Add(customerPaymentTransaction);
             this.UpdateCustomerWallet(customerPaymentDTO);
+            unitOfWork.SaveChanges();
         }
 
         private void UpdateCustomerWallet(CustomerPaymentDTO customerPaymentDTO)
@@ -39,26 +34,30 @@ namespace Platform.Service
                 if(customerWallet.WalletBalance>0)
                 customerWallet.AmountDueDate = DateTime.Now.AddDays(10);
                 unitOfWork.CustomerWalletRepository.Update(customerWallet);
+               
             }
             else
             {
                 customerWallet = new CustomerWallet();
+                customerWallet.WalletId= unitOfWork.DashboardRepository.NextNumberGenerator("CustomerWallet");
                 customerWallet.CustomerId = customerPaymentDTO.CustomerId;
                 customerWallet.WalletBalance = customerPaymentDTO.PaymentCrAmount;
                 customerWallet.AmountDueDate = DateTime.Now.AddDays(10);
                 unitOfWork.CustomerWalletRepository.Add(customerWallet);
+              
             }
         }
 
         public void DeleteCustomerPayemt(int customerPaymentId)
         {
-            this.customerPaymentRepository.Delete(customerPaymentId);
+            unitOfWork.CustomerPaymentRepository.Delete(customerPaymentId);
+            unitOfWork.SaveChanges();
         }
 
         public List<CustomerPaymentDTO> GetAllCustomerPayments()
         {
             List<CustomerPaymentDTO> customerPaymentsList = new List<CustomerPaymentDTO>();
-            var customerPayments = customerPaymentRepository.GetAll();
+            var customerPayments = unitOfWork.CustomerPaymentRepository.GetAll();
             if (customerPayments != null)
             {
                 foreach (var customerPayment in customerPayments)
@@ -74,7 +73,7 @@ namespace Platform.Service
         public CustomerPaymentDTO GetCustomerPaymentById(int customerPaymentId)
         {
             CustomerPaymentDTO customerPaymentDTO = null;
-            var customerPayment = customerPaymentRepository.GetById(customerPaymentId);
+            var customerPayment = unitOfWork.CustomerPaymentRepository.GetById(customerPaymentId);
             if (customerPayment != null)
             {
                 customerPaymentDTO = CustomerPaymentConvertor.ConvertToCustomerPaymentDto(customerPayment);
@@ -86,7 +85,25 @@ namespace Platform.Service
         {
             CustomerPaymentTransaction customerPaymentTransaction = null;
             CustomerPaymentConvertor.ConvertToCustomerPaymentEntity(ref customerPaymentTransaction, customerPaymentDTO, true);
-            customerPaymentRepository.Update(customerPaymentTransaction);
+            unitOfWork.CustomerPaymentRepository.Update(customerPaymentTransaction);
+            unitOfWork.SaveChanges();
+        }
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

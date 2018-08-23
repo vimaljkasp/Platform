@@ -6,10 +6,15 @@ using Platform.Sql;
 
 namespace Platform.Repository
 {
-    public class CustomerPaymentRepository : IDisposable
+    public class CustomerPaymentRepository 
     {
 
-        PlatformDBEntities _repository = new PlatformDBEntities();
+        PlatformDBEntities _repository;
+        public CustomerPaymentRepository(PlatformDBEntities repository)
+        {
+            _repository = repository;
+        }
+
         public List<CustomerPaymentTransaction> GetAll()
         {
 
@@ -38,7 +43,7 @@ namespace Platform.Repository
             if (customerPaymentTransaction != null)
             {
                 _repository.CustomerPaymentTransactions.Add(customerPaymentTransaction);
-                _repository.SaveChanges();
+               // _repository.SaveChanges();
 
             }
 
@@ -53,7 +58,7 @@ namespace Platform.Repository
             if (customerPaymentTransaction != null)
             {
                 _repository.Entry<Sql.CustomerPaymentTransaction>(customerPaymentTransaction).State = System.Data.Entity.EntityState.Modified;
-                _repository.SaveChanges();
+            //    _repository.SaveChanges();
 
             }
 
@@ -66,27 +71,11 @@ namespace Platform.Repository
             if (customerPaymentTransaction != null)
                 _repository.CustomerPaymentTransactions.Remove(customerPaymentTransaction);
 
-            _repository.SaveChanges();
+          //  _repository.SaveChanges();
 
         }
 
-        protected void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_repository != null)
-                {
-                    _repository.Dispose();
-                    _repository = null;
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+    
 
 
     }

@@ -9,17 +9,13 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class CustomerWalletService : ICustomerWalletService
+    public class CustomerWalletService : ICustomerWalletService,IDisposable
     {
 
-        private UnitOfWork unitOfWork;
+        private UnitOfWork unitOfWork=new UnitOfWork();
 
        
 
-        public CustomerWalletService()
-        {
-            unitOfWork = new UnitOfWork();
-        }
         public void AddCustomerWallet(CustomerWalletDTO customerWalletDTO)
         {
             CustomerWallet customerWallet = new CustomerWallet();
@@ -67,6 +63,24 @@ namespace Platform.Service
             }
 
             return unitOfWork.CustomerWalletRepository;
+        }
+
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

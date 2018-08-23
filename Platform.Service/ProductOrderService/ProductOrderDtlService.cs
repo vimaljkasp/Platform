@@ -9,16 +9,12 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class ProductOrderDtlService : IProductOrderDtlService
+    public class ProductOrderDtlService : IProductOrderDtlService,IDisposable
     {
-        private UnitOfWork unitOfWork;
-        private ProductOrderDtlRepository productOrderDtlRepository;
+        private UnitOfWork unitOfWork = new UnitOfWork();
+       
 
-        public ProductOrderDtlService()
-        {
-            unitOfWork = new UnitOfWork();
-            productOrderDtlRepository = new ProductOrderDtlRepository();
-        }
+        
 
         public void AddProductOrderDtl(ProductOrderDtlDTO customerDto)
         {
@@ -120,6 +116,7 @@ namespace Platform.Service
                 if (sales == null)
                 {
                     ProductSale productSale = new ProductSale();
+                    productSale.SalesId = unitOfWork.DashboardRepository.NextNumberGenerator("ProductSales");
                     productSale.SalesDate = DateTime.Now.Date;
                     productSale.TotalPrice = productOrderDtlDTO.TotalPrice;
                     productSale.ProductMappingId = productOrderDtlDTO.ProductMappingId;
@@ -146,6 +143,7 @@ namespace Platform.Service
             else
             {
                 customerWallet = new CustomerWallet();
+                customerWallet.WalletId = unitOfWork.DashboardRepository.NextNumberGenerator("CustomerWallet");
                 customerWallet.CustomerId = productOrderDtlDTO.CustomerId;
                 customerWallet.WalletBalance = productOrderDtlDTO.TotalPrice;
                 customerWallet.AmountDueDate = DateTime.Now.AddDays(10);
@@ -157,6 +155,7 @@ namespace Platform.Service
         {
 
             CustomerPaymentTransaction customerPaymentTransaction = new CustomerPaymentTransaction();
+            customerPaymentTransaction.CustomerPaymentId = unitOfWork.DashboardRepository.NextNumberGenerator("CustomerPaymentTransaction");
             customerPaymentTransaction.CustomerId = productOrderDtlDTO.CustomerId;
             customerPaymentTransaction.OrderId = productOrderDtlDTO.OrderId;
             customerPaymentTransaction.PaymentCrAmount = 0;
@@ -164,6 +163,24 @@ namespace Platform.Service
             customerPaymentTransaction.PaymentReceivedBy ="Order Placed";
             customerPaymentTransaction.PaymentDate = DateTime.Now.Date;
             unitOfWork.CustomerPaymentRepository.Add(customerPaymentTransaction);
+        }
+
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

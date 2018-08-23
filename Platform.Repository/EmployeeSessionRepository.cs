@@ -6,10 +6,15 @@ using Platform.Sql;
 
 namespace Platform.Repository
 {
-    public class EmployeeSessionRepository : IDisposable
+    public class EmployeeSessionRepository 
     {
 
-        PlatformDBEntities _repository = new PlatformDBEntities();
+
+        PlatformDBEntities _repository;
+        public EmployeeSessionRepository(PlatformDBEntities repository)
+        {
+            _repository = repository;
+        }
         public List<EmployeeSession> GetAll()
         {
             var employeeSessions = _repository.EmployeeSessions.ToList<Sql.EmployeeSession>();
@@ -32,7 +37,7 @@ namespace Platform.Repository
             if (employeeSession != null)
             {
                 _repository.EmployeeSessions.Add(employeeSession);
-                _repository.SaveChanges();
+           //     _repository.SaveChanges();
 
             }
         }
@@ -43,7 +48,7 @@ namespace Platform.Repository
             if (employeeSession != null)
             {
                 _repository.Entry<Sql.EmployeeSession>(employeeSession).State = System.Data.Entity.EntityState.Modified;
-                _repository.SaveChanges();
+              //  _repository.SaveChanges();
             }
 
 
@@ -57,28 +62,12 @@ namespace Platform.Repository
             if (employeeSession != null)
                 _repository.EmployeeSessions.Remove(employeeSession);
 
-            _repository.SaveChanges();
+          //  _repository.SaveChanges();
 
         }
 
 
-        protected void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_repository != null)
-                {
-                    _repository.Dispose();
-                    _repository = null;
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        
 
 
     }

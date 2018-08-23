@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="CustomerId" />
           </Key>
-          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="AddressLine1" Type="nvarchar" MaxLength="50" />
           <Property Name="AddressLine2" Type="nvarchar" MaxLength="50" />
@@ -24,7 +24,7 @@
           <Key>
             <PropertyRef Name="CustomerPaymentId" />
           </Key>
-          <Property Name="CustomerPaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerPaymentId" Type="int" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="PaymentCrAmount" Type="decimal" Precision="18" Scale="2" />
@@ -38,7 +38,7 @@
           <Key>
             <PropertyRef Name="SessionId" />
           </Key>
-          <Property Name="SessionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionId" Type="int" Nullable="false" />
           <Property Name="CustomerId" Type="int" />
           <Property Name="SessionStartDtm" Type="datetime" Nullable="false" />
           <Property Name="SessionEndDtm" Type="datetime" Nullable="false" />
@@ -48,7 +48,7 @@
           <Key>
             <PropertyRef Name="WalletId" />
           </Key>
-          <Property Name="WalletId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WalletId" Type="int" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="WalletBalance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="AmountDueDate" Type="datetime" Nullable="false" />
@@ -57,7 +57,7 @@
           <Key>
             <PropertyRef Name="UserName" />
           </Key>
-          <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="40" Nullable="false" />
@@ -82,7 +82,7 @@
           <Key>
             <PropertyRef Name="SessionId" />
           </Key>
-          <Property Name="SessionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="int" />
           <Property Name="SiteId" Type="int" />
           <Property Name="SessionStartDtm" Type="datetime" Nullable="false" />
@@ -93,7 +93,7 @@
           <Key>
             <PropertyRef Name="ItemId" />
           </Key>
-          <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
           <Property Name="ItemCode" Type="nvarchar" MaxLength="20" />
           <Property Name="ItemName" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="ItemDescription" Type="nvarchar" MaxLength="50" />
@@ -106,11 +106,18 @@
           <Property Name="ModuleName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="NumberMaster">
+          <Key>
+            <PropertyRef Name="EntityCode" />
+          </Key>
+          <Property Name="EntityCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NextNumber" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="ProductCode" Type="nvarchar" MaxLength="20" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="40" />
           <Property Name="ProductDescription" Type="nvarchar" MaxLength="100" />
@@ -124,7 +131,7 @@
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
-          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="OrderNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OrderPurchaseDtm" Type="datetime" Nullable="false" />
           <Property Name="OrderCustomerId" Type="int" />
@@ -140,7 +147,7 @@
           <Key>
             <PropertyRef Name="ProductOrderDetailId" />
           </Key>
-          <Property Name="ProductOrderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductOrderDetailId" Type="int" Nullable="false" />
           <Property Name="OrderId" Type="int" />
           <Property Name="ProductMappingId" Type="int" />
           <Property Name="OrderStatus" Type="int" Nullable="false" />
@@ -163,7 +170,7 @@
             <PropertyRef Name="SalesDate" />
             <PropertyRef Name="ProductMappingId" />
           </Key>
-          <Property Name="SalesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalesId" Type="int" Nullable="false" />
           <Property Name="SalesDate" Type="date" Nullable="false" />
           <Property Name="ProductMappingId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -175,7 +182,7 @@
           <Key>
             <PropertyRef Name="ProductMappingId" />
           </Key>
-          <Property Name="ProductMappingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductMappingId" Type="int" Nullable="false" />
           <Property Name="SiteId" Type="int" Nullable="false" />
           <Property Name="ItemId" Type="int" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
@@ -185,7 +192,7 @@
             <PropertyRef Name="StockDate" />
             <PropertyRef Name="StockProductId" />
           </Key>
-          <Property Name="StockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StockId" Type="int" Nullable="false" />
           <Property Name="StockDate" Type="date" Nullable="false" />
           <Property Name="StockProductId" Type="int" Nullable="false" />
           <Property Name="StockCreatedBy" Type="int" Nullable="false" />
@@ -208,7 +215,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="RoleDescription" Type="nvarchar" MaxLength="100" />
         </EntityType>
@@ -216,7 +223,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="SiteId" />
           </Key>
-          <Property Name="SiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiteId" Type="int" Nullable="false" />
           <Property Name="SiteCode" Type="nvarchar" MaxLength="10" />
           <Property Name="SiteName" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="SiteAddress" Type="nvarchar" MaxLength="100" />
@@ -233,7 +240,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <PropertyRef Name="KeyData" />
             <PropertyRef Name="KeyName" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="KeyData" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="KeyName" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="DataVal" Type="nvarchar" MaxLength="40" Nullable="false" />
@@ -346,6 +353,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <EntitySet Name="EmployeeSession" EntityType="Self.EmployeeSession" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemCategory" EntityType="Self.ItemCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NumberMaster" EntityType="Self.NumberMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductOrder" EntityType="Self.ProductOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductOrderDetail" EntityType="Self.ProductOrderDetail" Schema="dbo" store:Type="Tables" />
@@ -403,7 +411,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="CustomerId" />
           </Key>
-          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -419,7 +427,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="CustomerPaymentId" />
           </Key>
-          <Property Name="CustomerPaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerPaymentId" Type="Int32" Nullable="false" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="OrderId" Type="Int32" Nullable="false" />
           <Property Name="PaymentCrAmount" Type="Decimal" Precision="18" Scale="2" />
@@ -433,7 +441,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="SessionId" />
           </Key>
-          <Property Name="SessionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionId" Type="Int32" Nullable="false" />
           <Property Name="CustomerId" Type="Int32" />
           <Property Name="SessionStartDtm" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SessionEndDtm" Type="DateTime" Nullable="false" Precision="3" />
@@ -443,7 +451,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="WalletId" />
           </Key>
-          <Property Name="WalletId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WalletId" Type="Int32" Nullable="false" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="WalletBalance" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="AmountDueDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -452,7 +460,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="UserName" />
           </Key>
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
@@ -477,7 +485,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="SessionId" />
           </Key>
-          <Property Name="SessionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionId" Type="Int32" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" />
           <Property Name="SiteId" Type="Int32" />
           <Property Name="SessionStartDtm" Type="DateTime" Nullable="false" Precision="3" />
@@ -488,7 +496,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="ItemId" />
           </Key>
-          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
           <Property Name="ItemCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ItemName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ItemDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -502,11 +510,18 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Property Name="ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" />
         </EntityType>
+        <EntityType Name="NumberMaster">
+          <Key>
+            <PropertyRef Name="EntityCode" />
+          </Key>
+          <Property Name="EntityCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NextNumber" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="ProductCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ProductName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="ProductDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -521,7 +536,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
-          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
           <Property Name="OrderNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="OrderPurchaseDtm" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OrderCustomerId" Type="Int32" />
@@ -539,7 +554,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="ProductOrderDetailId" />
           </Key>
-          <Property Name="ProductOrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductOrderDetailId" Type="Int32" Nullable="false" />
           <Property Name="OrderId" Type="Int32" />
           <Property Name="ProductMappingId" Type="Int32" />
           <Property Name="OrderStatus" Type="Int32" Nullable="false" />
@@ -564,7 +579,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <PropertyRef Name="SalesDate" />
             <PropertyRef Name="ProductMappingId" />
           </Key>
-          <Property Name="SalesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesId" Type="Int32" Nullable="false" />
           <Property Name="SalesDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ProductMappingId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
@@ -577,7 +592,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="ProductMappingId" />
           </Key>
-          <Property Name="ProductMappingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductMappingId" Type="Int32" Nullable="false" />
           <Property Name="SiteId" Type="Int32" Nullable="false" />
           <Property Name="ItemId" Type="Int32" Nullable="false" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
@@ -593,7 +608,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <PropertyRef Name="StockDate" />
             <PropertyRef Name="StockProductId" />
           </Key>
-          <Property Name="StockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StockId" Type="Int32" Nullable="false" />
           <Property Name="StockDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="StockProductId" Type="Int32" Nullable="false" />
           <Property Name="StockCreatedBy" Type="Int32" Nullable="false" />
@@ -607,7 +622,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RoleDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -615,7 +630,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Key>
             <PropertyRef Name="SiteId" />
           </Key>
-          <Property Name="SiteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiteId" Type="Int32" Nullable="false" />
           <Property Name="SiteCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="SiteName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SiteAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -633,7 +648,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <PropertyRef Name="KeyData" />
             <PropertyRef Name="KeyName" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="KeyData" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="KeyName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DataVal" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
@@ -754,6 +769,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <EntitySet Name="EmployeeSessions" EntityType="Self.EmployeeSession" />
           <EntitySet Name="ItemCategories" EntityType="Self.ItemCategory" />
           <EntitySet Name="Modules" EntityType="Self.Module" />
+          <EntitySet Name="NumberMasters" EntityType="Self.NumberMaster" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductOrders" EntityType="Self.ProductOrder" />
           <EntitySet Name="ProductOrderDetails" EntityType="Self.ProductOrderDetail" />
@@ -909,6 +925,14 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
                 <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
                 <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NumberMasters">
+            <EntityTypeMapping TypeName="PlatformDBModel.NumberMaster">
+              <MappingFragment StoreEntitySet="NumberMaster">
+                <ScalarProperty Name="EntityCode" ColumnName="EntityCode" />
+                <ScalarProperty Name="NextNumber" ColumnName="NextNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

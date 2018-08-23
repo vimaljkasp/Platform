@@ -10,19 +10,15 @@ using System.Threading.Tasks;
 
 namespace Platform.Service
 {
-    public class CustomerService : ICustomerService
+    public class CustomerService : ICustomerService,IDisposable
     {
-        private readonly CustomerRepository customerRepository;
-        
-        public CustomerService(CustomerRepository customerRepository)
-        {
-            this.customerRepository = customerRepository;
-        }
+        private  UnitOfWork unitOfWork=new UnitOfWork();
+     
 
         public List<CustomerDto> GetAllCustomers()
         { 
             List<CustomerDto> customerList = new List<CustomerDto>();
-            var customers = customerRepository.GetAll();
+            var customers = unitOfWork.CustomerRepository.GetAll();
             if (customers != null)
             {
                 foreach (var customer in customers)
@@ -40,7 +36,7 @@ namespace Platform.Service
         public CustomerDto GetCustomerById(int customerId)
         {
             CustomerDto customerDto = null;
-            var customer = customerRepository.GetById(customerId);
+            var customer = unitOfWork.CustomerRepository.GetById(customerId);
             if (customer != null)
             {
                 customerDto = CustomerConvertor.ConvertToCustomerDto(customer);
@@ -52,11 +48,11 @@ namespace Platform.Service
 
         public void AddCustomer(CustomerDto customerDto)
         {
-            this.CheckForExisitngCustomer(customerDto.MobileNumber);
-            Customer customer = new Customer(); 
-            
+          //  this.CheckForExisitngCustomer(customerDto.MobileNumber);
+            Customer customer = new Customer();
+            customer.CustomerId = unitOfWork.DashboardRepository.NextNumberGenerator("Customer");
             CustomerConvertor.ConvertToCustomerEntity(ref customer, customerDto, false);
-            UnitOfWork unitOfWork = new UnitOfWork();
+            
             unitOfWork.CustomerRepository.Add(customer);
             unitOfWork.SaveChanges();
            
@@ -65,7 +61,7 @@ namespace Platform.Service
 
         private void CheckForExisitngCustomer(string mobileNumber)
         {
-            var existingCustomer = customerRepository.GetCustomerByMobileNumber(mobileNumber);
+            var existingCustomer = unitOfWork.CustomerRepository.GetCustomerByMobileNumber(mobileNumber);
             if (existingCustomer != null)
                 throw new PlatformModuleException("Customer Account Already Exist with given Mobile Number");
         }
@@ -73,9 +69,9 @@ namespace Platform.Service
         public void UpdateCustomer(CustomerDto customerDto)
         {
 
-            var customer = customerRepository.GetById(customerDto.CustomerId);
+            var customer = unitOfWork.CustomerRepository.GetById(customerDto.CustomerId);
             CustomerConvertor.ConvertToCustomerEntity(ref customer, customerDto, true);
-            UnitOfWork unitOfWork = new UnitOfWork();
+           
             unitOfWork.CustomerRepository.Update(customer);
             unitOfWork.SaveChanges();
         }
@@ -87,8 +83,24 @@ namespace Platform.Service
             unitOfWork.SaveChanges();
   
         }
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (unitOfWork != null)
+                {
+                    unitOfWork.Dispose();
+                    unitOfWork = null;
+                }
+            }
+        }
 
-        
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
 
     }
 }

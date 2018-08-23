@@ -6,10 +6,14 @@ using Platform.Sql;
 
 namespace Platform.Repository
 {
-    public class ProductSalesRepository : IDisposable
+    public class ProductSalesRepository
     {
 
-        PlatformDBEntities _repository = new PlatformDBEntities();
+        PlatformDBEntities _repository;
+        public ProductSalesRepository(PlatformDBEntities repository)
+        {
+            _repository = repository;
+        }
         public List<ProductSale> GetAll()
         {
 
@@ -49,7 +53,7 @@ namespace Platform.Repository
             if (sale != null)
             {
                 _repository.ProductSales.Add(sale);
-                _repository.SaveChanges();
+              //  _repository.SaveChanges();
 
             }
 
@@ -64,7 +68,7 @@ namespace Platform.Repository
             if (sale != null)
             {
                 _repository.Entry<Sql.ProductSale>(sale).State = System.Data.Entity.EntityState.Modified;
-                _repository.SaveChanges();
+            //    _repository.SaveChanges();
 
             }
 
@@ -81,23 +85,7 @@ namespace Platform.Repository
 
         }
 
-        protected void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_repository != null)
-                {
-                    _repository.Dispose();
-                    _repository = null;
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+      
 
 
     }
