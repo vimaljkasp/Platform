@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity.Core.Objects;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using Platform.DTO;
@@ -138,7 +140,39 @@ namespace Platform.Repository
         }
 
      
+        public Int32 NextNumberGenerator(string enitityCode)
+        {
+            int nextNumber = 0;
+            using (var db = new PlatformDBEntities())
+            {
+                // Create a SQL command to execute the sproc 
+                var cmd = db.Database.Connection.CreateCommand();
+                cmd.CommandText = "[dbo].[GetNextEntityNumber]";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@EntityName",SqlDbType.NVarChar,50));
+                cmd.Parameters.Add(new SqlParameter("@NextNumber", SqlDbType.Int, 4));
+                cmd.Parameters["@NextNumber"].Direction = ParameterDirection.Output;
+                cmd.Parameters["@NextNumber"].Value = nextNumber;
+                cmd.Parameters["@EntityName"].Value = enitityCode;
+                try
+                {
+                    db.Database.Connection.Open();
 
+                    // Run the sproc  
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+
+                    { }
+                    nextNumber =(int) cmd.Parameters[1].Value;
+                }
+
+                finally
+                {
+                    db.Database.Connection.Close();
+                }
+            }
+            return nextNumber;
+        }
      
 
     }

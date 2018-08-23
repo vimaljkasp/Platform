@@ -23,7 +23,9 @@ namespace Platform.Service
         public void AddProductOrder(ProductOrderDTO productOrderDTO)
         {
             ProductOrder productOrder = new ProductOrder();
-            productOrder.OrderNumber = Guid.NewGuid().ToString() ;
+            int OrderId= unitOfWork.DashboardRepository.NextNumberGenerator("ProductOrder");
+            productOrder.OrderNumber = "OD" + OrderId.ToString();
+
             List<ProductOrderDetail> productOrderDetails = new List<ProductOrderDetail>();
             ProductOrderConvertor.ConvertToProductOrderEntity(ref productOrder, productOrderDTO, false);
             ProductOrderDetail productOrderDetail = new ProductOrderDetail();
@@ -43,6 +45,7 @@ namespace Platform.Service
 
         public List<ProductOrders> GetAllProductOrders()
         {
+         
            return unitOfWork.DashboardRepository.GetProductOrders();
         }
 
