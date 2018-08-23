@@ -48,12 +48,13 @@ namespace Platform.Repository
                             ProductName = reader.GetString(6),
                             Quantity = reader.GetDecimal(7),
                             Amount = reader.GetDecimal(8),
-                            OrderPlacedDtm = reader.GetDateTime(9),
+                            OrderDate = reader.GetDateTime(9),
                             OrderStatus = ((OrderStatus)reader.GetInt32(10)).ToString(),
                             OrderNumber = reader.GetString(11),
                             OrderAddress = DbDataReaderExtension.SafeGetString(reader, 12),//GetString(12),
                             OrderComments = DbDataReaderExtension.SafeGetString(reader, 13),
-                            ExpectedDeliveryDate = reader.GetDateTime(14)
+                            ExpectedDeliveryDate = reader.GetDateTime(14),
+                            OrderPriority= DbDataReaderExtension.SafeGetString(reader, 15)
 
                         });
 
@@ -103,7 +104,7 @@ namespace Platform.Repository
                             Amount = reader.GetDecimal(8),
                             OrderStatus = ((OrderStatus)reader.GetInt32(9)).ToString(),
 
-                            OrderPlacedDtm = reader.GetDateTime(10),
+                            OrderDate  = reader.GetDateTime(10),
 
                         });
 

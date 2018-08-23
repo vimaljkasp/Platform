@@ -31,11 +31,13 @@ namespace Platform.DTO
 
         public string CustomerMobileNumber { get; set; }
 
-        public DateTime OrderPlacedDtm { get; set; }
+        public DateTime OrderDate { get; set; }
 
         public string OrderComments { get; set; }
 
         public string OrderAddress { get; set; }
+
+        public string OrderPriority { get; set; }
 
         public DateTime ExpectedDeliveryDate { get; set; }
     }

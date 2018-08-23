@@ -25,7 +25,8 @@ od.OrderStatus,
 o.OrderNumber,
 od.OrderAddress,
 o.OrderComments,
-od.DeliveryExpectedDate
+od.DeliveryExpectedDate,
+o.OrderPriority
 FROM
 [ProductOrder] O
 inner join [Customer] c on c.customerId=O.OrderCustomerId

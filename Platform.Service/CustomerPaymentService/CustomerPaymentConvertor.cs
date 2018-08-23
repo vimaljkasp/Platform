@@ -20,8 +20,8 @@ namespace Platform.Service
             customerPaymentDTO.PaymentDrAmount = customerPaymentTransaction.PaymentDrAmount.GetValueOrDefault();
             customerPaymentDTO.PaymentDate = customerPaymentTransaction.PaymentDate;
             customerPaymentDTO.PaymentReceivedBy = customerPaymentTransaction.PaymentReceivedBy;
-            customerPaymentDTO.Ref1 = customerPaymentTransaction.Ref1;
-            customerPaymentDTO.Ref2 = customerPaymentTransaction.Ref2;
+            customerPaymentDTO.PaymentComments = customerPaymentTransaction.Ref1;
+            customerPaymentDTO.PaymentMode = customerPaymentTransaction.Ref2;
             return customerPaymentDTO;
        
 
@@ -38,8 +38,8 @@ namespace Platform.Service
             customerPaymentTransaction.PaymentDrAmount = customerPaymentDTO.PaymentDrAmount;
             customerPaymentTransaction.PaymentDate = customerPaymentDTO.PaymentDate;
             customerPaymentTransaction.PaymentReceivedBy = customerPaymentDTO.PaymentReceivedBy;
-            customerPaymentTransaction.Ref1 = customerPaymentDTO.Ref1;
-            customerPaymentTransaction.Ref2 = customerPaymentDTO.Ref2;
+            customerPaymentTransaction.Ref1 = customerPaymentDTO.PaymentComments;
+            customerPaymentTransaction.Ref2 = customerPaymentDTO.PaymentMode;
           
 
 
