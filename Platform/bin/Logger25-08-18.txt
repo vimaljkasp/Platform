@@ -1,0 +1,26 @@
+-----------Exception Details on  25-08-2018 08:44:33-----------------
+-------------------------------------------------------------------------------------
+
+
+
+Log Written Date: 25-08-2018 08:44:33
+
+Error Line No : eNext()
+
+Error Message: DbUpdateException
+
+Exception Type: System.Data.Entity.Infrastructure.DbUpdateException
+
+Error Location : An error occurred while updating the entries. See the inner exception for details.
+
+ Error Page Url: http://localhost:5001/api/ProductOrders
+
+ Method Type:POST
+
+User Host IP: 
+
+
+--------------------------------*End*------------------------------------------
+
+
+

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PlatformDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PlatformDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerId" />
@@ -151,7 +151,7 @@
           <Property Name="OrderId" Type="int" />
           <Property Name="ProductMappingId" Type="int" />
           <Property Name="OrderStatus" Type="int" Nullable="false" />
-          <Property Name="OrderAddress" Type="nvarchar" MaxLength="1" />
+          <Property Name="OrderAddress" Type="nvarchar" MaxLength="200" />
           <Property Name="DeliveryExpectedDate" Type="date" Nullable="false" />
           <Property Name="DeliveredDate" Type="datetime" />
           <Property Name="DeliveredBy" Type="nvarchar" MaxLength="150" />
@@ -402,8 +402,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
             <End Role="ProductSales" EntitySet="ProductSales" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PlatformDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -558,7 +557,7 @@ warning 6002: The table/view 'PlatformDB.dbo.RoleModule' does not have a primary
           <Property Name="OrderId" Type="Int32" />
           <Property Name="ProductMappingId" Type="Int32" />
           <Property Name="OrderStatus" Type="Int32" Nullable="false" />
-          <Property Name="OrderAddress" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="OrderAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="DeliveryExpectedDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DeliveredDate" Type="DateTime" Precision="3" />
           <Property Name="DeliveredBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
